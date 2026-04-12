@@ -86,12 +86,12 @@
                         
                         <!-- AFK Progression Card -->
                         <div class="bg-indigo-50 p-6 md:p-8 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                            <span class="absolute top-4 right-6 text-6xl opacity-10">⏳</span>
-                            <div class="mb-4">
+                            <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">⏳</span>
+                            <div class="mb-4 relative z-10">
                                 <h4 class="text-indigo-800 font-bold uppercase text-sm mb-1">AFK Stages</h4>
                                 <p class="text-sm text-indigo-700">Goal: 1850 (Phase 3)</p>
                             </div>
-                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-indigo-100 shadow-inner">
+                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-indigo-100 shadow-inner relative z-10">
                                 <button data-target="afk" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <span id="insight-afk-stage" class="text-4xl font-bold text-indigo-900 heading-font">1819</span>
                                 <button data-target="afk" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">+</button>
@@ -100,12 +100,12 @@
                         
                         <!-- Dura's Trials Card -->
                         <div class="bg-amber-50 p-6 md:p-8 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                            <span class="absolute top-4 right-6 text-6xl opacity-10">🛡️</span>
-                            <div class="mb-4">
+                            <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">🛡️</span>
+                            <div class="mb-4 relative z-10">
                                 <h4 class="text-amber-800 font-bold uppercase text-sm mb-1">Dura's Trials</h4>
                                 <p class="text-sm font-bold text-amber-900">Ironwall (Tank) <span class="text-amber-700 font-normal">| Target: Mythic</span></p>
                             </div>
-                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-amber-100 shadow-inner">
+                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-amber-100 shadow-inner relative z-10">
                                 <button data-target="dura" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <div class="text-center">
                                     <span class="text-sm text-amber-600 font-bold uppercase tracking-wider block mb-[-4px]">Floor</span>
@@ -117,12 +117,12 @@
 
                         <!-- Legend Trials Card -->
                         <div class="bg-emerald-50 p-6 md:p-8 rounded-2xl border border-emerald-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                            <span class="absolute top-4 right-6 text-6xl opacity-10">🗼</span>
-                            <div class="mb-4">
+                            <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">🗼</span>
+                            <div class="mb-4 relative z-10">
                                 <h4 class="text-emerald-800 font-bold uppercase text-sm mb-1">Legend Trials</h4>
                                 <p class="text-sm text-emerald-700">Faction Tower Floors</p>
                             </div>
-                            <div class="grid grid-cols-2 gap-3">
+                            <div class="grid grid-cols-2 gap-3 relative z-10">
                                 <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
                                     <span class="font-bold text-emerald-900 w-16">Light</span>
                                     <div class="flex items-center space-x-2">
@@ -160,12 +160,12 @@
 
                         <!-- Supreme Arena Card -->
                         <div class="bg-rose-50 p-6 md:p-8 rounded-2xl border border-rose-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                            <span class="absolute top-4 right-6 text-6xl opacity-10">⚔️</span>
-                            <div class="mb-4">
+                            <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">⚔️</span>
+                            <div class="mb-4 relative z-10">
                                 <h4 class="text-rose-800 font-bold uppercase text-sm mb-1">Supreme Arena</h4>
                                 <p class="text-sm text-rose-700">Status: Champion Tier</p>
                             </div>
-                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-rose-100 shadow-inner">
+                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-rose-100 shadow-inner relative z-10">
                                 <button data-target="arena" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <div class="text-center">
                                     <span class="text-sm text-rose-600 font-bold uppercase tracking-wider block mb-[-4px]">Top Rank</span>
@@ -217,6 +217,121 @@
 						<p class="text-slate-600">Manage your core hero roster and analyze your faction distribution. This interactive database allows you to filter your units to quickly assess your strengths and identify gaps in your formations for specific content.</p>
 					</header>
 
+                    <!-- Account Progression Dashboard -->
+                    <div class="mb-10">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center"><span class="mr-2">📈</span> Account Progression</h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+                            <!-- Season Resonance Level -->
+                            <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                                <span class="absolute top-4 right-4 text-5xl opacity-10 pointer-events-none">✨</span>
+                                <div class="mb-4 relative z-10">
+                                    <h4 class="text-indigo-800 font-bold uppercase text-xs mb-1">Season Resonance</h4>
+                                    <p class="text-xs text-indigo-700">Overall Level</p>
+                                </div>
+                                <div class="flex items-center justify-between bg-white/60 rounded-xl p-2 border border-indigo-100 shadow-inner relative z-10">
+                                    <button data-target="resonance" data-action="minus" class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold text-xl transition-all">-</button>
+                                    <span id="hall-resonance-level" class="text-2xl font-bold text-indigo-900 heading-font">924</span>
+                                    <button data-target="resonance" data-action="plus" class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold text-xl transition-all">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Soul Pact -->
+                            <div class="bg-fuchsia-50 p-5 rounded-2xl border border-fuchsia-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                                <span class="absolute top-4 right-4 text-5xl opacity-10 pointer-events-none">🤝</span>
+                                <div class="mb-4 relative z-10 flex justify-between items-start">
+                                    <div>
+                                        <h4 class="text-fuchsia-800 font-bold uppercase text-xs mb-1">Soul Pact</h4>
+                                        <p class="text-xs text-fuchsia-700">Assigned Heroes</p>
+                                    </div>
+                                    <button id="update-soulpact-btn" class="text-[10px] font-bold text-white bg-fuchsia-600 hover:bg-fuchsia-700 px-2 py-1 rounded shadow">Edit</button>
+                                </div>
+                                <div id="hall-soulpact-container" class="flex justify-between items-center bg-white/60 rounded-xl p-2 border border-fuchsia-100 shadow-inner relative z-10 gap-1">
+                                    <!-- Populated dynamically by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Equipment -->
+                            <div class="bg-cyan-50 p-5 rounded-2xl border border-cyan-200 shadow-sm relative overflow-hidden flex flex-col justify-between lg:col-span-2">
+                                <span class="absolute top-4 right-6 text-5xl opacity-10 pointer-events-none">🛡️</span>
+                                <div class="mb-4 relative z-10">
+                                    <h4 class="text-cyan-800 font-bold uppercase text-xs mb-1">Season Equipment</h4>
+                                    <p class="text-xs text-cyan-700">Class Forging Levels</p>
+                                </div>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 relative z-10">
+                                    <!-- Tank -->
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                        <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Tank</span>
+                                        <div class="flex items-center space-x-1">
+                                            <button data-target="eq-tank" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
+                                            <span id="hall-eq-tank" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <button data-target="eq-tank" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
+                                        </div>
+                                    </div>
+                                    <!-- Warrior -->
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                        <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Warrior</span>
+                                        <div class="flex items-center space-x-1">
+                                            <button data-target="eq-warrior" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
+                                            <span id="hall-eq-warrior" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <button data-target="eq-warrior" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
+                                        </div>
+                                    </div>
+                                    <!-- Rogue -->
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                        <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Rogue</span>
+                                        <div class="flex items-center space-x-1">
+                                            <button data-target="eq-rogue" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
+                                            <span id="hall-eq-rogue" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <button data-target="eq-rogue" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
+                                        </div>
+                                    </div>
+                                    <!-- Marksman -->
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                        <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Marksman</span>
+                                        <div class="flex items-center space-x-1">
+                                            <button data-target="eq-marksman" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
+                                            <span id="hall-eq-marksman" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <button data-target="eq-marksman" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
+                                        </div>
+                                    </div>
+                                    <!-- Mage -->
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                        <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Mage</span>
+                                        <div class="flex items-center space-x-1">
+                                            <button data-target="eq-mage" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
+                                            <span id="hall-eq-mage" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <button data-target="eq-mage" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
+                                        </div>
+                                    </div>
+                                    <!-- Support -->
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                        <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Support</span>
+                                        <div class="flex items-center space-x-1">
+                                            <button data-target="eq-support" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
+                                            <span id="hall-eq-support" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <button data-target="eq-support" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Artifacts Card -->
+                        <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-3 relative z-10">
+                                <div>
+                                    <h4 class="text-amber-800 font-bold uppercase text-xs mb-1">Artifacts</h4>
+                                    <p class="text-xs text-amber-700">Spell Levels</p>
+                                </div>
+                                <button id="update-artifacts-btn" class="text-[10px] font-bold text-white bg-amber-600 hover:bg-amber-700 px-2 py-1.5 rounded shadow">Update</button>
+                            </div>
+                            <div id="hall-artifacts-container" class="flex flex-wrap gap-2 relative z-10">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col justify-center">
 							<h3 class="text-lg font-bold mb-4 text-center">Faction Distribution</h3>
@@ -231,111 +346,25 @@
 									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold px-3 py-1.5 rounded shadow-sm">
 										+ Add Hero
 									</button>
-									<select id="faction-filter" class="border border-slate-300 rounded px-3 py-1 text-sm bg-white outline-none">
-										<option value="All">All Factions</option>
-									</select>
-								</div>
-							</div>
-
-							<!-- Add Hero Modal -->
-							<div id="add-hero-modal" class="hidden fixed inset-0 z-50 items-center justify-center flex">
-								<div class="absolute inset-0 bg-slate-900/50" id="add-hero-backdrop"></div>
-								<div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
-									<div class="flex items-center justify-between mb-4">
-										<h4 class="text-lg font-bold heading-font text-slate-800">Add / Update Hero</h4>
-										<button id="add-hero-close" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
-									</div>
-
-									<form id="add-hero-form" class="space-y-4">
-										<div>
-											<label class="text-xs font-bold text-slate-600 uppercase">Name</label>
-											<input id="hero-name" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. Cecia" />
-										</div>
-
-										<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-											<div>
-												<label class="text-xs font-bold text-slate-600 uppercase">Faction</label>
-												<select id="hero-faction" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
-													<option value="Graveborn">Graveborn</option>
-													<option value="Mauler">Mauler</option>
-													<option value="Lightbearer">Lightbearer</option>
-													<option value="Wilder">Wilder</option>
-													<option value="Celestial">Celestial</option>
-													<option value="Hypogean">Hypogean</option>
-												</select>
-											</div>
-											<div>
-												<label class="text-xs font-bold text-slate-600 uppercase">Class</label>
-												<select id="hero-class" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
-													<option value="Tank">Tank</option>
-													<option value="Warrior">Warrior</option>
-													<option value="Rogue">Rogue</option>
-													<option value="Marksman">Marksman</option>
-													<option value="Mage">Mage</option>
-													<option value="Support">Support</option>
-												</select>
-											</div>
-										</div>
-
-										<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-											<div>
-												<label class="text-xs font-bold text-slate-600 uppercase">Ascension</label>
-												<select id="hero-asc" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
-													<option value="Epic">Epic</option>
-													<option value="Epic+">Epic+</option>
-													<option value="Legendary">Legendary</option>
-													<option value="Legendary+">Legendary+</option>
-													<option value="Mythic">Mythic</option>
-													<option value="Mythic+">Mythic+</option>
-													<option value="Supreme">Supreme</option>
-													<option value="Supreme+">Supreme+</option>
-													<option value="Paragon 1">Paragon 1</option>
-													<option value="Paragon 2">Paragon 2</option>
-													<option value="Paragon 3">Paragon 3</option>
-													<option value="Paragon 4">Paragon 4</option>
-												</select>
-											</div>
-											<div>
-												<label class="text-xs font-bold text-slate-600 uppercase">Ex. Wpn</label>
-												<input id="hero-ex" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. +10" />
-											</div>
-										</div>
-
-										<div>
-											<label class="text-xs font-bold text-slate-600 uppercase">Role</label>
-											<select id="hero-role" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
-												<option value="🛡️ Main Tank">🛡️ Main Tank</option>
-												<option value="⚔️ Core DPS">⚔️ Core DPS</option>
-												<option value="🩹 Main Healer">🩹 Main Healer</option>
-												<option value="🌀 Buffer/Debuffer">🌀 Buffer/Debuffer</option>
-												<option value="🔥 Boss Killer">🔥 Boss Killer</option>
-												<option value="🎯 Assassin/Flanker">🎯 Assassin/Flanker</option>
-												<option value="👑 Generalist">👑 Generalist</option>
-											</select>
-										</div>
-
-										<div class="flex items-center justify-end space-x-2 pt-2">
-											<button type="button" id="add-hero-cancel" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-											<button type="submit" class="px-4 py-2 text-sm rounded bg-green-600 hover:bg-green-700 text-white font-bold">Save Hero</button>
-										</div>
-									</form>
 								</div>
 							</div>
 							<div class="overflow-x-auto">
 								<table class="w-full text-left border-collapse">
 									<thead>
-										<tr class="bg-slate-50 text-slate-600 text-sm uppercase tracking-wider">
-											<th class="py-3 px-4 border-b font-bold">Name</th>
-											<th class="py-3 px-4 border-b font-bold">Faction</th>
-											<th class="py-3 px-4 border-b font-bold">Class</th>
-											<th class="py-3 px-4 border-b font-bold">Ascension</th>
-											<th class="py-3 px-4 border-b font-bold">Ex. Wpn</th>
-											<th class="py-3 px-4 border-b font-bold">Role</th>
+										<tr class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider">
+											<th class="py-3 px-3 border-b font-bold">Name</th>
+											<th class="py-3 px-3 border-b font-bold">Faction</th>
+											<th class="py-3 px-3 border-b font-bold">Grade</th>
+											<th class="py-3 px-3 border-b font-bold">Class</th>
+											<th class="py-3 px-3 border-b font-bold">Ascension</th>
+											<th class="py-3 px-3 border-b font-bold">Ex. Wpn</th>
+											<th class="py-3 px-3 border-b font-bold">Attack</th>
+											<th class="py-3 px-3 border-b font-bold">Range</th>
 										</tr>
 									</thead>
 									<tbody id="hero-table-body" class="text-sm"> 
 										<tr id="empty-state-row">
-											<td colspan="6" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td>
+											<td colspan="8" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td>
 										</tr>
 									</tbody>
 								</table>
@@ -347,7 +376,7 @@
 
             <!-- ===================== VIEW: HOMESTEAD ===================== -->
 			<section id="view-homestead" class="view-section hidden h-full">
-				<div class="max-w-5xl mx-auto">
+				<div class="max-w-6xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
 						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
@@ -376,13 +405,11 @@
 							<div>
 								<p class="text-sm text-red-600 uppercase font-bold mb-1">Assigned Defenders</p>
 								<div id="ds-defenders" class="flex flex-wrap gap-2 mt-1">
-									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Thoran</span>
-									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Antandra</span>
-									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Cecia</span>
+									<!-- Dynamically populated -->
 								</div>
 							</div>
 						</div>
-						<div class="mt-6 border-t border-red-200 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
+                        <div class="mt-6 border-t border-red-200 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
                             <p class="text-sm text-red-700 italic">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
                             <button id="update-darkswarm-btn" class="text-sm font-bold text-white hover:bg-red-700 transition-colors bg-red-600 px-5 py-2 rounded-lg shadow-md whitespace-nowrap uppercase tracking-wider flex items-center">
                                 <span class="mr-2">✏️</span> Update Tracker
@@ -452,16 +479,17 @@
 					</header>
 
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative">
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative lg:col-span-1">
 							<h3 class="text-lg font-bold mb-2 absolute top-6 left-6">Diamond Reserve</h3>
-							<div class="chart-container mt-8"><canvas id="diamondChart"></canvas></div>
+							<div class="chart-container mt-8 w-full"><canvas id="diamondChart"></canvas></div>
 							<div class="text-center mt-4">
-								<p class="text-3xl font-bold text-slate-800 heading-font">15,400 <span class="text-xl">💎</span></p>
-								<p class="text-sm text-slate-500">Goal: 30,000 for next Rate-Up</p>
+								<p id="treasury-diamonds-text" class="text-3xl font-bold text-slate-800 heading-font">0 <span class="text-xl">💎</span></p>
+								<p class="text-sm text-slate-500">Goal: 30,000 for Rate-Up</p>
 							</div>
+                            <button id="update-treasury-btn" class="mt-4 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors bg-blue-100 px-4 py-1.5 rounded">Update Values</button>
 						</div>
 
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between lg:col-span-1">
 							<div>
 								<h3 class="text-lg font-bold mb-6 border-b pb-2">Summoning Items</h3>
 								<div class="space-y-6">
@@ -473,7 +501,7 @@
 												<p class="text-xs text-slate-500">Waiting for Pity</p>
 											</div>
 										</div>
-										<span class="text-2xl font-bold text-amber-600 heading-font">24</span>
+										<span id="treasury-epic-invites" class="text-2xl font-bold text-amber-600 heading-font">0</span>
 									</div>
 									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
 										<div class="flex items-center">
@@ -483,25 +511,31 @@
 												<p class="text-xs text-slate-500">General Pool</p>
 											</div>
 										</div>
-										<span class="text-2xl font-bold text-amber-600 heading-font">45</span>
+										<span id="treasury-all-hero" class="text-2xl font-bold text-amber-600 heading-font">0</span>
 									</div>
 									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
 										<div class="flex items-center">
 											<span class="text-2xl mr-3">🌌</span>
 											<div>
 												<p class="font-bold text-slate-800">Stargaze Crystals</p>
-												<p class="text-xs text-slate-500">Target: Reiner/Scarlita</p>
+												<p class="text-xs text-slate-500">Target Priority</p>
 											</div>
 										</div>
-										<span class="text-2xl font-bold text-purple-600 heading-font">12</span>
+										<span id="treasury-stargaze" class="text-2xl font-bold text-purple-600 heading-font">0</span>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col">
 							<h3 class="text-lg font-bold mb-4 flex items-center border-b pb-2"><span class="mr-2">🛒</span> Emporium Wishlist</h3>
-							<div class="space-y-3" id="wishlist-container"></div>
+							<div class="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-2" id="wishlist-container">
+                                <!-- Populated by JS -->
+                            </div>
+                            <form id="wishlist-form" class="mt-4 flex gap-2 pt-4 border-t border-slate-100">
+                                <input type="text" id="wishlist-input" placeholder="Add hero to wishlist..." required class="flex-1 border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded text-sm">Add</button>
+                            </form>
 						</div>
 					</div>
 				</div>
@@ -543,10 +577,7 @@
                             </div>
                             
                             <div id="formations-container" class="space-y-4">
-                                <div class="text-center text-slate-400 py-10 flex flex-col items-center">
-                                    <span class="text-4xl mb-3">🎯</span>
-                                    <p>Select a boss to view or record your optimal team compositions.</p>
-                                </div>
+                                <!-- Populated dynamically by JS -->
                             </div>
                         </div>
                     </div>
@@ -555,6 +586,176 @@
 
             <!-- ===================== GLOBAL MODALS ===================== -->
             
+            <!-- Hero Modal -->
+            <div id="add-hero-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="add-hero-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Add / Update Hero</h4>
+                        <button id="add-hero-close" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+
+                    <form id="add-hero-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Name</label>
+                                <input id="hero-name" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-green-500" placeholder="e.g. Cecia" />
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Grade</label>
+                                <select id="hero-grade" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white outline-none focus:border-green-500">
+                                    <option value="S-Level">S-Level</option>
+                                    <option value="A-Level">A-Level</option>
+                                    <option value="Dimensional">Dimensional</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Faction</label>
+                                <select id="hero-faction" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white outline-none focus:border-green-500">
+                                    <option value="Graveborn">Graveborn</option>
+                                    <option value="Mauler">Mauler</option>
+                                    <option value="Lightbearer">Lightbearer</option>
+                                    <option value="Wilder">Wilder</option>
+                                    <option value="Celestial">Celestial</option>
+                                    <option value="Hypogean">Hypogean</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Class</label>
+                                <select id="hero-class" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white outline-none focus:border-green-500">
+                                    <option value="Tank">Tank</option>
+                                    <option value="Warrior">Warrior</option>
+                                    <option value="Rogue">Rogue</option>
+                                    <option value="Marksman">Marksman</option>
+                                    <option value="Mage">Mage</option>
+                                    <option value="Support">Support</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Ascension</label>
+                                <select id="hero-asc" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white outline-none focus:border-green-500">
+                                    <option value="Epic">Epic</option>
+                                    <option value="Epic+">Epic+</option>
+                                    <option value="Legendary">Legendary</option>
+                                    <option value="Legendary+">Legendary+</option>
+                                    <option value="Mythic">Mythic</option>
+                                    <option value="Mythic+">Mythic+</option>
+                                    <option value="Supreme">Supreme</option>
+                                    <option value="Supreme+">Supreme+</option>
+                                    <option value="Paragon 1">Paragon 1</option>
+                                    <option value="Paragon 2">Paragon 2</option>
+                                    <option value="Paragon 3">Paragon 3</option>
+                                    <option value="Paragon 4">Paragon 4</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Ex. Wpn</label>
+                                <input id="hero-ex" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-green-500" placeholder="e.g. +10" />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Attack Mode</label>
+                                <select id="hero-attack" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white outline-none focus:border-green-500">
+                                    <option value="Physical">Physical</option>
+                                    <option value="Magic">Magic</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Range</label>
+                                <input id="hero-range" type="number" min="1" max="10" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-green-500" placeholder="1 to 10" />
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-end space-x-2 pt-2">
+                            <button type="button" id="add-hero-cancel" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-green-600 hover:bg-green-700 text-white font-bold">Save Hero</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Hall Dashboard Modals -->
+            <!-- Soul Pact Modal -->
+            <div id="soulpact-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="soulpact-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Soul Pact</h4>
+                        <button id="soulpact-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="soulpact-form" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase mb-2 block">Select 5 Assigned Heroes</label>
+                            <div class="space-y-2">
+                                <select id="sp-hero-0" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
+                                <select id="sp-hero-1" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
+                                <select id="sp-hero-2" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
+                                <select id="sp-hero-3" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
+                                <select id="sp-hero-4" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2 mt-4 border-t border-slate-100">
+                            <button type="button" id="soulpact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold">Save Pact</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Artifacts Modal -->
+            <div id="artifacts-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="artifacts-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Artifacts</h4>
+                        <button id="artifacts-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="artifacts-form" class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🔮 Lightheal Spell</label>
+                            <input id="art-lightheal" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🌠 Starshower Spell</label>
+                            <input id="art-starshower" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🔥 Blazing Spell</label>
+                            <input id="art-blazing" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🛡️ Ironwall Spell</label>
+                            <input id="art-ironwall" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">⚔️ Quickblade Spell</label>
+                            <input id="art-quickblade" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">✨ Awakening Spell</label>
+                            <input id="art-awakening" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">❄️ Evocation Spell</label>
+                            <input id="art-evocation" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        </div>
+                        
+                        <div class="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100 mt-2">
+                            <button type="button" id="artifacts-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold">Save Levels</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Task Modal -->
             <div id="task-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-slate-900/50" id="task-backdrop"></div>
@@ -635,13 +836,123 @@
                 </div>
             </div>
 
+            <!-- Treasury Update Modal -->
+            <div id="treasury-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="treasury-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Treasury</h4>
+                        <button id="treasury-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="treasury-form" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">💎</span> Diamonds</label>
+                            <input id="trs-diamonds" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-blue-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">✉️</span> Epic Invites</label>
+                            <input id="trs-epic" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-blue-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">💌</span> All-Hero Letters</label>
+                            <input id="trs-allhero" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-blue-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🌌</span> Stargaze Crystals</label>
+                            <input id="trs-stargaze" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-blue-500 outline-none" />
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2">
+                            <button type="button" id="treasury-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-blue-600 hover:bg-blue-700 text-white font-bold">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Strategy Comp Modal -->
+            <div id="comp-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="comp-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Log Team Formation</h4>
+                        <button id="comp-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="comp-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Damage Score</label>
+                                <input id="comp-damage" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-indigo-500 outline-none" placeholder="e.g. 190B" />
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Date</label>
+                                <input id="comp-date" type="date" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-indigo-500 outline-none" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Artifact</label>
+                            <select id="comp-artifact" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-indigo-500 outline-none">
+                                <option value="🔮 Lightheal Spell">🔮 Lightheal Spell</option>
+                                <option value="🌠 Starshower Spell">🌠 Starshower Spell</option>
+                                <option value="🔥 Blazing Spell">🔥 Blazing Spell</option>
+                                <option value="🛡️ Ironwall Spell">🛡️ Ironwall Spell</option>
+                                <option value="⚔️ Quickblade Spell">⚔️ Quickblade Spell</option>
+                                <option value="✨ Awakening Spell">✨ Awakening Spell</option>
+                                <option value="❄️ Evocation Spell">❄️ Evocation Spell</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase mb-2 block">Team Composition (Select 5)</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                                <select id="comp-hero-1" class="comp-hero-select w-full border border-slate-300 rounded px-1 py-2 text-xs focus:border-indigo-500 outline-none" required></select>
+                                <select id="comp-hero-2" class="comp-hero-select w-full border border-slate-300 rounded px-1 py-2 text-xs focus:border-indigo-500 outline-none" required></select>
+                                <select id="comp-hero-3" class="comp-hero-select w-full border border-slate-300 rounded px-1 py-2 text-xs focus:border-indigo-500 outline-none" required></select>
+                                <select id="comp-hero-4" class="comp-hero-select w-full border border-slate-300 rounded px-1 py-2 text-xs focus:border-indigo-500 outline-none" required></select>
+                                <select id="comp-hero-5" class="comp-hero-select w-full border border-slate-300 rounded px-1 py-2 text-xs focus:border-indigo-500 outline-none" required></select>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-4">
+                            <button type="button" id="comp-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-indigo-600 hover:bg-indigo-700 text-white font-bold">Save Formation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 		</div>
 	</main>
 
 	<script>
+        // --- Security & Maintainability Config ---
+        const STORAGE_KEYS = {
+            HEROES: 'afk_heroes',
+            TASKS: 'afk_tasks',
+            INSIGHTS: 'afk_insights',
+            HOMESTEAD: 'afk_homestead',
+            TREASURY: 'afk_treasury',
+            STRATEGY: 'afk_strategy',
+            HALL: 'afk_hall'
+        };
+
+        // Utility function to prevent XSS injection
+        const sanitize = (str) => {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        };
+
+        const artifactNames = {
+            lightheal: '🔮 Lightheal',
+            starshower: '🌠 Starshower',
+            blazing: '🔥 Blazing',
+            ironwall: '🛡️ Ironwall',
+            quickblade: '⚔️ Quickblade',
+            awakening: '✨ Awakening',
+            evocation: '❄️ Evocation'
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- 1. DOM Elements ---
+            // --- DOM Elements ---
             const DOM = {
                 navItems: document.querySelectorAll('.nav-item, .mobile-nav-item'),
                 views: document.querySelectorAll('.view-section'),
@@ -658,17 +969,17 @@
                 tableBody: document.getElementById('hero-table-body'),
             };
 
-            // --- 2. State Management (LocalStorage) ---
+            // --- State Management ---
             let state = {
-                heroes: JSON.parse(localStorage.getItem('afk_heroes')) || [],
-                tasks: JSON.parse(localStorage.getItem('afk_tasks')) || [],
-                insights: JSON.parse(localStorage.getItem('afk_insights')) || {
+                heroes: JSON.parse(localStorage.getItem(STORAGE_KEYS.HEROES)) || [],
+                tasks: JSON.parse(localStorage.getItem(STORAGE_KEYS.TASKS)) || [],
+                insights: JSON.parse(localStorage.getItem(STORAGE_KEYS.INSIGHTS)) || {
                     afkStage: 1819,
                     durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic' },
                     legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 },
                     supremeArena: { rank: 82 }
                 },
-                homestead: JSON.parse(localStorage.getItem('afk_homestead')) || {
+                homestead: JSON.parse(localStorage.getItem(STORAGE_KEYS.HOMESTEAD)) || {
                     core: { wish: 1115689, coin: 217559, stamina: 5000 },
                     darkswarm: { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] },
                     production: [
@@ -691,17 +1002,36 @@
                         { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
                         { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿' }
                     ]
+                },
+                treasury: JSON.parse(localStorage.getItem(STORAGE_KEYS.TREASURY)) || {
+                    diamonds: 15400,
+                    epicInvites: 24,
+                    allHeroLetters: 45,
+                    stargazeCrystals: 12,
+                    wishlist: ['Thoran', 'Cecia', 'Smokey & Meerky', 'Koko']
+                },
+                strategy: JSON.parse(localStorage.getItem(STORAGE_KEYS.STRATEGY)) || {
+                    formations: []
+                },
+                hall: JSON.parse(localStorage.getItem(STORAGE_KEYS.HALL)) || {
+                    resonanceLevel: 924,
+                    soulPact: ["", "", "", "", ""],
+                    equipment: { tank: 900, warrior: 900, rogue: 900, marksman: 900, mage: 900, support: 900 },
+                    artifacts: { lightheal: 25, starshower: 25, blazing: 25, ironwall: 25, quickblade: 25, awakening: 25, evocation: 25 }
                 }
             };
 
             const saveState = () => {
-                localStorage.setItem('afk_heroes', JSON.stringify(state.heroes));
-                localStorage.setItem('afk_tasks', JSON.stringify(state.tasks));
-                localStorage.setItem('afk_insights', JSON.stringify(state.insights));
-                localStorage.setItem('afk_homestead', JSON.stringify(state.homestead));
+                localStorage.setItem(STORAGE_KEYS.HEROES, JSON.stringify(state.heroes));
+                localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(state.tasks));
+                localStorage.setItem(STORAGE_KEYS.INSIGHTS, JSON.stringify(state.insights));
+                localStorage.setItem(STORAGE_KEYS.HOMESTEAD, JSON.stringify(state.homestead));
+                localStorage.setItem(STORAGE_KEYS.TREASURY, JSON.stringify(state.treasury));
+                localStorage.setItem(STORAGE_KEYS.STRATEGY, JSON.stringify(state.strategy));
+                localStorage.setItem(STORAGE_KEYS.HALL, JSON.stringify(state.hall));
             };
             
-            // --- 3. View Navigation Logic ---
+            // --- Navigation Controller ---
             function switchView(targetId) {
                 document.querySelectorAll('.nav-item').forEach(nav => {
                     nav.classList.remove('nav-active', 'bg-slate-100');
@@ -731,96 +1061,10 @@
                 });
             });
 
-            // --- 4. Strategy Vault Logic ---
-            const modeSelector = document.getElementById('mode-selector');
-            const bossSelector = document.getElementById('boss-selector');
-            const currentBossTitle = document.getElementById('current-boss-title');
-            const addCompBtn = document.getElementById('add-comp-btn');
-            const formationsContainer = document.getElementById('formations-container');
+            if (DOM.mobileMenuBtn) DOM.mobileMenuBtn.addEventListener('click', () => DOM.mobileMenu.classList.remove('hidden'));
+            if (DOM.closeMobileBtn) DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
 
-            const bossData = {
-                'dream-realm': [
-                    { id: 'sarethiel', name: 'Sarethiel' },
-                    { id: 'gloommaw', name: 'Gloommaw' },
-                    { id: 'doomscourge', name: 'Doomscourge' },
-                    { id: 'blightshroom', name: 'Blightshroom' },
-                    { id: 'king-croaker', name: 'King Croaker' },
-                    { id: 'necrodrakon', name: 'Necrodrakon' }
-                ],
-                'primal-lord': [
-                    { id: 'midnight-harvester', name: 'Midnight Harvester' },
-                    { id: 'lone-gaze', name: 'Lone Gaze' }
-                ],
-                'guild-supremacy': [
-                    { id: 'mimic-chest', name: 'Supreme Mimic' },
-                    { id: 'mimic-crystal', name: 'Crystal Defense' }
-                ],
-                'battle-drills': [
-                    { id: 'corrupt-creature', name: 'Corrupt Core' }
-                ]
-            };
-
-            function updateBossOptions() {
-                if (!modeSelector || !bossSelector) return;
-                const selectedMode = modeSelector.value;
-                const bosses = bossData[selectedMode] || [];
-                
-                bossSelector.innerHTML = '<option value="" disabled selected>-- Choose Target --</option>';
-                
-                bosses.forEach(boss => {
-                    const option = document.createElement('option');
-                    option.value = boss.id;
-                    option.textContent = boss.name;
-                    bossSelector.appendChild(option);
-                });
-                
-                currentBossTitle.textContent = "Select a Target";
-                addCompBtn.classList.add('hidden');
-                formationsContainer.innerHTML = `
-                    <div class="text-center text-slate-400 py-10 flex flex-col items-center">
-                        <span class="text-4xl mb-3">🎯</span>
-                        <p>Select a boss to view or record your optimal team compositions.</p>
-                    </div>`;
-            }
-
-            function renderBossStrategy() {
-                const selectedBossName = bossSelector.options[bossSelector.selectedIndex].text;
-                currentBossTitle.textContent = selectedBossName;
-                addCompBtn.classList.remove('hidden');
-                
-                formationsContainer.innerHTML = `
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div class="flex items-center space-x-4 w-full md:w-auto">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl shadow-inner border border-indigo-200">🔮</div>
-                            <div class="flex space-x-2">
-                                <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
-                                <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
-                                <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
-                                <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
-                                <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
-                            </div>
-                        </div>
-                        <div class="text-right w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-6">
-                            <p class="text-xs text-slate-500 uppercase font-bold">Total Damage</p>
-                            <p class="text-2xl font-bold text-red-600 heading-font">190B</p>
-                            <p class="text-xs text-slate-400 mt-1">Recorded: April 12, 2026</p>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (modeSelector) modeSelector.addEventListener('change', updateBossOptions);
-            if (bossSelector) bossSelector.addEventListener('change', renderBossStrategy);
-            updateBossOptions();
-
-            // --- 5. Grind & Task Logic ---
-            const dailyTasksContainer = document.getElementById('daily-tasks-container');
-            const weeklyTasksContainer = document.getElementById('weekly-tasks-container');
-            const addDailyBtn = document.getElementById('add-daily-task-btn');
-            const addWeeklyBtn = document.getElementById('add-weekly-task-btn');
-            const progressBar = document.getElementById('daily-progress-bar');
-            const progressText = document.getElementById('daily-progress-text');
-
+            // --- Grind Manager (Tasks & Insights) ---
             if (state.tasks.length === 0) {
                 state.tasks = [
                     { id: 1, text: "Complete AFK Stage x2", type: "daily", completed: false },
@@ -834,6 +1078,11 @@
             }
 
             function renderTasks() {
+                const dailyTasksContainer = document.getElementById('daily-tasks-container');
+                const weeklyTasksContainer = document.getElementById('weekly-tasks-container');
+                const progressBar = document.getElementById('daily-progress-bar');
+                const progressText = document.getElementById('daily-progress-text');
+
                 if (!dailyTasksContainer || !weeklyTasksContainer) return;
 
                 dailyTasksContainer.innerHTML = '';
@@ -852,9 +1101,12 @@
                     taskDiv.innerHTML = `
                         <label class="flex items-center cursor-pointer flex-1">
                             <input type="checkbox" class="task-checkbox mr-3 w-4 h-4 text-yellow-500 rounded border-slate-300 focus:ring-yellow-500" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
-                            <span class="${task.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${task.text}</span>
+                            <span class="${task.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${sanitize(task.text)}</span>
                         </label>
-                        <button class="edit-task-btn text-slate-400 hover:text-slate-800 ml-2" data-id="${task.id}" aria-label="Edit Task">✏️</button>
+                        <div class="flex items-center space-x-2">
+                            <button class="edit-task-btn text-slate-400 hover:text-slate-800 ml-2" data-id="${task.id}" aria-label="Edit Task">✏️</button>
+                            <button class="delete-task-btn text-slate-400 hover:text-red-500 ml-1" data-id="${task.id}" aria-label="Delete Task">✕</button>
+                        </div>
                     `;
 
                     if (task.type === 'daily') {
@@ -868,10 +1120,7 @@
                 if (progressBar) progressBar.style.width = `${percentage}%`;
                 if (progressText) progressText.textContent = `${percentage}%`;
 
-                attachTaskListeners();
-            }
-
-            function attachTaskListeners() {
+                // Re-bind events
                 document.querySelectorAll('.task-checkbox').forEach(box => {
                     box.addEventListener('change', (e) => {
                         const taskId = parseInt(e.target.getAttribute('data-id'));
@@ -888,14 +1137,21 @@
                     btn.addEventListener('click', (e) => {
                         const taskId = parseInt(e.currentTarget.getAttribute('data-id'));
                         const task = state.tasks.find(t => t.id === taskId);
-                        if (task) {
-                            openTaskModal(task);
-                        }
+                        if (task) openTaskModal(task);
+                    });
+                });
+
+                document.querySelectorAll('.delete-task-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const taskId = parseInt(e.currentTarget.getAttribute('data-id'));
+                        state.tasks = state.tasks.filter(t => t.id !== taskId);
+                        saveState();
+                        renderTasks();
                     });
                 });
             }
 
-            // Custom Modal Logic for Tasks
+            // Task Modal Handling
             function openTaskModal(task = null, type = 'daily') {
                 const modal = document.getElementById('task-modal');
                 const title = document.getElementById('task-modal-title');
@@ -919,42 +1175,41 @@
             }
 
             const closeTaskModal = () => document.getElementById('task-modal').classList.add('hidden');
-            document.getElementById('task-close-btn').addEventListener('click', closeTaskModal);
-            document.getElementById('task-cancel-btn').addEventListener('click', closeTaskModal);
+            const taskCloseBtn = document.getElementById('task-close-btn');
+            const taskCancelBtn = document.getElementById('task-cancel-btn');
+            if (taskCloseBtn) taskCloseBtn.addEventListener('click', closeTaskModal);
+            if (taskCancelBtn) taskCancelBtn.addEventListener('click', closeTaskModal);
 
-            document.getElementById('task-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const id = document.getElementById('task-id').value;
-                const type = document.getElementById('task-type').value;
-                const text = document.getElementById('task-text').value.trim();
+            const taskForm = document.getElementById('task-form');
+            if (taskForm) {
+                taskForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('task-id').value;
+                    const type = document.getElementById('task-type').value;
+                    const text = document.getElementById('task-text').value.trim();
 
-                if (text) {
-                    if (id) {
-                        // Update existing task
-                        const task = state.tasks.find(t => t.id === parseInt(id));
-                        if (task) task.text = text;
-                    } else {
-                        // Create new task
-                        state.tasks.push({
-                            id: Date.now(),
-                            text: text,
-                            type: type,
-                            completed: false
-                        });
+                    if (text) {
+                        if (id) {
+                            const task = state.tasks.find(t => t.id === parseInt(id));
+                            if (task) task.text = text;
+                        } else {
+                            state.tasks.push({ id: Date.now(), text: text, type: type, completed: false });
+                        }
+                        saveState();
+                        renderTasks();
+                        closeTaskModal();
                     }
-                    saveState();
-                    renderTasks();
-                    closeTaskModal();
-                }
-            });
+                });
+            }
 
+            const addDailyBtn = document.getElementById('add-daily-task-btn');
+            const addWeeklyBtn = document.getElementById('add-weekly-task-btn');
             if (addDailyBtn) addDailyBtn.addEventListener('click', () => openTaskModal(null, 'daily'));
             if (addWeeklyBtn) addWeeklyBtn.addEventListener('click', () => openTaskModal(null, 'weekly'));
-            
-            // --- 6. Mode Insights Logic (Interactive Controls) ---
+
+            // Insights Logic
             function renderInsights() {
                 if (!document.getElementById('insight-afk-stage')) return;
-
                 document.getElementById('insight-afk-stage').textContent = state.insights.afkStage;
                 document.getElementById('insight-dura-floor').textContent = state.insights.durasTrials.floor;
                 document.getElementById('insight-legend-light').textContent = state.insights.legendTrials.light;
@@ -964,177 +1219,7 @@
                 document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
             }
 
-            // --- 6.5. Homestead Logic ---
-            function renderHomestead() {
-                const coreResContainer = document.getElementById('core-resources-container');
-                const prodResContainer = document.getElementById('production-resources-container');
-                const bldContainer = document.getElementById('buildings-container');
-                const bldFilter = document.getElementById('building-filter');
-                
-                if (!coreResContainer || !bldContainer) return;
-
-                // Darkswarm UI
-                const dsAggressionText = document.getElementById('ds-aggression-text');
-                const dsStatusText = document.getElementById('ds-status-text');
-                const dsAggressionBar = document.getElementById('ds-aggression-bar');
-                const dsLastInvasion = document.getElementById('ds-last-invasion');
-                const dsDefenders = document.getElementById('ds-defenders');
-
-                if (dsAggressionText && state.homestead.darkswarm) {
-                    const aggr = state.homestead.darkswarm.aggression;
-                    dsAggressionText.textContent = `${aggr}/100`;
-                    dsAggressionBar.style.width = `${aggr}%`;
-                    dsStatusText.textContent = aggr >= 80 ? 'Critical' : (aggr >= 50 ? 'High' : 'Low');
-                    dsLastInvasion.textContent = state.homestead.darkswarm.lastInvasion;
-                    
-                    dsDefenders.innerHTML = '';
-                    state.homestead.darkswarm.defenders.forEach(hero => {
-                        dsDefenders.innerHTML += `<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">${hero.trim()}</span>`;
-                    });
-                }
-
-                // Core Resources
-                coreResContainer.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">💖</span> Wish Point</span>
-                        <span class="font-bold text-amber-600">${state.homestead.core.wish.toLocaleString()}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">🪙</span> Ancient Coin</span>
-                        <span class="font-bold text-yellow-600">${state.homestead.core.coin.toLocaleString()}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">⚡</span> Stamina</span>
-                        <span class="font-bold text-emerald-600">${state.homestead.core.stamina}/5000</span>
-                    </div>
-                `;
-
-                // Production Resources
-                prodResContainer.innerHTML = '';
-                state.homestead.production.forEach(res => {
-                    prodResContainer.innerHTML += `
-                        <tr class="border-b border-slate-100 last:border-0 hover:bg-slate-50">
-                            <td class="py-3 font-bold text-slate-700 text-xs">${res.icon} <span class="ml-1">${res.name}</span></td>
-                            <td class="py-3 text-right text-emerald-600 font-semibold">+${res.prod}/h</td>
-                            <td class="py-3 text-right font-bold text-slate-800">${res.stock.toLocaleString()}</td>
-                        </tr>
-                    `;
-                });
-
-                // Buildings Array mapping and filtering
-                const filterVal = bldFilter ? bldFilter.value : 'All';
-                bldContainer.innerHTML = '';
-                
-                state.homestead.buildings.filter(b => filterVal === 'All' || b.type === filterVal).forEach(b => {
-                    bldContainer.innerHTML += `
-                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
-                            <span class="text-4xl mb-2 mt-2">${b.icon}</span>
-                            <h4 class="font-bold text-slate-800 text-sm mb-1 line-clamp-1">${b.name}</h4>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4">${b.type}</p>
-                            
-                            <div class="flex items-center justify-between w-full bg-white rounded-lg p-1.5 border border-slate-100 mt-auto">
-                                <button data-target="building" data-action="minus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">-</button>
-                                <span class="font-bold text-indigo-700 w-12 text-sm">Lvl ${b.level}</span>
-                                <button data-target="building" data-action="plus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">+</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            const bldFilter = document.getElementById('building-filter');
-            if (bldFilter) bldFilter.addEventListener('change', renderHomestead);
-
-            // Custom Modal Logic for Resources
-            const openResourceModal = () => {
-                document.getElementById('res-wish').value = state.homestead.core.wish;
-                document.getElementById('res-coin').value = state.homestead.core.coin;
-                document.getElementById('resource-modal').classList.remove('hidden');
-                document.getElementById('res-wish').focus();
-            };
-
-            const closeResourceModal = () => document.getElementById('resource-modal').classList.add('hidden');
-            document.getElementById('resource-close-btn').addEventListener('click', closeResourceModal);
-            document.getElementById('resource-cancel-btn').addEventListener('click', closeResourceModal);
-
-            document.getElementById('resource-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                // Ensure values are numbers and prevent negative balances
-                state.homestead.core.wish = Math.max(0, parseInt(document.getElementById('res-wish').value) || 0);
-                state.homestead.core.coin = Math.max(0, parseInt(document.getElementById('res-coin').value) || 0);
-                saveState();
-                renderHomestead();
-                closeResourceModal();
-            });
-
-            const updateResBtn = document.getElementById('update-resources-btn');
-            if (updateResBtn) {
-                updateResBtn.addEventListener('click', openResourceModal);
-            }
-
-            // Custom Modal Logic for Darkswarm
-            const openDarkswarmModal = () => {
-                if (!state.homestead.darkswarm) return;
-                document.getElementById('ds-input-aggression').value = state.homestead.darkswarm.aggression;
-                
-                // Ensure date format is valid for <input type="date">
-                let lastInv = state.homestead.darkswarm.lastInvasion;
-                if (!lastInv || !lastInv.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                    lastInv = new Date().toISOString().split('T')[0];
-                }
-                document.getElementById('ds-input-last').value = lastInv;
-
-                // Populate Multi-Select Checkboxes from Resonating Hall database
-                const defContainer = document.getElementById('ds-input-defenders-container');
-                defContainer.innerHTML = '';
-                
-                if (state.heroes.length === 0) {
-                    defContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-1">No heroes added to Resonating Hall yet!</p>';
-                } else {
-                    state.heroes.forEach(hero => {
-                        const isChecked = state.homestead.darkswarm.defenders.includes(hero.name) ? 'checked' : '';
-                        defContainer.innerHTML += `
-                            <label class="flex items-center space-x-2 p-1 hover:bg-slate-200 rounded cursor-pointer transition-colors">
-                                <input type="checkbox" value="${hero.name}" class="ds-defender-checkbox text-red-600 rounded border-slate-300 focus:ring-red-500" ${isChecked}>
-                                <span class="text-sm font-semibold text-slate-700">${hero.name} <span class="text-xs font-normal text-slate-400">(${hero.faction})</span></span>
-                            </label>
-                        `;
-                    });
-                }
-
-                document.getElementById('darkswarm-modal').classList.remove('hidden');
-                document.getElementById('ds-input-aggression').focus();
-            };
-
-            const closeDarkswarmModal = () => document.getElementById('darkswarm-modal').classList.add('hidden');
-            const dsCloseBtn = document.getElementById('darkswarm-close-btn');
-            const dsCancelBtn = document.getElementById('darkswarm-cancel-btn');
-            if(dsCloseBtn) dsCloseBtn.addEventListener('click', closeDarkswarmModal);
-            if(dsCancelBtn) dsCancelBtn.addEventListener('click', closeDarkswarmModal);
-
-            const dsForm = document.getElementById('darkswarm-form');
-            if(dsForm) {
-                dsForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    state.homestead.darkswarm.aggression = Math.min(100, Math.max(0, parseInt(document.getElementById('ds-input-aggression').value) || 0));
-                    state.homestead.darkswarm.lastInvasion = document.getElementById('ds-input-last').value;
-                    
-                    // Capture selected defenders
-                    const selectedCheckboxes = document.querySelectorAll('.ds-defender-checkbox:checked');
-                    state.homestead.darkswarm.defenders = Array.from(selectedCheckboxes).map(cb => cb.value);
-                    
-                    saveState();
-                    renderHomestead();
-                    closeDarkswarmModal();
-                });
-            }
-
-            const updateDsBtn = document.getElementById('update-darkswarm-btn');
-            if (updateDsBtn) {
-                updateDsBtn.addEventListener('click', openDarkswarmModal);
-            }
-
-            // Global click listener for all + and - buttons
+            // Global + / - Buttons handler (Now includes Hall equipment)
             document.addEventListener('click', (e) => {
                 const btn = e.target.closest('button[data-action]');
                 if (!btn) return;
@@ -1148,7 +1233,7 @@
                     const b = state.homestead.buildings.find(x => x.id === bId);
                     if (b) {
                         b.level += modifier;
-                        if (b.level < 1) b.level = 1; // Prevent going to Level 0
+                        if (b.level < 1) b.level = 1;
                         saveState();
                         renderHomestead();
                     }
@@ -1166,32 +1251,41 @@
                         let newRank = state.insights.supremeArena.rank + modifier;
                         state.insights.supremeArena.rank = newRank < 1 ? 1 : newRank;
                         break;
+                    // Resonating Hall Specifics
+                    case 'resonance':
+                        let newRes = state.hall.resonanceLevel + modifier;
+                        state.hall.resonanceLevel = newRes < 1 ? 1 : newRes;
+                        break;
+                    case 'eq-tank': state.hall.equipment.tank += modifier; break;
+                    case 'eq-warrior': state.hall.equipment.warrior += modifier; break;
+                    case 'eq-rogue': state.hall.equipment.rogue += modifier; break;
+                    case 'eq-marksman': state.hall.equipment.marksman += modifier; break;
+                    case 'eq-mage': state.hall.equipment.mage += modifier; break;
+                    case 'eq-support': state.hall.equipment.support += modifier; break;
                 }
                 saveState();
                 renderInsights();
+                renderHallDashboard(); // For the eq changes
             });
 
-            // --- 7. Mobile Menu & Modal Toggles ---
-            if (DOM.mobileMenuBtn) DOM.mobileMenuBtn.addEventListener('click', () => DOM.mobileMenu.classList.remove('hidden'));
-            if (DOM.closeMobileBtn) DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
-
-            const openModal = () => { if (DOM.heroModal) DOM.heroModal.classList.remove('hidden'); }
-            const closeModal = () => {
+            // --- Hero Manager (Resonating Hall) ---
+            const openHeroModal = () => { if (DOM.heroModal) DOM.heroModal.classList.remove('hidden'); }
+            const closeHeroModal = () => {
                 if (DOM.heroModal) DOM.heroModal.classList.add('hidden');
                 if (DOM.heroForm) DOM.heroForm.reset();
             };
 
-            if (DOM.addHeroBtn) DOM.addHeroBtn.addEventListener('click', openModal);
-            if (DOM.closeModalBtn) DOM.closeModalBtn.addEventListener('click', closeModal);
-            if (DOM.cancelModalBtn) DOM.cancelModalBtn.addEventListener('click', closeModal);
+            if (DOM.addHeroBtn) DOM.addHeroBtn.addEventListener('click', openHeroModal);
+            if (DOM.closeModalBtn) DOM.closeModalBtn.addEventListener('click', closeHeroModal);
+            if (DOM.cancelModalBtn) DOM.cancelModalBtn.addEventListener('click', closeHeroModal);
 
-            // --- 8. Hero Form Handling & Rendering ---
             function renderHeroes() {
                 if (!DOM.tableBody) return;
                 DOM.tableBody.innerHTML = ''; 
                 
                 if (state.heroes.length === 0) {
-                    DOM.tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td></tr>`;
+                    DOM.tableBody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td></tr>`;
+                    updateFactionChart();
                     return;
                 }
 
@@ -1199,12 +1293,14 @@
                     const tr = document.createElement('tr');
                     tr.classList.add('border-b', 'border-slate-100', 'hover:bg-slate-50', 'transition-colors');
                     tr.innerHTML = `
-                        <td class="py-3 px-4 font-bold text-slate-800">${hero.name}</td>
-                        <td class="py-3 px-4"><span class="px-2 py-1 bg-slate-100 rounded text-xs">${hero.faction}</span></td>
-                        <td class="py-3 px-4">${hero.hClass}</td>
-                        <td class="py-3 px-4 font-bold text-purple-600">${hero.ascension}</td>
-                        <td class="py-3 px-4">${hero.exWpn}</td>
-                        <td class="py-3 px-4">${hero.role}</td>
+                        <td class="py-3 px-3 font-bold text-slate-800">${sanitize(hero.name)}</td>
+                        <td class="py-3 px-3"><span class="px-2 py-1 bg-slate-100 rounded text-xs">${sanitize(hero.faction)}</span></td>
+                        <td class="py-3 px-3 font-bold text-slate-600">${sanitize(hero.grade || '-')}</td>
+                        <td class="py-3 px-3">${sanitize(hero.hClass)}</td>
+                        <td class="py-3 px-3 font-bold text-purple-600">${sanitize(hero.ascension)}</td>
+                        <td class="py-3 px-3">${sanitize(hero.exWpn)}</td>
+                        <td class="py-3 px-3">${sanitize(hero.attack || '-')}</td>
+                        <td class="py-3 px-3">${sanitize(hero.range || '-')}</td>
                     `;
                     DOM.tableBody.appendChild(tr);
                 });
@@ -1220,16 +1316,17 @@
                         hClass: document.getElementById('hero-class').value,
                         ascension: document.getElementById('hero-asc').value,
                         exWpn: document.getElementById('hero-ex').value,
-                        role: document.getElementById('hero-role').value
+                        grade: document.getElementById('hero-grade').value,
+                        attack: document.getElementById('hero-attack').value,
+                        range: document.getElementById('hero-range').value
                     };
                     state.heroes.push(newHero);
                     saveState();
                     renderHeroes();
-                    closeModal();
+                    closeHeroModal();
                 });
             }
 
-            // --- 9. Chart.js Initialization ---
             let factionChartInstance = null;
             function updateFactionChart() {
                 const ctx = document.getElementById('factionChart');
@@ -1274,11 +1371,575 @@
                 }
             }
 
-            // Init Hall
+            // --- Hall Dashboard (Progression UI) ---
+            function renderHallDashboard() {
+                if (!document.getElementById('hall-resonance-level')) return;
+                
+                // Resonance
+                document.getElementById('hall-resonance-level').textContent = state.hall.resonanceLevel;
+
+                // Equipment
+                document.getElementById('hall-eq-tank').textContent = state.hall.equipment.tank;
+                document.getElementById('hall-eq-warrior').textContent = state.hall.equipment.warrior;
+                document.getElementById('hall-eq-rogue').textContent = state.hall.equipment.rogue;
+                document.getElementById('hall-eq-marksman').textContent = state.hall.equipment.marksman;
+                document.getElementById('hall-eq-mage').textContent = state.hall.equipment.mage;
+                document.getElementById('hall-eq-support').textContent = state.hall.equipment.support;
+
+                // Soul Pact
+                const spContainer = document.getElementById('hall-soulpact-container');
+                let spHtml = '';
+                state.hall.soulPact.forEach(hName => {
+                    if (!hName) {
+                        spHtml += `<div class="w-10 h-10 bg-fuchsia-100 rounded border border-fuchsia-200 flex-shrink-0"></div>`;
+                    } else {
+                        const shortName = hName.substring(0, 3).toUpperCase();
+                        spHtml += `<div class="w-10 h-10 bg-fuchsia-200 rounded border border-fuchsia-300 flex items-center justify-center text-[10px] font-bold text-fuchsia-800 shadow-sm" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
+                    }
+                });
+                spContainer.innerHTML = spHtml;
+
+                // Artifacts
+                const artContainer = document.getElementById('hall-artifacts-container');
+                let artHtml = '';
+                for (const [key, level] of Object.entries(state.hall.artifacts)) {
+                    artHtml += `<span class="bg-white border border-amber-200 px-3 py-1.5 rounded-lg text-amber-900 text-sm font-bold shadow-sm whitespace-nowrap">${sanitize(artifactNames[key])} <span class="text-amber-500 ml-1">+${level}</span></span>`;
+                }
+                artContainer.innerHTML = artHtml;
+            }
+
+            // Hall Modals
+            function populateSoulPactSelects() {
+                const selects = document.querySelectorAll('.sp-hero-select');
+                const optionsHtml = '<option value="">- Empty Slot -</option>' + 
+                    state.heroes.map(h => `<option value="${sanitize(h.name)}">${sanitize(h.name)}</option>`).join('');
+                
+                selects.forEach((select, index) => {
+                    select.innerHTML = optionsHtml;
+                    select.value = state.hall.soulPact[index] || '';
+                });
+            }
+
+            const openSoulPactModal = () => {
+                populateSoulPactSelects();
+                document.getElementById('soulpact-modal').classList.remove('hidden');
+            };
+            const closeSoulPactModal = () => document.getElementById('soulpact-modal').classList.add('hidden');
+            
+            if (document.getElementById('update-soulpact-btn')) document.getElementById('update-soulpact-btn').addEventListener('click', openSoulPactModal);
+            if (document.getElementById('soulpact-close-btn')) document.getElementById('soulpact-close-btn').addEventListener('click', closeSoulPactModal);
+            if (document.getElementById('soulpact-cancel-btn')) document.getElementById('soulpact-cancel-btn').addEventListener('click', closeSoulPactModal);
+
+            if (document.getElementById('soulpact-form')) {
+                document.getElementById('soulpact-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    state.hall.soulPact = [
+                        document.getElementById('sp-hero-0').value,
+                        document.getElementById('sp-hero-1').value,
+                        document.getElementById('sp-hero-2').value,
+                        document.getElementById('sp-hero-3').value,
+                        document.getElementById('sp-hero-4').value
+                    ];
+                    saveState();
+                    renderHallDashboard();
+                    closeSoulPactModal();
+                });
+            }
+
+            const openArtifactsModal = () => {
+                for (const key of Object.keys(state.hall.artifacts)) {
+                    const el = document.getElementById(`art-${key}`);
+                    if(el) el.value = state.hall.artifacts[key];
+                }
+                document.getElementById('artifacts-modal').classList.remove('hidden');
+            };
+            const closeArtifactsModal = () => document.getElementById('artifacts-modal').classList.add('hidden');
+
+            if (document.getElementById('update-artifacts-btn')) document.getElementById('update-artifacts-btn').addEventListener('click', openArtifactsModal);
+            if (document.getElementById('artifacts-close-btn')) document.getElementById('artifacts-close-btn').addEventListener('click', closeArtifactsModal);
+            if (document.getElementById('artifacts-cancel-btn')) document.getElementById('artifacts-cancel-btn').addEventListener('click', closeArtifactsModal);
+
+            if (document.getElementById('artifacts-form')) {
+                document.getElementById('artifacts-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    for (const key of Object.keys(state.hall.artifacts)) {
+                        const el = document.getElementById(`art-${key}`);
+                        if(el) state.hall.artifacts[key] = Math.max(0, parseInt(el.value) || 0);
+                    }
+                    saveState();
+                    renderHallDashboard();
+                    closeArtifactsModal();
+                });
+            }
+
+            // --- Homestead Manager ---
+            function renderHomestead() {
+                const coreResContainer = document.getElementById('core-resources-container');
+                const prodResContainer = document.getElementById('production-resources-container');
+                const bldContainer = document.getElementById('buildings-container');
+                const bldFilter = document.getElementById('building-filter');
+                
+                if (!coreResContainer || !bldContainer) return;
+
+                // Darkswarm UI
+                const dsAggressionText = document.getElementById('ds-aggression-text');
+                const dsStatusText = document.getElementById('ds-status-text');
+                const dsAggressionBar = document.getElementById('ds-aggression-bar');
+                const dsLastInvasion = document.getElementById('ds-last-invasion');
+                const dsDefenders = document.getElementById('ds-defenders');
+
+                if (dsAggressionText && state.homestead.darkswarm) {
+                    const aggr = state.homestead.darkswarm.aggression;
+                    dsAggressionText.textContent = `${aggr}/100`;
+                    dsAggressionBar.style.width = `${aggr}%`;
+                    dsStatusText.textContent = aggr >= 80 ? 'Critical' : (aggr >= 50 ? 'High' : 'Low');
+                    dsLastInvasion.textContent = sanitize(state.homestead.darkswarm.lastInvasion);
+                    
+                    dsDefenders.innerHTML = '';
+                    state.homestead.darkswarm.defenders.forEach(hero => {
+                        dsDefenders.innerHTML += `<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">${sanitize(hero.trim())}</span>`;
+                    });
+                }
+
+                // Core Resources
+                coreResContainer.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">💖</span> Wish Point</span>
+                        <span class="font-bold text-amber-600">${state.homestead.core.wish.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">🪙</span> Ancient Coin</span>
+                        <span class="font-bold text-yellow-600">${state.homestead.core.coin.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">⚡</span> Stamina</span>
+                        <span class="font-bold text-emerald-600">${state.homestead.core.stamina}/5000</span>
+                    </div>
+                `;
+
+                // Production Resources
+                prodResContainer.innerHTML = '';
+                state.homestead.production.forEach(res => {
+                    prodResContainer.innerHTML += `
+                        <tr class="border-b border-slate-100 last:border-0 hover:bg-slate-50">
+                            <td class="py-3 font-bold text-slate-700 text-xs">${res.icon} <span class="ml-1">${sanitize(res.name)}</span></td>
+                            <td class="py-3 text-right text-emerald-600 font-semibold">+${res.prod}/h</td>
+                            <td class="py-3 text-right font-bold text-slate-800">${res.stock.toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+
+                // Buildings Filtering
+                const filterVal = bldFilter ? bldFilter.value : 'All';
+                bldContainer.innerHTML = '';
+                
+                state.homestead.buildings.filter(b => filterVal === 'All' || b.type === filterVal).forEach(b => {
+                    bldContainer.innerHTML += `
+                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                            <span class="text-4xl mb-2 mt-2">${b.icon}</span>
+                            <h4 class="font-bold text-slate-800 text-sm mb-1 line-clamp-1">${sanitize(b.name)}</h4>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4">${sanitize(b.type)}</p>
+                            <div class="flex items-center justify-between w-full bg-white rounded-lg p-1.5 border border-slate-100 mt-auto">
+                                <button data-target="building" data-action="minus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">-</button>
+                                <span class="font-bold text-indigo-700 w-12 text-sm">Lvl ${b.level}</span>
+                                <button data-target="building" data-action="plus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            const bldFilter = document.getElementById('building-filter');
+            if (bldFilter) bldFilter.addEventListener('change', renderHomestead);
+
+            // Homestead Darkswarm Modal
+            const openDarkswarmModal = () => {
+                if (!state.homestead.darkswarm) return;
+                document.getElementById('ds-input-aggression').value = state.homestead.darkswarm.aggression;
+                
+                let lastInv = state.homestead.darkswarm.lastInvasion;
+                if (!lastInv || !lastInv.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                    lastInv = new Date().toISOString().split('T')[0];
+                }
+                document.getElementById('ds-input-last').value = lastInv;
+
+                const defContainer = document.getElementById('ds-input-defenders-container');
+                defContainer.innerHTML = '';
+                
+                if (state.heroes.length === 0) {
+                    defContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-1">No heroes added to Resonating Hall yet!</p>';
+                } else {
+                    state.heroes.forEach(hero => {
+                        const isChecked = state.homestead.darkswarm.defenders.includes(hero.name) ? 'checked' : '';
+                        defContainer.innerHTML += `
+                            <label class="flex items-center space-x-2 p-1 hover:bg-slate-200 rounded cursor-pointer transition-colors">
+                                <input type="checkbox" value="${sanitize(hero.name)}" class="ds-defender-checkbox text-red-600 rounded border-slate-300 focus:ring-red-500" ${isChecked}>
+                                <span class="text-sm font-semibold text-slate-700">${sanitize(hero.name)} <span class="text-xs font-normal text-slate-400">(${sanitize(hero.faction)})</span></span>
+                            </label>
+                        `;
+                    });
+                }
+                document.getElementById('darkswarm-modal').classList.remove('hidden');
+                document.getElementById('ds-input-aggression').focus();
+            };
+
+            const closeDarkswarmModal = () => document.getElementById('darkswarm-modal').classList.add('hidden');
+            const dsCloseBtn = document.getElementById('darkswarm-close-btn');
+            const dsCancelBtn = document.getElementById('darkswarm-cancel-btn');
+            if(dsCloseBtn) dsCloseBtn.addEventListener('click', closeDarkswarmModal);
+            if(dsCancelBtn) dsCancelBtn.addEventListener('click', closeDarkswarmModal);
+
+            const dsForm = document.getElementById('darkswarm-form');
+            if(dsForm) {
+                dsForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    state.homestead.darkswarm.aggression = Math.min(100, Math.max(0, parseInt(document.getElementById('ds-input-aggression').value) || 0));
+                    state.homestead.darkswarm.lastInvasion = document.getElementById('ds-input-last').value;
+                    const selectedCheckboxes = document.querySelectorAll('.ds-defender-checkbox:checked');
+                    state.homestead.darkswarm.defenders = Array.from(selectedCheckboxes).map(cb => cb.value);
+                    saveState();
+                    renderHomestead();
+                    closeDarkswarmModal();
+                });
+            }
+
+            const updateDsBtn = document.getElementById('update-darkswarm-btn');
+            if (updateDsBtn) updateDsBtn.addEventListener('click', openDarkswarmModal);
+
+            // Homestead Resources Modal
+            const openResourceModal = () => {
+                document.getElementById('res-wish').value = state.homestead.core.wish;
+                document.getElementById('res-coin').value = state.homestead.core.coin;
+                document.getElementById('resource-modal').classList.remove('hidden');
+                document.getElementById('res-wish').focus();
+            };
+
+            const closeResourceModal = () => document.getElementById('resource-modal').classList.add('hidden');
+            const resCloseBtn = document.getElementById('resource-close-btn');
+            const resCancelBtn = document.getElementById('resource-cancel-btn');
+            if(resCloseBtn) resCloseBtn.addEventListener('click', closeResourceModal);
+            if(resCancelBtn) resCancelBtn.addEventListener('click', closeResourceModal);
+
+            const resForm = document.getElementById('resource-form');
+            if(resForm) {
+                resForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    state.homestead.core.wish = Math.max(0, parseInt(document.getElementById('res-wish').value) || 0);
+                    state.homestead.core.coin = Math.max(0, parseInt(document.getElementById('res-coin').value) || 0);
+                    saveState();
+                    renderHomestead();
+                    closeResourceModal();
+                });
+            }
+
+            const updateResBtn = document.getElementById('update-resources-btn');
+            if (updateResBtn) updateResBtn.addEventListener('click', openResourceModal);
+
+            // --- Treasury & Gacha Manager ---
+            function renderTreasury() {
+                const diaText = document.getElementById('treasury-diamonds-text');
+                const epicText = document.getElementById('treasury-epic-invites');
+                const allHeroText = document.getElementById('treasury-all-hero');
+                const starText = document.getElementById('treasury-stargaze');
+                const wishlistCont = document.getElementById('wishlist-container');
+
+                if (!diaText) return;
+
+                diaText.innerHTML = `${state.treasury.diamonds.toLocaleString()} <span class="text-xl">💎</span>`;
+                epicText.textContent = state.treasury.epicInvites.toLocaleString();
+                allHeroText.textContent = state.treasury.allHeroLetters.toLocaleString();
+                starText.textContent = state.treasury.stargazeCrystals.toLocaleString();
+
+                if (wishlistCont) {
+                    wishlistCont.innerHTML = '';
+                    if (state.treasury.wishlist.length === 0) {
+                        wishlistCont.innerHTML = '<p class="text-sm text-slate-500 italic p-2">Wishlist is empty.</p>';
+                    } else {
+                        state.treasury.wishlist.forEach((hero, index) => {
+                            wishlistCont.innerHTML += `
+                                <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-100 group">
+                                    <span class="font-bold text-slate-700 text-sm">${sanitize(hero)}</span>
+                                    <button class="remove-wishlist-btn text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" data-index="${index}">✕</button>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    document.querySelectorAll('.remove-wishlist-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const index = parseInt(e.target.getAttribute('data-index'));
+                            state.treasury.wishlist.splice(index, 1);
+                            saveState();
+                            renderTreasury();
+                        });
+                    });
+                }
+                updateDiamondChart();
+            }
+
+            const wishlistForm = document.getElementById('wishlist-form');
+            if (wishlistForm) {
+                wishlistForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const input = document.getElementById('wishlist-input');
+                    const val = input.value.trim();
+                    if (val) {
+                        state.treasury.wishlist.push(val);
+                        saveState();
+                        input.value = '';
+                        renderTreasury();
+                    }
+                });
+            }
+
+            // Treasury Modal
+            const openTreasuryModal = () => {
+                document.getElementById('trs-diamonds').value = state.treasury.diamonds;
+                document.getElementById('trs-epic').value = state.treasury.epicInvites;
+                document.getElementById('trs-allhero').value = state.treasury.allHeroLetters;
+                document.getElementById('trs-stargaze').value = state.treasury.stargazeCrystals;
+                document.getElementById('treasury-modal').classList.remove('hidden');
+            };
+
+            const closeTreasuryModal = () => document.getElementById('treasury-modal').classList.add('hidden');
+            const trsCloseBtn = document.getElementById('treasury-close-btn');
+            const trsCancelBtn = document.getElementById('treasury-cancel-btn');
+            if(trsCloseBtn) trsCloseBtn.addEventListener('click', closeTreasuryModal);
+            if(trsCancelBtn) trsCancelBtn.addEventListener('click', closeTreasuryModal);
+
+            const trsForm = document.getElementById('treasury-form');
+            if(trsForm) {
+                trsForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    state.treasury.diamonds = Math.max(0, parseInt(document.getElementById('trs-diamonds').value) || 0);
+                    state.treasury.epicInvites = Math.max(0, parseInt(document.getElementById('trs-epic').value) || 0);
+                    state.treasury.allHeroLetters = Math.max(0, parseInt(document.getElementById('trs-allhero').value) || 0);
+                    state.treasury.stargazeCrystals = Math.max(0, parseInt(document.getElementById('trs-stargaze').value) || 0);
+                    saveState();
+                    renderTreasury();
+                    closeTreasuryModal();
+                });
+            }
+
+            const updateTrsBtn = document.getElementById('update-treasury-btn');
+            if (updateTrsBtn) updateTrsBtn.addEventListener('click', openTreasuryModal);
+
+            let diamondChartInstance = null;
+            function updateDiamondChart() {
+                const ctx = document.getElementById('diamondChart');
+                if (!ctx) return;
+                
+                const goal = 30000;
+                const current = state.treasury.diamonds;
+                const remaining = Math.max(0, goal - current);
+
+                const data = {
+                    labels: ['Current Diamonds', 'Remaining to Goal'],
+                    datasets: [{
+                        data: [current, remaining],
+                        backgroundColor: ['#3b82f6', '#e2e8f0'],
+                        borderWidth: 0,
+                        cutout: '75%'
+                    }]
+                };
+
+                if (diamondChartInstance) {
+                    diamondChartInstance.data = data;
+                    diamondChartInstance.update();
+                } else {
+                    diamondChartInstance = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: true }
+                            }
+                        }
+                    });
+                }
+            }
+
+            // --- Strategy Vault Manager ---
+            const modeSelector = document.getElementById('mode-selector');
+            const bossSelector = document.getElementById('boss-selector');
+            const currentBossTitle = document.getElementById('current-boss-title');
+            const addCompBtn = document.getElementById('add-comp-btn');
+            const formationsContainer = document.getElementById('formations-container');
+
+            const bossData = {
+                'dream-realm': [
+                    { id: 'sarethiel', name: 'Sarethiel' }, { id: 'gloommaw', name: 'Gloommaw' },
+                    { id: 'doomscourge', name: 'Doomscourge' }, { id: 'blightshroom', name: 'Blightshroom' },
+                    { id: 'king-croaker', name: 'King Croaker' }, { id: 'necrodrakon', name: 'Necrodrakon' }
+                ],
+                'primal-lord': [
+                    { id: 'midnight-harvester', name: 'Midnight Harvester' }, { id: 'lone-gaze', name: 'Lone Gaze' }
+                ],
+                'guild-supremacy': [
+                    { id: 'mimic-chest', name: 'Supreme Mimic' }, { id: 'mimic-crystal', name: 'Crystal Defense' }
+                ],
+                'battle-drills': [
+                    { id: 'corrupt-creature', name: 'Corrupt Core' }
+                ]
+            };
+
+            function updateBossOptions() {
+                if (!modeSelector || !bossSelector) return;
+                const selectedMode = modeSelector.value;
+                const bosses = bossData[selectedMode] || [];
+                
+                bossSelector.innerHTML = '<option value="" disabled selected>-- Choose Target --</option>';
+                bosses.forEach(boss => {
+                    const option = document.createElement('option');
+                    option.value = boss.id;
+                    option.textContent = boss.name;
+                    bossSelector.appendChild(option);
+                });
+                
+                currentBossTitle.textContent = "Select a Target";
+                addCompBtn.classList.add('hidden');
+                formationsContainer.innerHTML = `
+                    <div class="text-center text-slate-400 py-10 flex flex-col items-center">
+                        <span class="text-4xl mb-3">🎯</span>
+                        <p>Select a boss to view or record your optimal team compositions.</p>
+                    </div>`;
+            }
+
+            function renderBossStrategy() {
+                if (!bossSelector.options[bossSelector.selectedIndex]) return;
+                
+                const selectedBossId = bossSelector.value;
+                const selectedModeId = modeSelector.value;
+                const selectedBossName = bossSelector.options[bossSelector.selectedIndex].text;
+                
+                currentBossTitle.textContent = selectedBossName;
+                addCompBtn.classList.remove('hidden');
+                
+                const filteredComps = state.strategy.formations.filter(f => f.mode === selectedModeId && f.boss === selectedBossId);
+                formationsContainer.innerHTML = '';
+                
+                if (filteredComps.length === 0) {
+                    formationsContainer.innerHTML = `
+                        <div class="text-center text-slate-400 py-10 flex flex-col items-center">
+                            <span class="text-4xl mb-3">🎯</span>
+                            <p>No formations logged for this target yet.</p>
+                        </div>`;
+                    return;
+                }
+
+                // Sort newest to oldest
+                filteredComps.sort((a, b) => b.id - a.id).forEach(comp => {
+                    const heroBlocks = comp.heroes.map(hName => {
+                        if (!hName) return `<div class="w-10 h-10 bg-slate-100 rounded border border-slate-200"></div>`;
+                        const hero = state.heroes.find(h => h.name === hName);
+                        const shortName = hName.substring(0, 3).toUpperCase();
+                        return `<div class="w-10 h-10 bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-[10px] font-bold text-slate-600 overflow-hidden shadow-sm" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
+                    }).join('');
+
+                    const artifactParts = comp.artifact.split(' ');
+                    const artifactIcon = artifactParts[0]; 
+                    const artifactName = artifactParts.slice(1).join(' ');
+
+                    formationsContainer.innerHTML += `
+                        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center gap-4 relative group">
+                            <button class="delete-comp-btn absolute top-2 right-2 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" data-id="${comp.id}">✕</button>
+                            <div class="flex items-center space-x-4 w-full md:w-auto">
+                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl shadow-inner border border-indigo-200" title="${sanitize(artifactName)}">${sanitize(artifactIcon)}</div>
+                                <div class="flex space-x-2">
+                                    ${heroBlocks}
+                                </div>
+                            </div>
+                            <div class="text-right w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-6 pr-4">
+                                <p class="text-xs text-slate-500 uppercase font-bold">Total Damage</p>
+                                <p class="text-2xl font-bold text-red-600 heading-font">${sanitize(comp.damage)}</p>
+                                <p class="text-xs text-slate-400 mt-1">Recorded: ${sanitize(comp.date)}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                document.querySelectorAll('.delete-comp-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const compId = parseInt(e.target.getAttribute('data-id'));
+                        state.strategy.formations = state.strategy.formations.filter(f => f.id !== compId);
+                        saveState();
+                        renderBossStrategy();
+                    });
+                });
+            }
+
+            if (modeSelector) modeSelector.addEventListener('change', updateBossOptions);
+            if (bossSelector) bossSelector.addEventListener('change', renderBossStrategy);
+            
+            // Strategy Modal Handlers
+            function populateCompHeroes() {
+                const selects = document.querySelectorAll('.comp-hero-select');
+                const optionsHtml = '<option value="">- Hero -</option>' + 
+                    state.heroes.map(h => `<option value="${sanitize(h.name)}">${sanitize(h.name)}</option>`).join('');
+                
+                selects.forEach(select => {
+                    select.innerHTML = optionsHtml;
+                });
+            }
+
+            const openCompModal = () => {
+                document.getElementById('comp-date').value = new Date().toISOString().split('T')[0];
+                populateCompHeroes();
+                document.getElementById('comp-modal').classList.remove('hidden');
+            };
+
+            const closeCompModal = () => {
+                document.getElementById('comp-modal').classList.add('hidden');
+                document.getElementById('comp-form').reset();
+            };
+
+            const compCloseBtn = document.getElementById('comp-close-btn');
+            const compCancelBtn = document.getElementById('comp-cancel-btn');
+            if (compCloseBtn) compCloseBtn.addEventListener('click', closeCompModal);
+            if (compCancelBtn) compCancelBtn.addEventListener('click', closeCompModal);
+            if (addCompBtn) addCompBtn.addEventListener('click', openCompModal);
+
+            const compForm = document.getElementById('comp-form');
+            if (compForm) {
+                compForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const heroes = [
+                        document.getElementById('comp-hero-1').value,
+                        document.getElementById('comp-hero-2').value,
+                        document.getElementById('comp-hero-3').value,
+                        document.getElementById('comp-hero-4').value,
+                        document.getElementById('comp-hero-5').value
+                    ];
+
+                    const newComp = {
+                        id: Date.now(),
+                        mode: modeSelector.value,
+                        boss: bossSelector.value,
+                        damage: document.getElementById('comp-damage').value,
+                        date: document.getElementById('comp-date').value,
+                        artifact: document.getElementById('comp-artifact').value,
+                        heroes: heroes
+                    };
+
+                    state.strategy.formations.push(newComp);
+                    saveState();
+                    renderBossStrategy();
+                    closeCompModal();
+                });
+            }
+
+            // --- App Initialization ---
+            updateBossOptions();
             renderTasks();
             renderInsights();
+            renderHallDashboard(); // NEW - Initializes the Resonating Hall specifics
             renderHomestead();
             renderHeroes(); 
+            renderTreasury();
         });
     </script>
 </body>
