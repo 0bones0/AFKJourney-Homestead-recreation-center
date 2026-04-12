@@ -7,21 +7,62 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lato:wght@400;700&display=swap');
-        body { font-family: 'Lato', sans-serif; background-color: #fdfaf6; color: #2d3748; }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lato:wght@400;700&family=Inter:wght@400;700&display=swap');
+        
+        :root {
+            --base-font-size: 16px;
+        }
+
+        html { font-size: var(--base-font-size); transition: font-size 0.2s ease-out; }
+        body { font-family: 'Lato', sans-serif; background-color: #fdfaf6; color: #2d3748; transition: background-color 0.3s, color 0.3s; }
         h1, h2, h3, .heading-font { font-family: 'Cinzel', serif; }
+        
         .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 40vh; max-height: 400px; }
         @media (max-width: 768px) { .chart-container { height: 35vh; } }
+        
         .nav-active { background-color: #e2e8f0; border-left: 4px solid #d69e2e; font-weight: bold; }
+        
         .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* THEME: DARK MODE */
+        body.theme-dark { background-color: #111827; color: #e2e8f0; }
+        body.theme-dark .bg-white, body.theme-dark aside, body.theme-dark #mobile-menu > div { background-color: #1e293b !important; border-color: #334155 !important; color: #f1f5f9; }
+        body.theme-dark .bg-slate-50 { background-color: #0f172a !important; border-color: #334155 !important; color: #cbd5e1; }
+        body.theme-dark .text-slate-800, body.theme-dark .text-slate-700 { color: #f8fafc !important; }
+        body.theme-dark .text-slate-600, body.theme-dark .text-slate-500 { color: #94a3b8 !important; }
+        body.theme-dark .border-slate-200, body.theme-dark .border-slate-100, body.theme-dark .border-slate-300 { border-color: #334155 !important; }
+        body.theme-dark input, body.theme-dark select { background-color: #0f172a !important; color: #f1f5f9 !important; border-color: #475569 !important; }
+        body.theme-dark .nav-active { background-color: #334155 !important; }
+        body.theme-dark .shadow-sm, body.theme-dark .shadow-lg { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5) !important; }
+        /* Tint Adjustments for Dark Mode */
+        body.theme-dark .bg-indigo-50 { background-color: rgba(79, 70, 229, 0.1) !important; border-color: rgba(79, 70, 229, 0.25) !important; }
+        body.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.1) !important; border-color: rgba(245, 158, 11, 0.25) !important; }
+        body.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.1) !important; border-color: rgba(16, 185, 129, 0.25) !important; }
+        body.theme-dark .bg-rose-50 { background-color: rgba(244, 63, 94, 0.1) !important; border-color: rgba(244, 63, 94, 0.25) !important; }
+        body.theme-dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.1) !important; border-color: rgba(6, 182, 212, 0.25) !important; }
+        body.theme-dark .bg-fuchsia-50 { background-color: rgba(217, 70, 239, 0.1) !important; border-color: rgba(217, 70, 239, 0.25) !important; }
+
+        /* THEME: SAGE MODE */
+        body.theme-sage { background-color: #edf1ed; color: #2c3e2e; }
+        body.theme-sage .bg-white, body.theme-sage aside, body.theme-sage #mobile-menu > div { background-color: #f7f9f7 !important; border-color: #cdd6cd !important; color: #2c3e2e; }
+        body.theme-sage .bg-slate-50 { background-color: #e5ebe5 !important; border-color: #cdd6cd !important; color: #3e5040; }
+        body.theme-sage .text-slate-800, body.theme-sage .text-slate-700 { color: #1e2b1f !important; }
+        body.theme-sage .text-slate-600, body.theme-sage .text-slate-500 { color: #4e6b52 !important; }
+        body.theme-sage .border-slate-200, body.theme-sage .border-slate-100, body.theme-sage .border-slate-300 { border-color: #cdd6cd !important; }
+        body.theme-sage input, body.theme-sage select { background-color: #f7f9f7 !important; color: #2c3e2e !important; border-color: #a8b8aa !important; }
+        body.theme-sage .nav-active { background-color: #d8e0d8 !important; border-left-color: #6b8e23 !important; }
+
+        /* Namecard specific styles */
+        .namecard-bg { background: linear-gradient(135deg, #a7b8c2 0%, #e0e7e9 100%); }
+        body.theme-dark .namecard-bg { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="flex h-screen overflow-hidden theme-light">
 	<!-- Desktop Sidebar -->
-	<aside class="w-64 bg-slate-50 border-r border-slate-200 flex flex-col hidden md:flex z-20 shadow-lg">
+	<aside class="w-64 bg-slate-50 border-r border-slate-200 flex flex-col hidden md:flex z-20 shadow-lg transition-colors duration-300">
 		<div class="p-6 border-b border-slate-200 flex items-center space-x-3">
 			<span class="text-3xl">🏰</span>
 			<div>
@@ -45,6 +86,9 @@
 			<a href="#" data-target="view-strategy" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
 				<span class="mr-3 text-lg">🧠</span> Strategy Vault
 			</a>
+            <a href="#" data-target="view-settings" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
+				<span class="mr-3 text-lg">⚙️</span> Settings
+			</a>
 		</nav>
 		<div class="p-6 border-t border-slate-200 text-xs text-slate-400 italic">
 			"In the heart of Esperia, strategy is your greatest weapon."
@@ -52,7 +96,7 @@
 	</aside>
 
 	<!-- Mobile Top Bar -->
-	<div class="md:hidden bg-slate-50 border-b border-slate-200 flex justify-between items-center p-4 fixed w-full top-0 z-30 shadow-sm">
+	<div class="md:hidden bg-slate-50 border-b border-slate-200 flex justify-between items-center p-4 fixed w-full top-0 z-30 shadow-sm transition-colors duration-300">
 		<div class="flex items-center space-x-2">
 			<span class="text-2xl">🏰</span>
 			<h1 class="font-bold text-lg heading-font">Command Center</h1>
@@ -61,24 +105,26 @@
 	</div>
 
 	<!-- Mobile Menu -->
-	<div id="mobile-menu" class="hidden fixed inset-0 bg-slate-800 bg-opacity-50 z-40">
-		<div class="bg-white w-64 h-full shadow-xl flex flex-col absolute right-0 transform transition-transform">
+	<div id="mobile-menu" class="hidden fixed inset-0 bg-slate-800 bg-opacity-50 z-40 transition-opacity">
+		<div class="bg-white w-64 h-full shadow-xl flex flex-col absolute right-0 transform transition-transform duration-300">
 			<button id="close-mobile-menu" class="self-end p-4 text-2xl">✕</button>
 			<nav class="flex-1 flex flex-col" id="mobile-nav-menu">
-				<a href="#" data-target="view-grind" class="mobile-nav-item px-6 py-4 border-b">📌 The Daily Grind</a>
-				<a href="#" data-target="view-heroes" class="mobile-nav-item px-6 py-4 border-b">🦸‍♂️ Resonating Hall</a>
-				<a href="#" data-target="view-homestead" class="mobile-nav-item px-6 py-4 border-b">🏡 Homestead Estate</a>
-				<a href="#" data-target="view-treasury" class="mobile-nav-item px-6 py-4 border-b">💎 Treasury & Gacha</a>
-				<a href="#" data-target="view-strategy" class="mobile-nav-item px-6 py-4 border-b">🧠 Strategy Vault</a>
+				<a href="#" data-target="view-grind" class="mobile-nav-item px-6 py-4 border-b border-slate-100">📌 The Daily Grind</a>
+				<a href="#" data-target="view-heroes" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🦸‍♂️ Resonating Hall</a>
+				<a href="#" data-target="view-homestead" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🏡 Homestead Estate</a>
+				<a href="#" data-target="view-treasury" class="mobile-nav-item px-6 py-4 border-b border-slate-100">💎 Treasury & Gacha</a>
+				<a href="#" data-target="view-strategy" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🧠 Strategy Vault</a>
+                <a href="#" data-target="view-settings" class="mobile-nav-item px-6 py-4 border-b border-slate-100">⚙️ Settings</a>
 			</nav>
 		</div>
 	</div>
 
-	<main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 relative bg-white">
+	<main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 relative bg-transparent">
 		<div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative w-full h-full">
 			
             <!-- ===================== VIEW: THE DAILY GRIND ===================== -->
 			<section id="view-grind" class="view-section active h-full">
+                <!-- ... existing mode insights ... -->
                 <div class="mb-10">
                     <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
                     
@@ -178,39 +224,53 @@
                     </div>
                 </div>
 
-                <!-- Progress Bar -->
-                <div class="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <div class="flex justify-between items-end mb-2">
-                        <h3 class="text-lg font-bold">Daily Completion Goal</h3>
-                        <span id="daily-progress-text" class="text-2xl font-bold text-yellow-600 heading-font">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
-                        <div id="daily-progress-bar" class="bg-yellow-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <!-- Task Lists -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <div class="flex justify-between items-center border-b pb-2 mb-4">
-                            <h3 class="text-xl font-bold flex items-center"><span class="mr-2">☀️</span> Daily Tasks</h3>
-                            <button id="add-daily-task-btn" class="text-sm font-bold text-slate-500 hover:text-yellow-600 transition-colors">+ Add</button>
+                <!-- Task Lists & Goals -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Daily Column -->
+                    <div class="flex flex-col gap-4">
+                        <!-- Daily Progress -->
+                        <div class="bg-white p-5 md:p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-slate-800 mb-3 heading-font">Daily Completion Goal</h3>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                <div id="daily-progress-bar" class="bg-slate-700 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
                         </div>
-                        <div id="daily-tasks-container" class="space-y-3"></div>
+
+                        <!-- Daily Tasks -->
+                        <div class="bg-white p-5 md:p-6 rounded-xl border border-slate-200 shadow-sm flex-1">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h3 class="text-lg font-bold flex items-center heading-font text-slate-800"><span class="mr-2 text-xl">☀️</span> Daily Tasks</h3>
+                                <button id="add-daily-task-btn" class="text-sm font-bold text-slate-500 hover:text-yellow-600 transition-colors">+ Add</button>
+                            </div>
+                            <div id="daily-tasks-container" class="space-y-3"></div>
+                        </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <div class="flex justify-between items-center border-b pb-2 mb-4">
-                        <h3 class="text-xl font-bold flex items-center"><span class="mr-2">📅</span> Weekly Tasks</h3>
-                        <button id="add-weekly-task-btn" class="text-sm font-bold text-slate-500 hover:text-yellow-600 transition-colors">+ Add</button>
+                    <!-- Weekly Column -->
+                    <div class="flex flex-col gap-4">
+                        <!-- Weekly Progress -->
+                        <div class="bg-white p-5 md:p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-slate-800 mb-3 heading-font">Weekly Completion Goal</h3>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                <div id="weekly-progress-bar" class="bg-slate-700 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
                         </div>
-                        <div id="weekly-tasks-container" class="space-y-3"></div>
+
+                        <!-- Weekly Tasks -->
+                        <div class="bg-white p-5 md:p-6 rounded-xl border border-slate-200 shadow-sm flex-1">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                                <h3 class="text-lg font-bold flex items-center heading-font text-slate-800"><span class="mr-2 text-xl">📅</span> Weekly Tasks</h3>
+                                <button id="add-weekly-task-btn" class="text-sm font-bold text-slate-500 hover:text-yellow-600 transition-colors">+ Add</button>
+                            </div>
+                            <div id="weekly-tasks-container" class="space-y-3"></div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- ===================== VIEW: RESONATING HALL ===================== -->
 			<section id="view-heroes" class="view-section hidden h-full">
+                <!-- ... existing resonating hall ... -->
 				<div class="max-w-6xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🦸‍♂️</span> The Resonating Hall</h2>
@@ -244,7 +304,7 @@
                                         <h4 class="text-fuchsia-800 font-bold uppercase text-xs mb-1">Soul Pact</h4>
                                         <p class="text-xs text-fuchsia-700">Creature Levels</p>
                                     </div>
-                                    <button id="update-soulpact-btn" class="text-[10px] font-bold text-white bg-fuchsia-600 hover:bg-fuchsia-700 px-2 py-1 rounded shadow">Edit</button>
+                                    <button id="update-soulpact-btn" class="text-[10px] font-bold text-white bg-fuchsia-600 hover:bg-fuchsia-700 px-2 py-1 rounded shadow transition-colors">Edit</button>
                                 </div>
                                 <div id="hall-soulpact-container" class="grid grid-cols-5 gap-2 relative z-10">
                                     <!-- Populated dynamically by JS -->
@@ -338,7 +398,7 @@
 							<div class="flex justify-between items-center mb-4 border-b pb-2">
 								<h3 class="text-xl font-bold">Hero Database</h3>
 								<div class="flex items-center space-x-2">
-									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold px-3 py-1.5 rounded shadow-sm">
+									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold px-3 py-1.5 rounded shadow-sm transition-colors">
 										+ Add Hero
 									</button>
 								</div>
@@ -371,6 +431,7 @@
 
             <!-- ===================== VIEW: HOMESTEAD ===================== -->
 			<section id="view-homestead" class="view-section hidden h-full">
+                <!-- ... existing homestead view ... -->
 				<div class="max-w-6xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
@@ -467,6 +528,7 @@
 
             <!-- ===================== VIEW: TREASURY ===================== -->
 			<section id="view-treasury" class="view-section hidden h-full">
+                <!-- ... existing treasury view ... -->
 				<div class="max-w-5xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">💎</span> Treasury & Gacha Planner</h2>
@@ -529,7 +591,7 @@
                             </div>
                             <form id="wishlist-form" class="mt-4 flex gap-2 pt-4 border-t border-slate-100">
                                 <input type="text" id="wishlist-input" placeholder="Add hero to wishlist..." required class="flex-1 border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-blue-500">
-                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded text-sm">Add</button>
+                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded text-sm transition-colors">Add</button>
                             </form>
 						</div>
 					</div>
@@ -538,6 +600,7 @@
 
             <!-- ===================== VIEW: STRATEGY VAULT ===================== -->
 			<section id="view-strategy" class="view-section hidden h-full">
+                <!-- ... existing strategy view ... -->
                 <div class="max-w-5xl mx-auto">
                     <header class="mb-8 border-b border-slate-200 pb-4">
                         <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🧠</span> Strategy Vault</h2>
@@ -573,6 +636,82 @@
                             
                             <div id="formations-container" class="space-y-4">
                                 <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== VIEW: SETTINGS ===================== -->
+			<section id="view-settings" class="view-section hidden h-full">
+                <div class="max-w-4xl mx-auto">
+                    <header class="mb-8 border-b border-slate-200 pb-4 flex justify-between items-end">
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">⚙️</span> Settings</h2>
+                            <p class="text-slate-600">Customize the appearance of your Command Center.</p>
+                        </div>
+                    </header>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Appearance Config -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                            <h3 class="text-xl font-bold text-slate-800 border-b border-slate-100 pb-2">Appearance</h3>
+                            
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase mb-2 block">Application Theme</label>
+                                <select id="settings-theme" class="w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                                    <option value="light">☀️ Light Mode (Default)</option>
+                                    <option value="dark">🌙 Dark Mode</option>
+                                    <option value="sage">🌿 Sage Mode</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase mb-2 block">Typography</label>
+                                <select id="settings-font" class="w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                                    <option value="'Lato', sans-serif">Lato (Modern & Clean)</option>
+                                    <option value="'Inter', sans-serif">Inter (Sleek Tech)</option>
+                                    <option value="'Georgia', serif">Georgia (Classic Book)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase mb-2 flex justify-between">
+                                    <span>UI Scale (Font Size)</span>
+                                    <span id="settings-size-display" class="text-indigo-600">16px</span>
+                                </label>
+                                <input id="settings-size" type="range" min="12" max="22" step="1" value="16" class="w-full accent-indigo-600 cursor-pointer">
+                                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                                    <span>Smaller</span>
+                                    <span>Larger</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Profile Setup -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 border-b border-slate-100 pb-2 mb-6">Magister Profile</h3>
+                                <p class="text-sm text-slate-600 mb-6">View your generated Player Namecard based on your current Resonating Hall progression.</p>
+                                
+                                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center justify-between hover:shadow-md transition-shadow">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 rounded-full bg-slate-300 flex items-center justify-center text-xl shadow-inner border border-slate-400 overflow-hidden">
+                                            <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar">
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="font-bold text-lg text-slate-800 leading-tight" id="profile-name-display">Aster</p>
+                                            <p class="text-xs text-slate-500">ID: 40164131</p>
+                                        </div>
+                                    </div>
+                                    <button id="btn-open-profile" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition-colors">
+                                        View Namecard
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 border-t border-slate-100 pt-4">
+                                <p class="text-xs text-slate-400 italic text-center">Settings are saved locally to your device.</p>
                             </div>
                         </div>
                     </div>
@@ -669,9 +808,9 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-end space-x-2 pt-2">
-                            <button type="button" id="add-hero-cancel" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-green-600 hover:bg-green-700 text-white font-bold">Save Hero</button>
+                        <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-4">
+                            <button type="button" id="add-hero-cancel" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-green-600 hover:bg-green-700 text-white font-bold transition-colors">Save Hero</button>
                         </div>
                     </form>
                 </div>
@@ -707,8 +846,8 @@
                             <input id="sp-skyclops" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-fuchsia-500" />
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100 mt-2">
-                            <button type="button" id="soulpact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold">Save Pact</button>
+                            <button type="button" id="soulpact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold transition-colors">Save Pact</button>
                         </div>
                     </form>
                 </div>
@@ -755,8 +894,8 @@
                              </div>
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-2">
-                            <button type="button" id="single-artifact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold">Save Artifact</button>
+                            <button type="button" id="single-artifact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold transition-colors">Save Artifact</button>
                         </div>
                     </form>
                 </div>
@@ -778,8 +917,8 @@
                             <input id="task-text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" placeholder="e.g. Complete AFK Stage x2" autocomplete="off" />
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-2">
-                            <button type="button" id="task-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold">Save Task</button>
+                            <button type="button" id="task-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold transition-colors">Save Task</button>
                         </div>
                     </form>
                 </div>
@@ -803,8 +942,8 @@
                             <input id="res-coin" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" />
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-2">
-                            <button type="button" id="resource-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold">Save Resources</button>
+                            <button type="button" id="resource-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold transition-colors">Save Resources</button>
                         </div>
                     </form>
                 </div>
@@ -834,9 +973,9 @@
                             </div>
                             <p class="text-[10px] text-slate-500 mt-1">Select heroes from your Resonating Hall.</p>
                         </div>
-                        <div class="flex items-center justify-end space-x-2 pt-2">
-                            <button type="button" id="darkswarm-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-red-600 hover:bg-red-700 text-white font-bold">Save</button>
+                        <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-4">
+                            <button type="button" id="darkswarm-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-red-600 hover:bg-red-700 text-white font-bold transition-colors">Save</button>
                         </div>
                     </form>
                 </div>
@@ -867,9 +1006,9 @@
                             <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🌌</span> Stargaze Crystals</label>
                             <input id="trs-stargaze" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-blue-500 outline-none" />
                         </div>
-                        <div class="flex items-center justify-end space-x-2 pt-2">
-                            <button type="button" id="treasury-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-blue-600 hover:bg-blue-700 text-white font-bold">Save</button>
+                        <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-4">
+                            <button type="button" id="treasury-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors">Save</button>
                         </div>
                     </form>
                 </div>
@@ -911,10 +1050,66 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-4">
-                            <button type="button" id="comp-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-indigo-600 hover:bg-indigo-700 text-white font-bold">Save Formation</button>
+                            <button type="button" id="comp-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-colors">Save Formation</button>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!-- User Profile Namecard Modal -->
+            <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="profile-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-[24px] shadow-2xl z-10 overflow-hidden border border-slate-200">
+                    <!-- Top Cover & Close -->
+                    <div class="h-32 w-full namecard-bg relative">
+                        <button id="profile-close-btn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition-colors">✕</button>
+                        <div class="absolute top-4 left-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-white shadow flex items-center">
+                            <span class="mr-1">♾️</span> 24330 <span class="ml-2 font-serif text-[10px]">i</span>
+                        </div>
+                        <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white bg-slate-200 overflow-hidden shadow-md">
+                            <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    
+                    <div class="pt-12 pb-6 px-6 text-center">
+                        <h2 class="text-2xl font-bold heading-font text-slate-800" id="modal-profile-name">Aster</h2>
+                        <div class="flex items-center justify-center space-x-2 mt-1">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm flex items-center">🎖️ Lauded Hero</span>
+                        </div>
+                        <p class="text-xs text-emerald-600 font-bold mt-2 flex items-center justify-center"><span class="mr-1">🌱</span> Sprout Starter</p>
+                        
+                        <div class="mt-4 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-between items-center px-4">
+                            <span class="text-xs font-bold text-slate-500">Base Power</span>
+                            <span class="font-bold text-slate-800 text-sm">86200K <span class="text-[10px] text-slate-400 font-normal ml-1">ⓘ</span></span>
+                        </div>
+
+                        <!-- Hero Overview -->
+                        <div class="mt-6 text-left">
+                            <div class="flex items-center justify-center mb-3 relative">
+                                <div class="border-t border-slate-200 absolute w-full z-0"></div>
+                                <span class="bg-white px-3 text-xs font-bold text-slate-400 uppercase relative z-10">Hero Overview</span>
+                            </div>
+                            <div class="flex justify-center gap-2" id="modal-profile-heroes">
+                                <!-- Populated dynamically by top 5 heroes from DB -->
+                            </div>
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="mt-6 text-center relative">
+                            <span class="absolute -top-3 left-4 text-3xl text-slate-200 font-serif">"</span>
+                            <p class="text-xs text-slate-500 px-6 italic" id="modal-profile-bio">Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...</p>
+                            <span class="absolute -bottom-4 right-4 text-3xl text-slate-200 font-serif rotate-180">"</span>
+                        </div>
+                        
+                        <p class="text-[10px] text-slate-400 mt-6" id="modal-profile-meta">User ID : 40164131 | Server : G289</p>
+                    </div>
+                    
+                    <!-- Tabs -->
+                    <div class="flex border-t border-slate-200">
+                        <button class="flex-1 py-3 text-sm font-bold bg-emerald-600 text-white">Profile</button>
+                        <button class="flex-1 py-3 text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">Homestead</button>
+                    </div>
                 </div>
             </div>
 
@@ -930,7 +1125,8 @@
             HOMESTEAD: 'afk_homestead',
             TREASURY: 'afk_treasury',
             STRATEGY: 'afk_strategy',
-            HALL: 'afk_hall'
+            HALL: 'afk_hall',
+            SETTINGS: 'afk_settings'
         };
 
         // Utility function to prevent XSS injection
@@ -938,6 +1134,14 @@
             const div = document.createElement('div');
             div.textContent = str;
             return div.innerHTML;
+        };
+
+        const artifactNames = {
+            lightheal: '🔮 Lightheal',
+            manawake: '💧 Manawake',
+            rockbind: '🪨 Rockbind',
+            blazeburn: '🔥 Blazeburn',
+            earthshell: '🐢 Earthshell'
         };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -950,7 +1154,7 @@
                 mobileMenu: document.getElementById('mobile-menu'),
                 closeMobileBtn: document.getElementById('close-mobile-menu'),
                 
-                // Modal & Form Elements
+                // Modal Elements
                 addHeroBtn: document.getElementById('add-hero-btn'),
                 heroModal: document.getElementById('add-hero-modal'),
                 closeModalBtn: document.getElementById('add-hero-close'),
@@ -964,7 +1168,6 @@
                 resonanceLevel: 924,
                 soulPact: { sigmund: 95, bloomMother: 90, alphaBear: 90, charon: 90, skyclops: 90 },
                 equipment: { tank: 900, warrior: 900, rogue: 900, marksman: 900, mage: 900, support: 900 },
-                // Upgraded Artifacts State to an array of objects for full customizability
                 artifacts: [
                     { id: 'art1', name: 'Lightheal Spell', icon: '🔮', level: 25, stats: 'ATK +11.2% | HP +22.3% | Vitality +16.8' },
                     { id: 'art2', name: 'Manawake Spell', icon: '💧', level: 25, stats: 'ATK +12.4% | HP +26.8% | Haste +7' },
@@ -982,61 +1185,44 @@
             };
 
             let hallData = JSON.parse(localStorage.getItem(STORAGE_KEYS.HALL)) || defaultHallState;
-            
-            // Clean out old format (array)
-            if (Array.isArray(hallData.soulPact)) {
-                hallData.soulPact = defaultHallState.soulPact;
-            }
-            // Migrate Artifacts to Array structure safely
-            if (!Array.isArray(hallData.artifacts)) {
-                hallData.artifacts = defaultHallState.artifacts;
-            }
+            if (Array.isArray(hallData.soulPact)) hallData.soulPact = defaultHallState.soulPact;
+            if (!Array.isArray(hallData.artifacts)) hallData.artifacts = defaultHallState.artifacts;
 
             // --- State Management ---
             let state = {
                 heroes: JSON.parse(localStorage.getItem(STORAGE_KEYS.HEROES)) || [],
                 tasks: JSON.parse(localStorage.getItem(STORAGE_KEYS.TASKS)) || [],
                 insights: JSON.parse(localStorage.getItem(STORAGE_KEYS.INSIGHTS)) || {
-                    afkStage: 1819,
-                    durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic' },
-                    legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 },
-                    supremeArena: { rank: 82 }
+                    afkStage: 1819, durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic' },
+                    legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 }, supremeArena: { rank: 82 }
                 },
                 homestead: JSON.parse(localStorage.getItem(STORAGE_KEYS.HOMESTEAD)) || {
                     core: { wish: 1115689, coin: 217559, stamina: 5000 },
                     darkswarm: { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] },
                     production: [
-                        { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' },
-                        { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
-                        { id: 'r3', name: 'Leyline Essence', prod: 3609, stock: 2171392, icon: '✨' },
-                        { id: 'r4', name: 'Emberleaf', prod: 912, stock: 3886647, icon: '🍁' },
+                        { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' }, { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
+                        { id: 'r3', name: 'Leyline Essence', prod: 3609, stock: 2171392, icon: '✨' }, { id: 'r4', name: 'Emberleaf', prod: 912, stock: 3886647, icon: '🍁' },
                         { id: 'r5', name: 'Grape', prod: 808, stock: 3372950, icon: '🍇' }
                     ],
                     buildings: [
-                        { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼' },
-                        { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️' },
-                        { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳' },
-                        { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️' },
-                        { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪' },
-                        { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚' },
-                        { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭' },
-                        { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮' },
-                        { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️' },
-                        { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
+                        { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼' }, { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️' },
+                        { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳' }, { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️' },
+                        { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪' }, { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚' },
+                        { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭' }, { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮' },
+                        { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️' }, { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
                         { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿' }
                     ]
                 },
                 treasury: JSON.parse(localStorage.getItem(STORAGE_KEYS.TREASURY)) || {
-                    diamonds: 15400,
-                    epicInvites: 24,
-                    allHeroLetters: 45,
-                    stargazeCrystals: 12,
+                    diamonds: 15400, epicInvites: 24, allHeroLetters: 45, stargazeCrystals: 12,
                     wishlist: ['Thoran', 'Cecia', 'Smokey & Meerky', 'Koko']
                 },
-                strategy: JSON.parse(localStorage.getItem(STORAGE_KEYS.STRATEGY)) || {
-                    formations: []
-                },
-                hall: hallData
+                strategy: JSON.parse(localStorage.getItem(STORAGE_KEYS.STRATEGY)) || { formations: [] },
+                hall: hallData,
+                settings: JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS)) || {
+                    theme: 'light', fontFamily: "'Lato', sans-serif", fontSize: 16,
+                    profile: { name: 'Aster', id: '40164131', server: 'G289', bio: 'Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...' }
+                }
             };
 
             const saveState = () => {
@@ -1047,12 +1233,86 @@
                 localStorage.setItem(STORAGE_KEYS.TREASURY, JSON.stringify(state.treasury));
                 localStorage.setItem(STORAGE_KEYS.STRATEGY, JSON.stringify(state.strategy));
                 localStorage.setItem(STORAGE_KEYS.HALL, JSON.stringify(state.hall));
+                localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
             };
             
+            // --- UI Settings & Theming ---
+            function applySettings() {
+                // Apply Theme
+                document.body.className = `flex h-screen overflow-hidden theme-${state.settings.theme}`;
+                // Apply Font Family
+                document.body.style.fontFamily = state.settings.fontFamily;
+                // Apply Font Size (UI Scale via root rem)
+                document.documentElement.style.setProperty('--base-font-size', `${state.settings.fontSize}px`);
+                
+                // Update Settings View Inputs if on that page
+                const themeSel = document.getElementById('settings-theme');
+                const fontSel = document.getElementById('settings-font');
+                const sizeRange = document.getElementById('settings-size');
+                const sizeDisp = document.getElementById('settings-size-display');
+                
+                if(themeSel) themeSel.value = state.settings.theme;
+                if(fontSel) fontSel.value = state.settings.fontFamily;
+                if(sizeRange) {
+                    sizeRange.value = state.settings.fontSize;
+                    sizeDisp.textContent = `${state.settings.fontSize}px`;
+                }
+
+                // Update Profile Preview Card
+                const profName = document.getElementById('profile-name-display');
+                if(profName) profName.textContent = state.settings.profile.name;
+            }
+
+            const themeSelect = document.getElementById('settings-theme');
+            const fontSelect = document.getElementById('settings-font');
+            const sizeInput = document.getElementById('settings-size');
+
+            if (themeSelect) themeSelect.addEventListener('change', (e) => { state.settings.theme = e.target.value; saveState(); applySettings(); });
+            if (fontSelect) fontSelect.addEventListener('change', (e) => { state.settings.fontFamily = e.target.value; saveState(); applySettings(); });
+            if (sizeInput) sizeInput.addEventListener('input', (e) => { 
+                state.settings.fontSize = e.target.value; 
+                document.getElementById('settings-size-display').textContent = `${e.target.value}px`;
+                saveState(); applySettings(); 
+            });
+
+            // Profile Modal Logic
+            const openProfileBtn = document.getElementById('btn-open-profile');
+            const profileModal = document.getElementById('profile-modal');
+            const profileCloseBtn = document.getElementById('profile-close-btn');
+
+            if (openProfileBtn) {
+                openProfileBtn.addEventListener('click', () => {
+                    // Populate Profile Modal dynamically
+                    document.getElementById('modal-profile-name').textContent = sanitize(state.settings.profile.name);
+                    document.getElementById('modal-profile-bio').textContent = sanitize(state.settings.profile.bio);
+                    document.getElementById('modal-profile-meta').textContent = `User ID : ${sanitize(state.settings.profile.id)} | Server : ${sanitize(state.settings.profile.server)}`;
+                    
+                    // Render Top 5 Heroes in Profile Overview
+                    const overviewContainer = document.getElementById('modal-profile-heroes');
+                    overviewContainer.innerHTML = '';
+                    const topHeroes = state.heroes.slice(0, 5);
+                    
+                    if (topHeroes.length === 0) {
+                        overviewContainer.innerHTML = '<span class="text-xs text-slate-400 italic">No heroes found. Add some in Resonating Hall!</span>';
+                    } else {
+                        topHeroes.forEach(h => {
+                            const shortName = h.name.substring(0,3).toUpperCase();
+                            overviewContainer.innerHTML += `<div class="w-12 h-12 bg-slate-200 border-2 border-white shadow-md rounded flex items-center justify-center text-xs font-bold text-slate-600">${sanitize(shortName)}</div>`;
+                        });
+                    }
+
+                    profileModal.classList.remove('hidden');
+                });
+            }
+
+            if (profileCloseBtn) profileCloseBtn.addEventListener('click', () => profileModal.classList.add('hidden'));
+
+
             // --- Navigation Controller ---
             function switchView(targetId) {
                 document.querySelectorAll('.nav-item').forEach(nav => {
                     nav.classList.remove('nav-active', 'bg-slate-100');
+                    // Need to remove dark/sage active backgrounds dynamically handled by CSS
                     if (nav.getAttribute('data-target') === targetId) {
                         nav.classList.add('nav-active', 'bg-slate-100');
                     }
@@ -1098,8 +1358,8 @@
             function renderTasks() {
                 const dailyTasksContainer = document.getElementById('daily-tasks-container');
                 const weeklyTasksContainer = document.getElementById('weekly-tasks-container');
-                const progressBar = document.getElementById('daily-progress-bar');
-                const progressText = document.getElementById('daily-progress-text');
+                const dailyProgressBar = document.getElementById('daily-progress-bar');
+                const weeklyProgressBar = document.getElementById('weekly-progress-bar');
 
                 if (!dailyTasksContainer || !weeklyTasksContainer) return;
 
@@ -1108,22 +1368,29 @@
                 
                 let dailyTotal = 0;
                 let dailyCompleted = 0;
+                let weeklyTotal = 0;
+                let weeklyCompleted = 0;
 
                 state.tasks.forEach(task => {
-                    if (task.type === 'daily') dailyTotal++;
-                    if (task.type === 'daily' && task.completed) dailyCompleted++;
+                    if (task.type === 'daily') {
+                        dailyTotal++;
+                        if (task.completed) dailyCompleted++;
+                    } else if (task.type === 'weekly') {
+                        weeklyTotal++;
+                        if (task.completed) weeklyCompleted++;
+                    }
 
                     const taskDiv = document.createElement('div');
                     taskDiv.className = `flex justify-between items-center p-3 rounded-lg border ${task.completed ? 'bg-slate-50 border-slate-200 opacity-60' : 'bg-white border-slate-200 shadow-sm'}`;
                     
                     taskDiv.innerHTML = `
                         <label class="flex items-center cursor-pointer flex-1">
-                            <input type="checkbox" class="task-checkbox mr-3 w-4 h-4 text-yellow-500 rounded border-slate-300 focus:ring-yellow-500" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
+                            <input type="checkbox" class="task-checkbox mr-3 w-4 h-4 text-slate-700 rounded border-slate-300 focus:ring-slate-500" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
                             <span class="${task.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${sanitize(task.text)}</span>
                         </label>
-                        <div class="flex items-center space-x-2">
-                            <button class="edit-task-btn text-slate-400 hover:text-slate-800 ml-2" data-id="${task.id}" aria-label="Edit Task">✏️</button>
-                            <button class="delete-task-btn text-slate-400 hover:text-red-500 ml-1" data-id="${task.id}" aria-label="Delete Task">✕</button>
+                        <div class="flex items-center space-x-3 ml-2">
+                            <button class="edit-task-btn text-orange-400 hover:text-orange-600 transition-colors" data-id="${task.id}" aria-label="Edit Task">✏️</button>
+                            <button class="delete-task-btn text-slate-300 hover:text-red-500 text-lg leading-none transition-colors" data-id="${task.id}" aria-label="Delete Task">✕</button>
                         </div>
                     `;
 
@@ -1134,9 +1401,12 @@
                     }
                 });
 
-                const percentage = dailyTotal === 0 ? 0 : Math.round((dailyCompleted / dailyTotal) * 100);
-                if (progressBar) progressBar.style.width = `${percentage}%`;
-                if (progressText) progressText.textContent = `${percentage}%`;
+                // Update Progress Bars Separately
+                const dailyPercentage = dailyTotal === 0 ? 0 : Math.round((dailyCompleted / dailyTotal) * 100);
+                if (dailyProgressBar) dailyProgressBar.style.width = `${dailyPercentage}%`;
+                
+                const weeklyPercentage = weeklyTotal === 0 ? 0 : Math.round((weeklyCompleted / weeklyTotal) * 100);
+                if (weeklyProgressBar) weeklyProgressBar.style.width = `${weeklyPercentage}%`;
 
                 // Re-bind events
                 document.querySelectorAll('.task-checkbox').forEach(box => {
@@ -1237,7 +1507,7 @@
                 document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
             }
 
-            // Global + / - Buttons handler (Now includes Hall equipment)
+            // Global + / - Buttons handler
             document.addEventListener('click', (e) => {
                 const btn = e.target.closest('button[data-action]');
                 if (!btn) return;
@@ -1269,7 +1539,6 @@
                         let newRank = state.insights.supremeArena.rank + modifier;
                         state.insights.supremeArena.rank = newRank < 1 ? 1 : newRank;
                         break;
-                    // Resonating Hall Specifics
                     case 'resonance':
                         let newRes = state.hall.resonanceLevel + modifier;
                         state.hall.resonanceLevel = newRes < 1 ? 1 : newRes;
@@ -1283,7 +1552,7 @@
                 }
                 saveState();
                 renderInsights();
-                renderHallDashboard(); // For the eq changes
+                renderHallDashboard(); 
             });
 
             // --- Hero Manager (Resonating Hall) ---
@@ -1393,10 +1662,8 @@
             function renderHallDashboard() {
                 if (!document.getElementById('hall-resonance-level')) return;
                 
-                // Resonance
                 document.getElementById('hall-resonance-level').textContent = state.hall.resonanceLevel;
 
-                // Equipment
                 document.getElementById('hall-eq-tank').textContent = state.hall.equipment.tank;
                 document.getElementById('hall-eq-warrior').textContent = state.hall.equipment.warrior;
                 document.getElementById('hall-eq-rogue').textContent = state.hall.equipment.rogue;
@@ -1404,7 +1671,6 @@
                 document.getElementById('hall-eq-mage').textContent = state.hall.equipment.mage;
                 document.getElementById('hall-eq-support').textContent = state.hall.equipment.support;
 
-                // Soul Pact - Creatures Data Setup
                 const spContainer = document.getElementById('hall-soulpact-container');
                 let spHtml = '';
                 const spCreatures = [
@@ -1448,7 +1714,6 @@
                 });
                 artContainer.innerHTML = artHtml;
 
-                // Bind Edit Artifact Buttons
                 document.querySelectorAll('.edit-artifact-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const artId = e.target.getAttribute('data-id');
@@ -1457,7 +1722,6 @@
                 });
             }
 
-            // Hall Modals
             const openSoulPactModal = () => {
                 for (const key of Object.keys(state.hall.soulPact)) {
                     const el = document.getElementById(`sp-${key}`);
@@ -1518,7 +1782,6 @@
                         artifact.name = document.getElementById('edit-art-name').value;
                         artifact.level = Math.max(0, parseInt(document.getElementById('edit-art-level').value) || 0);
                         
-                        // Re-combine the stats with a pipe for display formatting
                         const stat1 = document.getElementById('edit-art-stat1').value.trim();
                         const stat2 = document.getElementById('edit-art-stat2').value.trim();
                         const stat3 = document.getElementById('edit-art-stat3').value.trim();
@@ -1527,7 +1790,6 @@
                         
                         saveState();
                         renderHallDashboard();
-                        // Also update Strategy Vault choices in case names changed
                         if (document.getElementById('comp-artifact')) populateCompDropdowns();
                         closeArtifactEditModal();
                     }
@@ -1614,7 +1876,6 @@
             const bldFilter = document.getElementById('building-filter');
             if (bldFilter) bldFilter.addEventListener('change', renderHomestead);
 
-            // Homestead Darkswarm Modal
             const openDarkswarmModal = () => {
                 if (!state.homestead.darkswarm) return;
                 document.getElementById('ds-input-aggression').value = state.homestead.darkswarm.aggression;
@@ -1668,7 +1929,6 @@
             const updateDsBtn = document.getElementById('update-darkswarm-btn');
             if (updateDsBtn) updateDsBtn.addEventListener('click', openDarkswarmModal);
 
-            // Homestead Resources Modal
             const openResourceModal = () => {
                 document.getElementById('res-wish').value = state.homestead.core.wish;
                 document.getElementById('res-coin').value = state.homestead.core.coin;
@@ -1754,7 +2014,6 @@
                 });
             }
 
-            // Treasury Modal
             const openTreasuryModal = () => {
                 document.getElementById('trs-diamonds').value = state.treasury.diamonds;
                 document.getElementById('trs-epic').value = state.treasury.epicInvites;
@@ -1901,7 +2160,7 @@
                         return `<div class="w-10 h-10 bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-[10px] font-bold text-slate-600 overflow-hidden shadow-sm" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
                     }).join('');
 
-                    // Safely extract Artifact info (Fallback for older string saves)
+                    // Safely extract Artifact info
                     let artifactIcon = '✨';
                     let artifactName = 'Artifact';
                     const foundArt = state.hall.artifacts.find(a => a.id === comp.artifact);
@@ -1949,15 +2208,12 @@
             if (modeSelector) modeSelector.addEventListener('change', updateBossOptions);
             if (bossSelector) bossSelector.addEventListener('change', renderBossStrategy);
             
-            // Strategy Modal Handlers
             function populateCompDropdowns() {
-                // Populate Artifact Dropdown from Database
                 const artSelect = document.getElementById('comp-artifact');
                 if (artSelect) {
                     artSelect.innerHTML = state.hall.artifacts.map(a => `<option value="${a.id}">${sanitize(a.icon)} ${sanitize(a.name)}</option>`).join('');
                 }
                 
-                // Populate Heroes
                 const selects = document.querySelectorAll('.comp-hero-select');
                 const optionsHtml = '<option value="">- Hero -</option>' + 
                     state.heroes.map(h => `<option value="${sanitize(h.name)}">${sanitize(h.name)}</option>`).join('');
@@ -2015,6 +2271,7 @@
             }
 
             // --- App Initialization ---
+            applySettings();
             updateBossOptions();
             renderTasks();
             renderInsights();
