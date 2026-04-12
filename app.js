@@ -183,33 +183,37 @@ const saveTasks = () => {
 };
 
 function renderTasks() {
+    // Check if containers exist before trying to modify them
+    if (!dailyTasksContainer || !weeklyTasksContainer) return; 
+
     dailyTasksContainer.innerHTML = '';
     weeklyTasksContainer.innerHTML = '';
     
     let dailyTotal = 0;
     let dailyCompleted = 0;
 
-    state.tasks.forEach(task => {
-        if (task.type === 'daily') dailyTotal++;
-        if (task.type === 'daily' && task.completed) dailyCompleted++;
+    // ... (keep the rest of your state.tasks.forEach loop exactly the same) ...
 
-        const taskDiv = document.createElement('div');
-        taskDiv.className = `flex justify-between items-center p-3 rounded-lg border ${task.completed ? 'bg-slate-50 border-slate-200 opacity-60' : 'bg-white border-slate-200 shadow-sm'}`;
-        
-        taskDiv.innerHTML = `
-            <label class="flex items-center cursor-pointer flex-1">
-                <input type="checkbox" class="task-checkbox mr-3 w-4 h-4 text-yellow-500 rounded border-slate-300 focus:ring-yellow-500" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
-                <span class="${task.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${task.text}</span>
-            </label>
-            <button class="edit-task-btn text-slate-400 hover:text-slate-800 ml-2" data-id="${task.id}" aria-label="Edit Task">✏️</button>
-        `;
+    // Update Progress Bar (Check if they exist first)
+    const percentage = dailyTotal === 0 ? 0 : Math.round((dailyCompleted / dailyTotal) * 100);
+    if (progressBar) progressBar.style.width = `${percentage}%`;
+    if (progressText) progressText.textContent = `${percentage}%`;
 
-        if (task.type === 'daily') {
-            dailyTasksContainer.appendChild(taskDiv);
-        } else {
-            weeklyTasksContainer.appendChild(taskDiv);
-        }
-    });
+    attachTaskListeners();
+}
+
+// ... (keep attachTaskListeners and addNewTask exactly the same) ...
+
+// Add null checks to the buttons before attaching listeners
+if (addDailyBtn) {
+    addDailyBtn.addEventListener('click', () => addNewTask('daily'));
+}
+if (addWeeklyBtn) {
+    addWeeklyBtn.addEventListener('click', () => addNewTask('weekly'));
+}
+
+// Initialize task render
+renderTasks();
 
     // Update Progress Bar
     const percentage = dailyTotal === 0 ? 0 : Math.round((dailyCompleted / dailyTotal) * 100);
