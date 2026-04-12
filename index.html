@@ -242,11 +242,11 @@
                                 <div class="mb-4 relative z-10 flex justify-between items-start">
                                     <div>
                                         <h4 class="text-fuchsia-800 font-bold uppercase text-xs mb-1">Soul Pact</h4>
-                                        <p class="text-xs text-fuchsia-700">Assigned Heroes</p>
+                                        <p class="text-xs text-fuchsia-700">Creature Levels</p>
                                     </div>
                                     <button id="update-soulpact-btn" class="text-[10px] font-bold text-white bg-fuchsia-600 hover:bg-fuchsia-700 px-2 py-1 rounded shadow">Edit</button>
                                 </div>
-                                <div id="hall-soulpact-container" class="flex justify-between items-center bg-white/60 rounded-xl p-2 border border-fuchsia-100 shadow-inner relative z-10 gap-1">
+                                <div id="hall-soulpact-container" class="grid grid-cols-5 gap-2 relative z-10">
                                     <!-- Populated dynamically by JS -->
                                 </div>
                             </div>
@@ -317,18 +317,13 @@
                             </div>
                         </div>
 
-                        <!-- Artifacts Card -->
-                        <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                            <div class="flex justify-between items-center mb-3 relative z-10">
-                                <div>
-                                    <h4 class="text-amber-800 font-bold uppercase text-xs mb-1">Artifacts</h4>
-                                    <p class="text-xs text-amber-700">Spell Levels</p>
-                                </div>
-                                <button id="update-artifacts-btn" class="text-[10px] font-bold text-white bg-amber-600 hover:bg-amber-700 px-2 py-1.5 rounded shadow">Update</button>
-                            </div>
-                            <div id="hall-artifacts-container" class="flex flex-wrap gap-2 relative z-10">
-                                <!-- Populated dynamically by JS -->
-                            </div>
+                        <!-- Artifacts Grid Card Section -->
+                        <div class="mb-4 flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-amber-800 flex items-center"><span class="mr-2">🔮</span> Season Artifacts</h3>
+                            <p class="text-xs text-amber-700 font-medium">Click ✏️ to customize levels and details.</p>
+                        </div>
+                        <div id="hall-artifacts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 relative z-10">
+                            <!-- Populated dynamically by JS -->
                         </div>
                     </div>
 
@@ -682,7 +677,6 @@
                 </div>
             </div>
 
-            <!-- Hall Dashboard Modals -->
             <!-- Soul Pact Modal -->
             <div id="soulpact-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-slate-900/50" id="soulpact-backdrop"></div>
@@ -691,18 +685,28 @@
                         <h4 class="text-lg font-bold heading-font text-slate-800">Update Soul Pact</h4>
                         <button id="soulpact-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
                     </div>
-                    <form id="soulpact-form" class="space-y-4">
-                        <div>
-                            <label class="text-xs font-bold text-slate-600 uppercase mb-2 block">Select 5 Assigned Heroes</label>
-                            <div class="space-y-2">
-                                <select id="sp-hero-0" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
-                                <select id="sp-hero-1" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
-                                <select id="sp-hero-2" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
-                                <select id="sp-hero-3" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
-                                <select id="sp-hero-4" class="sp-hero-select w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-fuchsia-500"></select>
-                            </div>
+                    <form id="soulpact-form" class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">❄️ Sigmund</label>
+                            <input id="sp-sigmund" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-fuchsia-500" />
                         </div>
-                        <div class="flex items-center justify-end space-x-2 pt-2 mt-4 border-t border-slate-100">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🌸 Bloom Mother</label>
+                            <input id="sp-bloomMother" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-fuchsia-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🐻 Alpha Bear</label>
+                            <input id="sp-alphaBear" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-fuchsia-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">🚣 Charon</label>
+                            <input id="sp-charon" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-fuchsia-500" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">👁️ Skyclops</label>
+                            <input id="sp-skyclops" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-fuchsia-500" />
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100 mt-2">
                             <button type="button" id="soulpact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
                             <button type="submit" class="px-4 py-2 text-sm rounded bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold">Save Pact</button>
                         </div>
@@ -710,47 +714,49 @@
                 </div>
             </div>
 
-            <!-- Artifacts Modal -->
-            <div id="artifacts-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="artifacts-backdrop"></div>
+            <!-- Single Artifact Edit Modal -->
+            <div id="single-artifact-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="single-artifact-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Artifacts</h4>
-                        <button id="artifacts-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Edit Artifact</h4>
+                        <button id="single-artifact-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
                     </div>
-                    <form id="artifacts-form" class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">🔮 Lightheal Spell</label>
-                            <input id="art-lightheal" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                    <form id="single-artifact-form" class="space-y-4">
+                        <input type="hidden" id="edit-art-id">
+                        <div class="grid grid-cols-4 gap-3">
+                             <div class="col-span-1">
+                                 <label class="text-[10px] font-bold text-slate-600 uppercase">Icon</label>
+                                 <input id="edit-art-icon" required class="mt-1 w-full border border-slate-300 rounded px-2 py-2 text-lg text-center outline-none focus:border-amber-500">
+                             </div>
+                             <div class="col-span-3">
+                                 <label class="text-[10px] font-bold text-slate-600 uppercase">Name</label>
+                                 <input id="edit-art-name" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-amber-500">
+                             </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">🌠 Starshower Spell</label>
-                            <input id="art-starshower" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        <div class="grid grid-cols-4 gap-3">
+                             <div class="col-span-1">
+                                 <label class="text-[10px] font-bold text-slate-600 uppercase">Level</label>
+                                 <input id="edit-art-level" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-2 py-2 text-sm text-center outline-none focus:border-amber-500">
+                             </div>
+                             <div class="col-span-3">
+                                 <label class="text-[10px] font-bold text-slate-600 uppercase">Stat 1</label>
+                                 <input id="edit-art-stat1" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-xs outline-none focus:border-amber-500" placeholder="e.g. ATK +11.2%">
+                             </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">🔥 Blazing Spell</label>
-                            <input id="art-blazing" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
+                        <div class="grid grid-cols-2 gap-3">
+                             <div>
+                                 <label class="text-[10px] font-bold text-slate-600 uppercase">Stat 2</label>
+                                 <input id="edit-art-stat2" class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-xs outline-none focus:border-amber-500" placeholder="e.g. HP +22.3%">
+                             </div>
+                             <div>
+                                 <label class="text-[10px] font-bold text-slate-600 uppercase">Stat 3</label>
+                                 <input id="edit-art-stat3" class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-xs outline-none focus:border-amber-500" placeholder="e.g. Vitality +16.8">
+                             </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">🛡️ Ironwall Spell</label>
-                            <input id="art-ironwall" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">⚔️ Quickblade Spell</label>
-                            <input id="art-quickblade" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">✨ Awakening Spell</label>
-                            <input id="art-awakening" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 uppercase">❄️ Evocation Spell</label>
-                            <input id="art-evocation" type="number" min="0" required class="w-20 border border-slate-300 rounded px-2 py-1 text-sm outline-none focus:border-amber-500" />
-                        </div>
-                        
-                        <div class="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100 mt-2">
-                            <button type="button" id="artifacts-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
-                            <button type="submit" class="px-4 py-2 text-sm rounded bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold">Save Levels</button>
+                        <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-2">
+                            <button type="button" id="single-artifact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold">Save Artifact</button>
                         </div>
                     </form>
                 </div>
@@ -891,13 +897,7 @@
                         <div>
                             <label class="text-xs font-bold text-slate-600 uppercase">Artifact</label>
                             <select id="comp-artifact" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-indigo-500 outline-none">
-                                <option value="🔮 Lightheal Spell">🔮 Lightheal Spell</option>
-                                <option value="🌠 Starshower Spell">🌠 Starshower Spell</option>
-                                <option value="🔥 Blazing Spell">🔥 Blazing Spell</option>
-                                <option value="🛡️ Ironwall Spell">🛡️ Ironwall Spell</option>
-                                <option value="⚔️ Quickblade Spell">⚔️ Quickblade Spell</option>
-                                <option value="✨ Awakening Spell">✨ Awakening Spell</option>
-                                <option value="❄️ Evocation Spell">❄️ Evocation Spell</option>
+                                <!-- Populated dynamically by JS -->
                             </select>
                         </div>
                         <div>
@@ -940,16 +940,6 @@
             return div.innerHTML;
         };
 
-        const artifactNames = {
-            lightheal: '🔮 Lightheal',
-            starshower: '🌠 Starshower',
-            blazing: '🔥 Blazing',
-            ironwall: '🛡️ Ironwall',
-            quickblade: '⚔️ Quickblade',
-            awakening: '✨ Awakening',
-            evocation: '❄️ Evocation'
-        };
-
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- DOM Elements ---
@@ -968,6 +958,39 @@
                 heroForm: document.getElementById('add-hero-form'),
                 tableBody: document.getElementById('hero-table-body'),
             };
+
+            // --- Database Setup & Migration ---
+            let defaultHallState = {
+                resonanceLevel: 924,
+                soulPact: { sigmund: 95, bloomMother: 90, alphaBear: 90, charon: 90, skyclops: 90 },
+                equipment: { tank: 900, warrior: 900, rogue: 900, marksman: 900, mage: 900, support: 900 },
+                // Upgraded Artifacts State to an array of objects for full customizability
+                artifacts: [
+                    { id: 'art1', name: 'Lightheal Spell', icon: '🔮', level: 25, stats: 'ATK +11.2% | HP +22.3% | Vitality +16.8' },
+                    { id: 'art2', name: 'Manawake Spell', icon: '💧', level: 25, stats: 'ATK +12.4% | HP +26.8% | Haste +7' },
+                    { id: 'art3', name: 'Rockbind Spell', icon: '🪨', level: 25, stats: 'ATK +13.3% | P&M DEF +41.9% | HP +17.1%' },
+                    { id: 'art4', name: 'Blazeburn Spell', icon: '🔥', level: 25, stats: 'ATK +16.6% | P&M DEF +47.7% | Haste +7' },
+                    { id: 'art5', name: 'Earthshell Spell', icon: '🐢', level: 25, stats: 'HP +23.6% | P&M DEF +40.8% | Ranged DEF +12.6' },
+                    { id: 'art6', name: 'Starshower Spell', icon: '🌠', level: 25, stats: 'ATK +16.8% | HP +18.9% | Crit +18.2' },
+                    { id: 'art7', name: 'Razorbeam Spell', icon: '⚡', level: 25, stats: 'ATK +16.5% | HP +20.7% | DEF Pen +7' },
+                    { id: 'art8', name: 'Arcanewild Spell', icon: '🌿', level: 25, stats: 'ATK +17.2% | P&M DEF +38.7% | DEF Pen +9.8' },
+                    { id: 'art9', name: 'Crescent Spell', icon: '🌙', level: 25, stats: 'ATK +14.9% | P&M DEF +48.8% | ATK SPD +14' },
+                    { id: 'art10', name: 'Bladechaser Spell', icon: '🗡️', level: 25, stats: 'ATK +13.3% | HP +19.9% | Life Drain +11.2' },
+                    { id: 'art11', name: 'Bulwark Spell', icon: '🛡️', level: 25, stats: 'ATK +17.5% | P&M DEF +34.9% | Vitality +15.4' },
+                    { id: 'art12', name: 'Resonating Spell', icon: '✨', level: 25, stats: 'ATK +11.2% | HP +22.3% | Haste +11.2' }
+                ]
+            };
+
+            let hallData = JSON.parse(localStorage.getItem(STORAGE_KEYS.HALL)) || defaultHallState;
+            
+            // Clean out old format (array)
+            if (Array.isArray(hallData.soulPact)) {
+                hallData.soulPact = defaultHallState.soulPact;
+            }
+            // Migrate Artifacts to Array structure safely
+            if (!Array.isArray(hallData.artifacts)) {
+                hallData.artifacts = defaultHallState.artifacts;
+            }
 
             // --- State Management ---
             let state = {
@@ -1013,12 +1036,7 @@
                 strategy: JSON.parse(localStorage.getItem(STORAGE_KEYS.STRATEGY)) || {
                     formations: []
                 },
-                hall: JSON.parse(localStorage.getItem(STORAGE_KEYS.HALL)) || {
-                    resonanceLevel: 924,
-                    soulPact: ["", "", "", "", ""],
-                    equipment: { tank: 900, warrior: 900, rogue: 900, marksman: 900, mage: 900, support: 900 },
-                    artifacts: { lightheal: 25, starshower: 25, blazing: 25, ironwall: 25, quickblade: 25, awakening: 25, evocation: 25 }
-                }
+                hall: hallData
             };
 
             const saveState = () => {
@@ -1386,42 +1404,65 @@
                 document.getElementById('hall-eq-mage').textContent = state.hall.equipment.mage;
                 document.getElementById('hall-eq-support').textContent = state.hall.equipment.support;
 
-                // Soul Pact
+                // Soul Pact - Creatures Data Setup
                 const spContainer = document.getElementById('hall-soulpact-container');
                 let spHtml = '';
-                state.hall.soulPact.forEach(hName => {
-                    if (!hName) {
-                        spHtml += `<div class="w-10 h-10 bg-fuchsia-100 rounded border border-fuchsia-200 flex-shrink-0"></div>`;
-                    } else {
-                        const shortName = hName.substring(0, 3).toUpperCase();
-                        spHtml += `<div class="w-10 h-10 bg-fuchsia-200 rounded border border-fuchsia-300 flex items-center justify-center text-[10px] font-bold text-fuchsia-800 shadow-sm" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
-                    }
+                const spCreatures = [
+                    { id: 'sigmund', name: 'Sigmund', icon: '❄️' },
+                    { id: 'bloomMother', name: 'Bloom', icon: '🌸' },
+                    { id: 'alphaBear', name: 'Alpha', icon: '🐻' },
+                    { id: 'charon', name: 'Charon', icon: '🚣' },
+                    { id: 'skyclops', name: 'Skyclops', icon: '👁️' }
+                ];
+                
+                spCreatures.forEach(c => {
+                    const level = state.hall.soulPact[c.id] || 0;
+                    spHtml += `
+                        <div class="flex flex-col items-center justify-center bg-white/60 rounded-xl p-1.5 border border-fuchsia-100 shadow-inner w-full" title="${c.name}">
+                            <span class="text-xl leading-none mb-1">${c.icon}</span>
+                            <span class="text-xs font-bold text-fuchsia-900">${level}</span>
+                        </div>
+                    `;
                 });
                 spContainer.innerHTML = spHtml;
 
-                // Artifacts
+                // Artifacts Grid View
                 const artContainer = document.getElementById('hall-artifacts-container');
                 let artHtml = '';
-                for (const [key, level] of Object.entries(state.hall.artifacts)) {
-                    artHtml += `<span class="bg-white border border-amber-200 px-3 py-1.5 rounded-lg text-amber-900 text-sm font-bold shadow-sm whitespace-nowrap">${sanitize(artifactNames[key])} <span class="text-amber-500 ml-1">+${level}</span></span>`;
-                }
+                state.hall.artifacts.forEach(art => {
+                    artHtml += `
+                        <div class="bg-white rounded-xl border border-amber-200 shadow-sm p-4 relative group flex flex-col justify-between">
+                            <button class="edit-artifact-btn absolute top-2 right-2 text-slate-400 hover:text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" data-id="${art.id}">✏️</button>
+                            <div class="flex items-center mb-3">
+                                <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-2xl mr-3 border border-amber-200 flex-shrink-0">${sanitize(art.icon)}</div>
+                                <div>
+                                    <h5 class="font-bold text-slate-800 text-sm leading-tight">${sanitize(art.name)}</h5>
+                                    <span class="text-xs font-bold text-amber-600">Level ${art.level}</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 rounded p-2 text-[10px] text-slate-600 font-mono tracking-tight break-words border border-slate-100 mt-auto">
+                                ${sanitize(art.stats)}
+                            </div>
+                        </div>
+                    `;
+                });
                 artContainer.innerHTML = artHtml;
-            }
 
-            // Hall Modals
-            function populateSoulPactSelects() {
-                const selects = document.querySelectorAll('.sp-hero-select');
-                const optionsHtml = '<option value="">- Empty Slot -</option>' + 
-                    state.heroes.map(h => `<option value="${sanitize(h.name)}">${sanitize(h.name)}</option>`).join('');
-                
-                selects.forEach((select, index) => {
-                    select.innerHTML = optionsHtml;
-                    select.value = state.hall.soulPact[index] || '';
+                // Bind Edit Artifact Buttons
+                document.querySelectorAll('.edit-artifact-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const artId = e.target.getAttribute('data-id');
+                        openArtifactEditModal(artId);
+                    });
                 });
             }
 
+            // Hall Modals
             const openSoulPactModal = () => {
-                populateSoulPactSelects();
+                for (const key of Object.keys(state.hall.soulPact)) {
+                    const el = document.getElementById(`sp-${key}`);
+                    if (el) el.value = state.hall.soulPact[key];
+                }
                 document.getElementById('soulpact-modal').classList.remove('hidden');
             };
             const closeSoulPactModal = () => document.getElementById('soulpact-modal').classList.add('hidden');
@@ -1433,42 +1474,63 @@
             if (document.getElementById('soulpact-form')) {
                 document.getElementById('soulpact-form').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    state.hall.soulPact = [
-                        document.getElementById('sp-hero-0').value,
-                        document.getElementById('sp-hero-1').value,
-                        document.getElementById('sp-hero-2').value,
-                        document.getElementById('sp-hero-3').value,
-                        document.getElementById('sp-hero-4').value
-                    ];
+                    for (const key of Object.keys(state.hall.soulPact)) {
+                        const el = document.getElementById(`sp-${key}`);
+                        if (el) state.hall.soulPact[key] = Math.max(0, parseInt(el.value) || 0);
+                    }
                     saveState();
                     renderHallDashboard();
                     closeSoulPactModal();
                 });
             }
 
-            const openArtifactsModal = () => {
-                for (const key of Object.keys(state.hall.artifacts)) {
-                    const el = document.getElementById(`art-${key}`);
-                    if(el) el.value = state.hall.artifacts[key];
-                }
-                document.getElementById('artifacts-modal').classList.remove('hidden');
+            // Single Artifact Edit Modal Handlers
+            const openArtifactEditModal = (artId) => {
+                const artifact = state.hall.artifacts.find(a => a.id === artId);
+                if (!artifact) return;
+                
+                document.getElementById('edit-art-id').value = artifact.id;
+                document.getElementById('edit-art-icon').value = artifact.icon;
+                document.getElementById('edit-art-name').value = artifact.name;
+                document.getElementById('edit-art-level').value = artifact.level;
+                
+                // Split the stats string to populate individual inputs
+                const statsArray = artifact.stats ? artifact.stats.split(' | ') : [];
+                document.getElementById('edit-art-stat1').value = statsArray[0] || '';
+                document.getElementById('edit-art-stat2').value = statsArray[1] || '';
+                document.getElementById('edit-art-stat3').value = statsArray[2] || '';
+                
+                document.getElementById('single-artifact-modal').classList.remove('hidden');
             };
-            const closeArtifactsModal = () => document.getElementById('artifacts-modal').classList.add('hidden');
+            const closeArtifactEditModal = () => document.getElementById('single-artifact-modal').classList.add('hidden');
 
-            if (document.getElementById('update-artifacts-btn')) document.getElementById('update-artifacts-btn').addEventListener('click', openArtifactsModal);
-            if (document.getElementById('artifacts-close-btn')) document.getElementById('artifacts-close-btn').addEventListener('click', closeArtifactsModal);
-            if (document.getElementById('artifacts-cancel-btn')) document.getElementById('artifacts-cancel-btn').addEventListener('click', closeArtifactsModal);
+            if (document.getElementById('single-artifact-close-btn')) document.getElementById('single-artifact-close-btn').addEventListener('click', closeArtifactEditModal);
+            if (document.getElementById('single-artifact-cancel-btn')) document.getElementById('single-artifact-cancel-btn').addEventListener('click', closeArtifactEditModal);
 
-            if (document.getElementById('artifacts-form')) {
-                document.getElementById('artifacts-form').addEventListener('submit', (e) => {
+            if (document.getElementById('single-artifact-form')) {
+                document.getElementById('single-artifact-form').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    for (const key of Object.keys(state.hall.artifacts)) {
-                        const el = document.getElementById(`art-${key}`);
-                        if(el) state.hall.artifacts[key] = Math.max(0, parseInt(el.value) || 0);
+                    const artId = document.getElementById('edit-art-id').value;
+                    const artifact = state.hall.artifacts.find(a => a.id === artId);
+                    
+                    if (artifact) {
+                        artifact.icon = document.getElementById('edit-art-icon').value;
+                        artifact.name = document.getElementById('edit-art-name').value;
+                        artifact.level = Math.max(0, parseInt(document.getElementById('edit-art-level').value) || 0);
+                        
+                        // Re-combine the stats with a pipe for display formatting
+                        const stat1 = document.getElementById('edit-art-stat1').value.trim();
+                        const stat2 = document.getElementById('edit-art-stat2').value.trim();
+                        const stat3 = document.getElementById('edit-art-stat3').value.trim();
+                        
+                        artifact.stats = [stat1, stat2, stat3].filter(s => s !== '').join(' | ');
+                        
+                        saveState();
+                        renderHallDashboard();
+                        // Also update Strategy Vault choices in case names changed
+                        if (document.getElementById('comp-artifact')) populateCompDropdowns();
+                        closeArtifactEditModal();
                     }
-                    saveState();
-                    renderHallDashboard();
-                    closeArtifactsModal();
                 });
             }
 
@@ -1839,9 +1901,22 @@
                         return `<div class="w-10 h-10 bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-[10px] font-bold text-slate-600 overflow-hidden shadow-sm" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
                     }).join('');
 
-                    const artifactParts = comp.artifact.split(' ');
-                    const artifactIcon = artifactParts[0]; 
-                    const artifactName = artifactParts.slice(1).join(' ');
+                    // Safely extract Artifact info (Fallback for older string saves)
+                    let artifactIcon = '✨';
+                    let artifactName = 'Artifact';
+                    const foundArt = state.hall.artifacts.find(a => a.id === comp.artifact);
+                    if (foundArt) {
+                        artifactIcon = foundArt.icon;
+                        artifactName = foundArt.name;
+                    } else {
+                        const parts = comp.artifact.split(' ');
+                        if (parts.length > 1) {
+                            artifactIcon = parts[0];
+                            artifactName = parts.slice(1).join(' ');
+                        } else {
+                            artifactName = comp.artifact;
+                        }
+                    }
 
                     formationsContainer.innerHTML += `
                         <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center gap-4 relative group">
@@ -1875,7 +1950,14 @@
             if (bossSelector) bossSelector.addEventListener('change', renderBossStrategy);
             
             // Strategy Modal Handlers
-            function populateCompHeroes() {
+            function populateCompDropdowns() {
+                // Populate Artifact Dropdown from Database
+                const artSelect = document.getElementById('comp-artifact');
+                if (artSelect) {
+                    artSelect.innerHTML = state.hall.artifacts.map(a => `<option value="${a.id}">${sanitize(a.icon)} ${sanitize(a.name)}</option>`).join('');
+                }
+                
+                // Populate Heroes
                 const selects = document.querySelectorAll('.comp-hero-select');
                 const optionsHtml = '<option value="">- Hero -</option>' + 
                     state.heroes.map(h => `<option value="${sanitize(h.name)}">${sanitize(h.name)}</option>`).join('');
@@ -1887,7 +1969,7 @@
 
             const openCompModal = () => {
                 document.getElementById('comp-date').value = new Date().toISOString().split('T')[0];
-                populateCompHeroes();
+                populateCompDropdowns();
                 document.getElementById('comp-modal').classList.remove('hidden');
             };
 
@@ -1936,7 +2018,7 @@
             updateBossOptions();
             renderTasks();
             renderInsights();
-            renderHallDashboard(); // NEW - Initializes the Resonating Hall specifics
+            renderHallDashboard();
             renderHomestead();
             renderHeroes(); 
             renderTreasury();
