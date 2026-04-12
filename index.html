@@ -68,100 +68,42 @@
 		<div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative w-full h-full">
 			
 			<section id="view-grind" class="view-section active h-full">
-<div class="mb-10">
-            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-                
-                <div class="bg-indigo-50 p-6 md:p-8 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                    <span class="absolute top-4 right-6 text-6xl opacity-10">⏳</span>
-                    <div class="mb-4">
-                        <h4 class="text-indigo-800 font-bold uppercase text-sm mb-1">AFK Stages</h4>
-                        <p class="text-sm text-indigo-700">Goal: 1850 (Phase 3)</p>
-                    </div>
-                    <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-indigo-100 shadow-inner">
-                        <button data-target="afk" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">-</button>
-                        <span id="insight-afk-stage" class="text-4xl font-bold text-indigo-900 heading-font">1819</span>
-                        <button data-target="afk" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">+</button>
-                    </div>
-                </div>
-                
-                <div class="bg-amber-50 p-6 md:p-8 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                    <span class="absolute top-4 right-6 text-6xl opacity-10">🛡️</span>
-                    <div class="mb-4">
-                        <h4 class="text-amber-800 font-bold uppercase text-sm mb-1">Dura's Trials</h4>
-                        <p class="text-sm font-bold text-amber-900">Ironwall (Tank) <span class="text-amber-700 font-normal">| Target: Mythic</span></p>
-                    </div>
-                    <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-amber-100 shadow-inner">
-                        <button data-target="dura" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">-</button>
-                        <div class="text-center">
-                            <span class="text-sm text-amber-600 font-bold uppercase tracking-wider block mb-[-4px]">Floor</span>
-                            <span id="insight-dura-floor" class="text-4xl font-bold text-amber-900 heading-font">40</span>
-                        </div>
-                        <button data-target="dura" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">+</button>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 p-6 md:p-8 rounded-2xl border border-emerald-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                    <span class="absolute top-4 right-6 text-6xl opacity-10">🗼</span>
-                    <div class="mb-4">
-                        <h4 class="text-emerald-800 font-bold uppercase text-sm mb-1">Legend Trials</h4>
-                        <p class="text-sm text-emerald-700">Faction Tower Floors</p>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
-                            <span class="font-bold text-emerald-900 w-16">Light</span>
-                            <div class="flex items-center space-x-2">
-                                <button data-target="light" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                <span id="insight-legend-light" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                <button data-target="light" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
-                            <span class="font-bold text-emerald-900 w-16">Nature</span>
-                            <div class="flex items-center space-x-2">
-                                <button data-target="nature" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                <span id="insight-legend-nature" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                <button data-target="nature" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
-                            <span class="font-bold text-emerald-900 w-16">Eternity</span>
-                            <div class="flex items-center space-x-2">
-                                <button data-target="eternity" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                <span id="insight-legend-eternity" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                <button data-target="eternity" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
-                            <span class="font-bold text-emerald-900 w-16">Will</span>
-                            <div class="flex items-center space-x-2">
-                                <button data-target="will" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                <span id="insight-legend-will" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                <button data-target="will" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-rose-50 p-6 md:p-8 rounded-2xl border border-rose-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                    <span class="absolute top-4 right-6 text-6xl opacity-10">⚔️</span>
-                    <div class="mb-4">
-                        <h4 class="text-rose-800 font-bold uppercase text-sm mb-1">Supreme Arena</h4>
-                        <p class="text-sm text-rose-700">Status: Champion Tier</p>
-                    </div>
-                    <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-rose-100 shadow-inner">
-                        <button data-target="arena" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">-</button>
-                        <div class="text-center">
-                            <span class="text-sm text-rose-600 font-bold uppercase tracking-wider block mb-[-4px]">Top Rank</span>
-                            <span id="insight-arena-rank" class="text-4xl font-bold text-rose-900 heading-font">82</span>
-                        </div>
-                        <button data-target="arena" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">+</button>
-                    </div>
-                </div>
-                
+<section id="view-grind" class="view-section active h-full">
+    <div class="mb-10">
+        <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             </div>
+    </div>
+
+    <div class="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-end mb-2">
+            <h3 class="text-lg font-bold">Daily Completion Goal</h3>
+            <span id="daily-progress-text" class="text-2xl font-bold text-yellow-600 heading-font">0%</span>
         </div>
+        <div class="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
+            <div id="daily-progress-bar" class="bg-yellow-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex justify-between items-center border-b pb-2 mb-4">
+                <h3 class="text-xl font-bold flex items-center"><span class="mr-2">☀️</span> Daily Tasks</h3>
+                <button id="add-daily-task-btn" class="text-sm font-bold text-slate-500 hover:text-yellow-600 transition-colors">+ Add</button>
+            </div>
+            <div id="daily-tasks-container" class="space-y-3"></div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex justify-between items-center border-b pb-2 mb-4">
+               <h3 class="text-xl font-bold flex items-center"><span class="mr-2">📅</span> Weekly Tasks</h3>
+               <button id="add-weekly-task-btn" class="text-sm font-bold text-slate-500 hover:text-yellow-600 transition-colors">+ Add</button>
+            </div>
+            <div id="weekly-tasks-container" class="space-y-3"></div>
+        </div>
+    </div>
+    </section>
 </section>
 
 			<section id="view-heroes" class="view-section hidden h-full">
