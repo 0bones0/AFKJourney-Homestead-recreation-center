@@ -19,13 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 2. State Management (LocalStorage) ---
     let state = {
-        heroes: JSON.parse(localStorage.getItem('afk_heroes')) || []
+        heroes: JSON.parse(localStorage.getItem('afk_heroes')) || [],
+        tasks: JSON.parse(localStorage.getItem('afk_tasks')) || [],
+        insights: JSON.parse(localStorage.getItem('afk_insights')) || {
+            afkStage: 1819,
+            durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic' },
+            legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 },
+            supremeArena: { rank: 82 }
+        }
     };
 
     const saveState = () => {
         localStorage.setItem('afk_heroes', JSON.stringify(state.heroes));
+        localStorage.setItem('afk_tasks', JSON.stringify(state.tasks));
+        localStorage.setItem('afk_insights', JSON.stringify(state.insights));
     };
-
+    
     // --- 3. View Navigation Logic ---
     function switchView(targetId) {
         // Update active nav styling (Desktop)
