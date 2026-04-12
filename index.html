@@ -347,7 +347,7 @@
 
             <!-- ===================== VIEW: HOMESTEAD ===================== -->
 			<section id="view-homestead" class="view-section hidden h-full">
-				<div class="max-w-5xl mx-auto">
+				<div class="max-w-6xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
 						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
@@ -383,8 +383,56 @@
 						<p class="mt-4 text-sm text-red-700 italic border-t border-red-200 pt-3">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
 					</div>
 
-					<h3 class="text-2xl font-bold mb-4 flex items-center"><span class="mr-2">🛠️</span> Infrastructure & Crafting</h3>
-					<div id="buildings-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Resources Column -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 h-fit">
+                            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                                <h3 class="text-xl font-bold flex items-center"><span class="mr-2">📦</span> Resources</h3>
+                                <button id="update-resources-btn" class="text-sm font-bold text-yellow-600 hover:text-yellow-800 transition-colors">Update</button>
+                            </div>
+                            
+                            <!-- Core Currencies -->
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 mb-6 space-y-3" id="core-resources-container">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                            
+                            <!-- Production Resources -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse text-sm">
+                                    <thead>
+                                        <tr class="text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                                            <th class="pb-2 font-bold text-xs">Type</th>
+                                            <th class="pb-2 font-bold text-xs text-right">Prod/h</th>
+                                            <th class="pb-2 font-bold text-xs text-right">Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="production-resources-container">
+                                        <!-- Populated dynamically by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Buildings Column -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-2">
+                            <div class="flex justify-between items-center mb-6 border-b pb-2">
+                                <h3 class="text-xl font-bold flex items-center"><span class="mr-2">🏗️</span> Infrastructure</h3>
+                                <div class="flex gap-2">
+                                    <select id="building-filter" class="border border-slate-300 rounded px-3 py-1.5 text-sm font-bold bg-slate-50 outline-none focus:border-yellow-500 cursor-pointer">
+                                        <option value="All">All Buildings</option>
+                                        <option value="Functional">Functional</option>
+                                        <option value="Production">Production</option>
+                                        <option value="Processing">Processing</option>
+                                        <option value="Resource">Resource</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div id="buildings-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
 				</div>
 			</section>
 
@@ -497,6 +545,57 @@
                     </div>
                 </div>
             </section>
+
+            <!-- ===================== GLOBAL MODALS ===================== -->
+            
+            <!-- Task Modal -->
+            <div id="task-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="task-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 id="task-modal-title" class="text-lg font-bold heading-font text-slate-800">Add Task</h4>
+                        <button id="task-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="task-form" class="space-y-4">
+                        <input type="hidden" id="task-id" value="">
+                        <input type="hidden" id="task-type" value="">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Task Description</label>
+                            <input id="task-text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" placeholder="e.g. Complete AFK Stage x2" autocomplete="off" />
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2">
+                            <button type="button" id="task-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold">Save Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Resource Modal -->
+            <div id="resource-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="resource-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Resources</h4>
+                        <button id="resource-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="resource-form" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">💖</span> Wish Points</label>
+                            <input id="res-wish" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🪙</span> Ancient Coins</label>
+                            <input id="res-coin" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" />
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2">
+                            <button type="button" id="resource-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold">Save Resources</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 		</div>
 	</main>
 
@@ -529,6 +628,29 @@
                     durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic' },
                     legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 },
                     supremeArena: { rank: 82 }
+                },
+                homestead: JSON.parse(localStorage.getItem('afk_homestead')) || {
+                    core: { wish: 1115689, coin: 217559, stamina: 5000 },
+                    production: [
+                        { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' },
+                        { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
+                        { id: 'r3', name: 'Leyline Essence', prod: 3609, stock: 2171392, icon: '✨' },
+                        { id: 'r4', name: 'Emberleaf', prod: 912, stock: 3886647, icon: '🍁' },
+                        { id: 'r5', name: 'Grape', prod: 808, stock: 3372950, icon: '🍇' }
+                    ],
+                    buildings: [
+                        { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼' },
+                        { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️' },
+                        { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳' },
+                        { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️' },
+                        { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪' },
+                        { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚' },
+                        { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭' },
+                        { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮' },
+                        { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️' },
+                        { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
+                        { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿' }
+                    ]
                 }
             };
 
@@ -536,6 +658,7 @@
                 localStorage.setItem('afk_heroes', JSON.stringify(state.heroes));
                 localStorage.setItem('afk_tasks', JSON.stringify(state.tasks));
                 localStorage.setItem('afk_insights', JSON.stringify(state.insights));
+                localStorage.setItem('afk_homestead', JSON.stringify(state.homestead));
             };
             
             // --- 3. View Navigation Logic ---
@@ -727,34 +850,67 @@
                         const taskId = parseInt(e.currentTarget.getAttribute('data-id'));
                         const task = state.tasks.find(t => t.id === taskId);
                         if (task) {
-                            const newText = prompt("Modify task:", task.text);
-                            if (newText !== null && newText.trim() !== "") {
-                                task.text = newText.trim();
-                                saveState();
-                                renderTasks();
-                            }
+                            openTaskModal(task);
                         }
                     });
                 });
             }
 
-            function addNewTask(type) {
-                const text = prompt(`Enter new ${type} task:`);
-                if (text && text.trim() !== "") {
-                    const newTask = {
-                        id: Date.now(),
-                        text: text.trim(),
-                        type: type,
-                        completed: false
-                    };
-                    state.tasks.push(newTask);
-                    saveState();
-                    renderTasks();
+            // Custom Modal Logic for Tasks
+            function openTaskModal(task = null, type = 'daily') {
+                const modal = document.getElementById('task-modal');
+                const title = document.getElementById('task-modal-title');
+                const inputId = document.getElementById('task-id');
+                const inputType = document.getElementById('task-type');
+                const inputText = document.getElementById('task-text');
+
+                if (task) {
+                    title.textContent = 'Edit Task';
+                    inputId.value = task.id;
+                    inputType.value = task.type;
+                    inputText.value = task.text;
+                } else {
+                    title.textContent = `Add ${type.charAt(0).toUpperCase() + type.slice(1)} Task`;
+                    inputId.value = '';
+                    inputType.value = type;
+                    inputText.value = '';
                 }
+                modal.classList.remove('hidden');
+                inputText.focus();
             }
 
-            if (addDailyBtn) addDailyBtn.addEventListener('click', () => addNewTask('daily'));
-            if (addWeeklyBtn) addWeeklyBtn.addEventListener('click', () => addNewTask('weekly'));
+            const closeTaskModal = () => document.getElementById('task-modal').classList.add('hidden');
+            document.getElementById('task-close-btn').addEventListener('click', closeTaskModal);
+            document.getElementById('task-cancel-btn').addEventListener('click', closeTaskModal);
+
+            document.getElementById('task-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('task-id').value;
+                const type = document.getElementById('task-type').value;
+                const text = document.getElementById('task-text').value.trim();
+
+                if (text) {
+                    if (id) {
+                        // Update existing task
+                        const task = state.tasks.find(t => t.id === parseInt(id));
+                        if (task) task.text = text;
+                    } else {
+                        // Create new task
+                        state.tasks.push({
+                            id: Date.now(),
+                            text: text,
+                            type: type,
+                            completed: false
+                        });
+                    }
+                    saveState();
+                    renderTasks();
+                    closeTaskModal();
+                }
+            });
+
+            if (addDailyBtn) addDailyBtn.addEventListener('click', () => openTaskModal(null, 'daily'));
+            if (addWeeklyBtn) addWeeklyBtn.addEventListener('click', () => openTaskModal(null, 'weekly'));
             renderTasks();
                 
             // --- 6. Mode Insights Logic (Interactive Controls) ---
@@ -770,6 +926,94 @@
                 document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
             }
 
+            // --- 6.5. Homestead Logic ---
+            function renderHomestead() {
+                const coreResContainer = document.getElementById('core-resources-container');
+                const prodResContainer = document.getElementById('production-resources-container');
+                const bldContainer = document.getElementById('buildings-container');
+                const bldFilter = document.getElementById('building-filter');
+                
+                if (!coreResContainer) return;
+
+                // Core Resources
+                coreResContainer.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">💖</span> Wish Point</span>
+                        <span class="font-bold text-amber-600">${state.homestead.core.wish.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">🪙</span> Ancient Coin</span>
+                        <span class="font-bold text-yellow-600">${state.homestead.core.coin.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-700 flex items-center"><span class="mr-2">⚡</span> Stamina</span>
+                        <span class="font-bold text-emerald-600">${state.homestead.core.stamina}/5000</span>
+                    </div>
+                `;
+
+                // Production Resources
+                prodResContainer.innerHTML = '';
+                state.homestead.production.forEach(res => {
+                    prodResContainer.innerHTML += `
+                        <tr class="border-b border-slate-100 last:border-0 hover:bg-slate-50">
+                            <td class="py-3 font-bold text-slate-700 text-xs">${res.icon} <span class="ml-1">${res.name}</span></td>
+                            <td class="py-3 text-right text-emerald-600 font-semibold">+${res.prod}/h</td>
+                            <td class="py-3 text-right font-bold text-slate-800">${res.stock.toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+
+                // Buildings Array mapping and filtering
+                const filterVal = bldFilter ? bldFilter.value : 'All';
+                bldContainer.innerHTML = '';
+                
+                state.homestead.buildings.filter(b => filterVal === 'All' || b.type === filterVal).forEach(b => {
+                    bldContainer.innerHTML += `
+                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                            <span class="text-4xl mb-2 mt-2">${b.icon}</span>
+                            <h4 class="font-bold text-slate-800 text-sm mb-1 line-clamp-1">${b.name}</h4>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4">${b.type}</p>
+                            
+                            <div class="flex items-center justify-between w-full bg-white rounded-lg p-1.5 border border-slate-100 mt-auto">
+                                <button data-target="building" data-action="minus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">-</button>
+                                <span class="font-bold text-indigo-700 w-12 text-sm">Lvl ${b.level}</span>
+                                <button data-target="building" data-action="plus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            const bldFilter = document.getElementById('building-filter');
+            if (bldFilter) bldFilter.addEventListener('change', renderHomestead);
+
+            // Custom Modal Logic for Resources
+            const openResourceModal = () => {
+                document.getElementById('res-wish').value = state.homestead.core.wish;
+                document.getElementById('res-coin').value = state.homestead.core.coin;
+                document.getElementById('resource-modal').classList.remove('hidden');
+                document.getElementById('res-wish').focus();
+            };
+
+            const closeResourceModal = () => document.getElementById('resource-modal').classList.add('hidden');
+            document.getElementById('resource-close-btn').addEventListener('click', closeResourceModal);
+            document.getElementById('resource-cancel-btn').addEventListener('click', closeResourceModal);
+
+            document.getElementById('resource-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Ensure values are numbers and prevent negative balances
+                state.homestead.core.wish = Math.max(0, parseInt(document.getElementById('res-wish').value) || 0);
+                state.homestead.core.coin = Math.max(0, parseInt(document.getElementById('res-coin').value) || 0);
+                saveState();
+                renderHomestead();
+                closeResourceModal();
+            });
+
+            const updateResBtn = document.getElementById('update-resources-btn');
+            if (updateResBtn) {
+                updateResBtn.addEventListener('click', openResourceModal);
+            }
+
             // Global click listener for all + and - buttons
             document.addEventListener('click', (e) => {
                 const btn = e.target.closest('button[data-action]');
@@ -778,6 +1022,18 @@
                 const target = btn.getAttribute('data-target');
                 const action = btn.getAttribute('data-action');
                 const modifier = action === 'plus' ? 1 : -1;
+
+                if (target === 'building') {
+                    const bId = btn.getAttribute('data-id');
+                    const b = state.homestead.buildings.find(x => x.id === bId);
+                    if (b) {
+                        b.level += modifier;
+                        if (b.level < 1) b.level = 1; // Prevent going to Level 0
+                        saveState();
+                        renderHomestead();
+                    }
+                    return; 
+                }
 
                 switch (target) {
                     case 'afk': state.insights.afkStage += modifier; break;
@@ -902,6 +1158,7 @@
 
             // Init Hall
             renderHeroes(); 
+            renderHomestead();
         });
     </script>
 </body>
