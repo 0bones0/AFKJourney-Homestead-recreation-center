@@ -266,14 +266,34 @@
 											</div>
 											<div>
 												<label class="text-xs font-bold text-slate-600 uppercase">Class</label>
-												<input id="hero-class" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. Tank" />
+												<select id="hero-class" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
+													<option value="Tank">Tank</option>
+													<option value="Warrior">Warrior</option>
+													<option value="Rogue">Rogue</option>
+													<option value="Marksman">Marksman</option>
+													<option value="Mage">Mage</option>
+													<option value="Support">Support</option>
+												</select>
 											</div>
 										</div>
 
 										<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 											<div>
 												<label class="text-xs font-bold text-slate-600 uppercase">Ascension</label>
-												<input id="hero-asc" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. Mythic+" />
+												<select id="hero-asc" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
+													<option value="Epic">Epic</option>
+													<option value="Epic+">Epic+</option>
+													<option value="Legendary">Legendary</option>
+													<option value="Legendary+">Legendary+</option>
+													<option value="Mythic">Mythic</option>
+													<option value="Mythic+">Mythic+</option>
+													<option value="Supreme">Supreme</option>
+													<option value="Supreme+">Supreme+</option>
+													<option value="Paragon 1">Paragon 1</option>
+													<option value="Paragon 2">Paragon 2</option>
+													<option value="Paragon 3">Paragon 3</option>
+													<option value="Paragon 4">Paragon 4</option>
+												</select>
 											</div>
 											<div>
 												<label class="text-xs font-bold text-slate-600 uppercase">Ex. Wpn</label>
@@ -283,7 +303,15 @@
 
 										<div>
 											<label class="text-xs font-bold text-slate-600 uppercase">Role</label>
-											<input id="hero-role" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. 🔥 Boss Killer" />
+											<select id="hero-role" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
+												<option value="🛡️ Main Tank">🛡️ Main Tank</option>
+												<option value="⚔️ Core DPS">⚔️ Core DPS</option>
+												<option value="🩹 Main Healer">🩹 Main Healer</option>
+												<option value="🌀 Buffer/Debuffer">🌀 Buffer/Debuffer</option>
+												<option value="🔥 Boss Killer">🔥 Boss Killer</option>
+												<option value="🎯 Assassin/Flanker">🎯 Assassin/Flanker</option>
+												<option value="👑 Generalist">👑 Generalist</option>
+											</select>
 										</div>
 
 										<div class="flex items-center justify-end space-x-2 pt-2">
