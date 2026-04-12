@@ -176,19 +176,80 @@ function renderTasks() {
 	}
 }
 
+function normalizeName(name) {
+	return (name || '').trim().toLowerCase();
+}
+
+function openAddHeroModal(prefill) {
+	const modal = document.getElementById('add-hero-modal');
+	modal.classList.remove('hidden');
+	modal.classList.add('flex');
+
+	if (prefill) {
+		document.getElementById('hero-name').value = prefill.name || '';
+		document.getElementById('hero-faction').value = prefill.faction || 'Graveborn';
+		document.getElementById('hero-class').value = prefill.class || '';
+		document.getElementById('hero-asc').value = prefill.asc || '';
+		document.getElementById('hero-ex').value = prefill.ex || '';
+		document.getElementById('hero-role').value = prefill.role || '';
+	} else {
+		document.getElementById('add-hero-form').reset();
+		document.getElementById('hero-faction').value = 'Graveborn';
+	}
+
+	setTimeout(() => document.getElementById('hero-name').focus(), 0);
+}
+
+function closeAddHeroModal() {
+	const modal = document.getElementById('add-hero-modal');
+	modal.classList.add('hidden');
+	modal.classList.remove('flex');
+}
+
+function upsertHero(hero) {
+	const key = normalizeName(hero.name);
+	const idx = state.heroes.findIndex(h => normalizeName(h.name) === key);
+	if (idx >= 0) {
+		state.heroes[idx] = hero; // overwrite existing
+	} else {
+		state.heroes.push(hero);
+	}
+	state.heroes.sort((a, b) => a.name.localeCompare(b.name));
+	saveState();
+}
+
+function refreshFactionChart() {
+	if (!state.charts?.faction) return;
+	const factionCounts = {};
+	state.heroes.forEach(h => (factionCounts[h.faction] = (factionCounts[h.faction] || 0) + 1));
+	const labels = Object.keys(factionCounts);
+	const data = Object.values(factionCounts);
+	const bgColors = labels.map(l => factionColors[l] || '#CBD5E1');
+
+	state.charts.faction.data.labels = labels;
+	state.charts.faction.data.datasets[0].data = data;
+	state.charts.faction.data.datasets[0].backgroundColor = bgColors;
+	state.charts.faction.update();
+}
+
 function renderHeroes() {
 	const tbody = document.getElementById('hero-table-body');
 	const filter = document.getElementById('faction-filter');
 
-	if (filter.options.length === 1) {
-		const factions = [...new Set(state.heroes.map(h => h.faction))];
-		factions.forEach(f => {
-			const opt = document.createElement('option');
-			opt.value = f;
-			opt.textContent = f;
-			filter.appendChild(opt);
-		});
+	// Rebuild faction options each time to reflect newly added heroes
+	const currentSelection = filter.value;
+	filter.innerHTML = '<option value="All">All Factions</option>';
+	const factions = [...new Set(state.heroes.map(h => h.faction))].sort();
+	factions.forEach(f => {
+		const opt = document.createElement('option');
+		opt.value = f;
+		opt.textContent = f;
+		filter.appendChild(opt);
+	});
+	filter.value = factions.includes(currentSelection) ? currentSelection : 'All';
+	if (!filter.dataset.bound) {
 		filter.addEventListener('change', renderHeroes);
+		filter.dataset.bound = '1';
 	}
 
 	const activeFilter = filter.value;
@@ -208,6 +269,44 @@ function renderHeroes() {
 			<td class="py-3 px-4 text-slate-800">${h.role}</td>
 		`;
 		tbody.appendChild(tr);
+	});
+}
+
+function initAddHeroModal() {
+	const btn = document.getElementById('add-hero-btn');
+	const closeBtn = document.getElementById('add-hero-close');
+	const cancelBtn = document.getElementById('add-hero-cancel');
+	const backdrop = document.getElementById('add-hero-backdrop');
+	const form = document.getElementById('add-hero-form');
+
+	if (!btn || btn.dataset.bound) return;
+	btn.dataset.bound = '1';
+
+	btn.addEventListener('click', () => openAddHeroModal());
+	closeBtn.addEventListener('click', closeAddHeroModal);
+	cancelBtn.addEventListener('click', closeAddHeroModal);
+	backdrop.addEventListener('click', closeAddHeroModal);
+
+	window.addEventListener('keydown', e => {
+		if (e.key === 'Escape') closeAddHeroModal();
+	});
+
+	form.addEventListener('submit', e => {
+		e.preventDefault();
+		const hero = {
+			name: document.getElementById('hero-name').value.trim(),
+			faction: document.getElementById('hero-faction').value,
+			class: document.getElementById('hero-class').value.trim(),
+			asc: document.getElementById('hero-asc').value.trim(),
+			ex: document.getElementById('hero-ex').value.trim(),
+			role: document.getElementById('hero-role').value.trim()
+		};
+
+		if (!hero.name) return;
+		upsertHero(hero);
+		renderHeroes();
+		refreshFactionChart();
+		closeAddHeroModal();
 	});
 }
 
@@ -364,4 +463,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	renderHomestead();
 	renderBosses();
 	initCharts();
+	initAddHeroModal();
 });
