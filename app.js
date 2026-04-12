@@ -262,9 +262,8 @@ addWeeklyBtn.addEventListener('click', () => addNewTask('weekly'));
 // Initialize task render
 renderTasks();
 
-    // --- 8. Mode Insights Logic ---
+// --- 8. Mode Insights Logic (Interactive Controls) ---
 
-// Initialize insights state if it doesn't exist
 if (!state.insights) {
     state.insights = JSON.parse(localStorage.getItem('afk_insights')) || {
         afkStage: 1819,
@@ -274,88 +273,66 @@ if (!state.insights) {
     };
 }
 
-// Function to save insights to LocalStorage
 const saveInsights = () => {
     localStorage.setItem('afk_insights', JSON.stringify(state.insights));
 };
 
-// Function to push data from state to the HTML
 function renderInsights() {
-    // AFK Stage
     document.getElementById('insight-afk-stage').textContent = state.insights.afkStage;
-    
-    // Dura's Trials
-    document.getElementById('insight-dura-class').textContent = state.insights.durasTrials.class;
-    document.getElementById('insight-dura-floor').textContent = `Floor ${state.insights.durasTrials.floor}`;
-    document.getElementById('insight-dura-target').textContent = state.insights.durasTrials.target;
-    
-    // Legend Trials
+    document.getElementById('insight-dura-floor').textContent = state.insights.durasTrials.floor;
     document.getElementById('insight-legend-light').textContent = state.insights.legendTrials.light;
     document.getElementById('insight-legend-nature').textContent = state.insights.legendTrials.nature;
     document.getElementById('insight-legend-eternity').textContent = state.insights.legendTrials.eternity;
     document.getElementById('insight-legend-will').textContent = state.insights.legendTrials.will;
-    
-    // Supreme Arena
-    document.getElementById('insight-arena-rank').textContent = `Top ${state.insights.supremeArena.rank}`;
+    document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
 }
 
-// --- Event Listeners for Update Buttons ---
+// Global click listener for all + and - buttons
+document.addEventListener('click', (e) => {
+    // Check if we clicked a button with data-action
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
 
-document.getElementById('btn-update-afk').addEventListener('click', () => {
-    const newVal = prompt("Enter current AFK Stage:", state.insights.afkStage);
-    if (newVal && !isNaN(newVal)) {
-        state.insights.afkStage = parseInt(newVal);
-        saveInsights();
-        renderInsights();
+    const target = btn.getAttribute('data-target');
+    const action = btn.getAttribute('data-action');
+    
+    // Determine the modifier (+1 or -1)
+    const modifier = action === 'plus' ? 1 : -1;
+
+    // Apply the math to the correct state variable
+    switch (target) {
+        case 'afk':
+            state.insights.afkStage += modifier;
+            break;
+        case 'dura':
+            state.insights.durasTrials.floor += modifier;
+            break;
+        case 'light':
+            state.insights.legendTrials.light += modifier;
+            break;
+        case 'nature':
+            state.insights.legendTrials.nature += modifier;
+            break;
+        case 'eternity':
+            state.insights.legendTrials.eternity += modifier;
+            break;
+        case 'will':
+            state.insights.legendTrials.will += modifier;
+            break;
+        case 'arena':
+            // Ranks usually go down to get better, so subtracting lowers the rank number
+            // However, preventing negative ranks is important
+            let newRank = state.insights.supremeArena.rank + modifier;
+            state.insights.supremeArena.rank = newRank < 1 ? 1 : newRank;
+            break;
     }
-});
 
-document.getElementById('btn-update-dura').addEventListener('click', () => {
-    // Chain prompts for multi-data cards
-    const newClass = prompt("Enter active Class Rotation (e.g., Ironwall (Tank)):", state.insights.durasTrials.class);
-    if (!newClass) return; // Exit if cancelled
-    
-    const newFloor = prompt("Enter current Floor:", state.insights.durasTrials.floor);
-    if (!newFloor) return;
-    
-    const newTarget = prompt("Enter Target Charm Drop (e.g., Mythic (Lvl 25)):", state.insights.durasTrials.target);
-    if (!newTarget) return;
-
-    state.insights.durasTrials = { class: newClass, floor: parseInt(newFloor), target: newTarget };
+    // Save and update the UI instantly
     saveInsights();
     renderInsights();
 });
 
-document.getElementById('btn-update-legend').addEventListener('click', () => {
-    const light = prompt("Light Tower Floor:", state.insights.legendTrials.light);
-    if (!light) return;
-    const nature = prompt("Nature Tower Floor:", state.insights.legendTrials.nature);
-    if (!nature) return;
-    const eternity = prompt("Eternity Tower Floor:", state.insights.legendTrials.eternity);
-    if (!eternity) return;
-    const will = prompt("Will Tower Floor:", state.insights.legendTrials.will);
-    if (!will) return;
-
-    state.insights.legendTrials = {
-        light: parseInt(light), 
-        nature: parseInt(nature), 
-        eternity: parseInt(eternity), 
-        will: parseInt(will)
-    };
-    saveInsights();
-    renderInsights();
-});
-
-document.getElementById('btn-update-arena').addEventListener('click', () => {
-    const newVal = prompt("Enter Supreme Arena Rank:", state.insights.supremeArena.rank);
-    if (newVal && !isNaN(newVal)) {
-        state.insights.supremeArena.rank = parseInt(newVal);
-        saveInsights();
-        renderInsights();
-    }
-});
-
-// Run this on page load to populate the HTML with saved data
+// Initial Render
 renderInsights();
 
     // --- 4. Mobile Menu Toggle ---
