@@ -262,6 +262,102 @@ addWeeklyBtn.addEventListener('click', () => addNewTask('weekly'));
 // Initialize task render
 renderTasks();
 
+    // --- 8. Mode Insights Logic ---
+
+// Initialize insights state if it doesn't exist
+if (!state.insights) {
+    state.insights = JSON.parse(localStorage.getItem('afk_insights')) || {
+        afkStage: 1819,
+        durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic (Lvl 25)' },
+        legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 },
+        supremeArena: { rank: 82 }
+    };
+}
+
+// Function to save insights to LocalStorage
+const saveInsights = () => {
+    localStorage.setItem('afk_insights', JSON.stringify(state.insights));
+};
+
+// Function to push data from state to the HTML
+function renderInsights() {
+    // AFK Stage
+    document.getElementById('insight-afk-stage').textContent = state.insights.afkStage;
+    
+    // Dura's Trials
+    document.getElementById('insight-dura-class').textContent = state.insights.durasTrials.class;
+    document.getElementById('insight-dura-floor').textContent = `Floor ${state.insights.durasTrials.floor}`;
+    document.getElementById('insight-dura-target').textContent = state.insights.durasTrials.target;
+    
+    // Legend Trials
+    document.getElementById('insight-legend-light').textContent = state.insights.legendTrials.light;
+    document.getElementById('insight-legend-nature').textContent = state.insights.legendTrials.nature;
+    document.getElementById('insight-legend-eternity').textContent = state.insights.legendTrials.eternity;
+    document.getElementById('insight-legend-will').textContent = state.insights.legendTrials.will;
+    
+    // Supreme Arena
+    document.getElementById('insight-arena-rank').textContent = `Top ${state.insights.supremeArena.rank}`;
+}
+
+// --- Event Listeners for Update Buttons ---
+
+document.getElementById('btn-update-afk').addEventListener('click', () => {
+    const newVal = prompt("Enter current AFK Stage:", state.insights.afkStage);
+    if (newVal && !isNaN(newVal)) {
+        state.insights.afkStage = parseInt(newVal);
+        saveInsights();
+        renderInsights();
+    }
+});
+
+document.getElementById('btn-update-dura').addEventListener('click', () => {
+    // Chain prompts for multi-data cards
+    const newClass = prompt("Enter active Class Rotation (e.g., Ironwall (Tank)):", state.insights.durasTrials.class);
+    if (!newClass) return; // Exit if cancelled
+    
+    const newFloor = prompt("Enter current Floor:", state.insights.durasTrials.floor);
+    if (!newFloor) return;
+    
+    const newTarget = prompt("Enter Target Charm Drop (e.g., Mythic (Lvl 25)):", state.insights.durasTrials.target);
+    if (!newTarget) return;
+
+    state.insights.durasTrials = { class: newClass, floor: parseInt(newFloor), target: newTarget };
+    saveInsights();
+    renderInsights();
+});
+
+document.getElementById('btn-update-legend').addEventListener('click', () => {
+    const light = prompt("Light Tower Floor:", state.insights.legendTrials.light);
+    if (!light) return;
+    const nature = prompt("Nature Tower Floor:", state.insights.legendTrials.nature);
+    if (!nature) return;
+    const eternity = prompt("Eternity Tower Floor:", state.insights.legendTrials.eternity);
+    if (!eternity) return;
+    const will = prompt("Will Tower Floor:", state.insights.legendTrials.will);
+    if (!will) return;
+
+    state.insights.legendTrials = {
+        light: parseInt(light), 
+        nature: parseInt(nature), 
+        eternity: parseInt(eternity), 
+        will: parseInt(will)
+    };
+    saveInsights();
+    renderInsights();
+});
+
+document.getElementById('btn-update-arena').addEventListener('click', () => {
+    const newVal = prompt("Enter Supreme Arena Rank:", state.insights.supremeArena.rank);
+    if (newVal && !isNaN(newVal)) {
+        state.insights.supremeArena.rank = parseInt(newVal);
+        saveInsights();
+        renderInsights();
+    }
+});
+
+// Run this on page load to populate the HTML with saved data
+renderInsights();
+
     // --- 4. Mobile Menu Toggle ---
     DOM.mobileMenuBtn.addEventListener('click', () => DOM.mobileMenu.classList.remove('hidden'));
     DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
