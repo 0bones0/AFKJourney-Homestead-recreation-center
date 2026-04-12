@@ -355,25 +355,28 @@
 
 					<div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden">
 						<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">🛡️</div>
-						<h3 class="text-xl font-bold text-red-800 mb-4 flex items-center"><span class="mr-2">⚠️</span> Darkswarm Invasion Tracker</h3>
+						<h3 class="text-xl font-bold text-red-800 mb-4 flex justify-between items-center">
+                            <span class="flex items-center"><span class="mr-2">⚠️</span> Darkswarm Invasion Tracker</span>
+                            <button id="update-darkswarm-btn" class="text-sm font-bold text-red-600 hover:text-red-800 transition-colors bg-red-100 px-3 py-1 rounded">Update</button>
+                        </h3>
 						<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
 							<div>
 								<p class="text-sm text-red-600 uppercase font-bold mb-1">Aggression Level</p>
 								<div class="flex items-end space-x-2">
-									<span class="text-3xl font-bold text-red-700 heading-font">75/100</span>
-									<span class="text-sm text-red-500 mb-1">High</span>
+									<span id="ds-aggression-text" class="text-3xl font-bold text-red-700 heading-font">75/100</span>
+									<span id="ds-status-text" class="text-sm text-red-500 mb-1">High</span>
 								</div>
 								<div class="w-full bg-red-200 rounded-full h-2 mt-2">
-									<div class="bg-red-600 h-2 rounded-full" style="width: 75%"></div>
+									<div id="ds-aggression-bar" class="bg-red-600 h-2 rounded-full" style="width: 75%"></div>
 								</div>
 							</div>
 							<div>
 								<p class="text-sm text-red-600 uppercase font-bold mb-1">Last Invasion</p>
-								<p class="text-lg font-semibold text-slate-800">Today</p>
+								<p id="ds-last-invasion" class="text-lg font-semibold text-slate-800">Today</p>
 							</div>
 							<div>
 								<p class="text-sm text-red-600 uppercase font-bold mb-1">Assigned Defenders</p>
-								<div class="flex space-x-2 mt-1">
+								<div id="ds-defenders" class="flex flex-wrap gap-2 mt-1">
 									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Thoran</span>
 									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Antandra</span>
 									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Cecia</span>
@@ -596,6 +599,35 @@
                 </div>
             </div>
 
+            <!-- Darkswarm Modal -->
+            <div id="darkswarm-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="darkswarm-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Invasion Tracker</h4>
+                        <button id="darkswarm-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="darkswarm-form" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Aggression Level (0-100)</label>
+                            <input id="ds-input-aggression" type="number" min="0" max="100" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-red-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Last Invasion</label>
+                            <input id="ds-input-last" type="text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-red-500 outline-none" placeholder="e.g. Today, Yesterday" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Defenders (Comma Separated)</label>
+                            <input id="ds-input-defenders" type="text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-red-500 outline-none" placeholder="e.g. Thoran, Antandra, Cecia" />
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2">
+                            <button type="button" id="darkswarm-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-red-600 hover:bg-red-700 text-white font-bold">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 		</div>
 	</main>
 
@@ -631,6 +663,7 @@
                 },
                 homestead: JSON.parse(localStorage.getItem('afk_homestead')) || {
                     core: { wish: 1115689, coin: 217559, stamina: 5000 },
+                    darkswarm: { aggression: 75, lastInvasion: "Today", defenders: ["Thoran", "Antandra", "Cecia"] },
                     production: [
                         { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' },
                         { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
@@ -933,6 +966,26 @@
                 
                 if (!coreResContainer || !bldContainer) return;
 
+                // Darkswarm UI
+                const dsAggressionText = document.getElementById('ds-aggression-text');
+                const dsStatusText = document.getElementById('ds-status-text');
+                const dsAggressionBar = document.getElementById('ds-aggression-bar');
+                const dsLastInvasion = document.getElementById('ds-last-invasion');
+                const dsDefenders = document.getElementById('ds-defenders');
+
+                if (dsAggressionText && state.homestead.darkswarm) {
+                    const aggr = state.homestead.darkswarm.aggression;
+                    dsAggressionText.textContent = `${aggr}/100`;
+                    dsAggressionBar.style.width = `${aggr}%`;
+                    dsStatusText.textContent = aggr >= 80 ? 'Critical' : (aggr >= 50 ? 'High' : 'Low');
+                    dsLastInvasion.textContent = state.homestead.darkswarm.lastInvasion;
+                    
+                    dsDefenders.innerHTML = '';
+                    state.homestead.darkswarm.defenders.forEach(hero => {
+                        dsDefenders.innerHTML += `<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">${hero.trim()}</span>`;
+                    });
+                }
+
                 // Core Resources
                 coreResContainer.innerHTML = `
                     <div class="flex justify-between items-center">
@@ -1010,6 +1063,41 @@
             const updateResBtn = document.getElementById('update-resources-btn');
             if (updateResBtn) {
                 updateResBtn.addEventListener('click', openResourceModal);
+            }
+
+            // Custom Modal Logic for Darkswarm
+            const openDarkswarmModal = () => {
+                if (!state.homestead.darkswarm) return;
+                document.getElementById('ds-input-aggression').value = state.homestead.darkswarm.aggression;
+                document.getElementById('ds-input-last').value = state.homestead.darkswarm.lastInvasion;
+                document.getElementById('ds-input-defenders').value = state.homestead.darkswarm.defenders.join(', ');
+                document.getElementById('darkswarm-modal').classList.remove('hidden');
+                document.getElementById('ds-input-aggression').focus();
+            };
+
+            const closeDarkswarmModal = () => document.getElementById('darkswarm-modal').classList.add('hidden');
+            const dsCloseBtn = document.getElementById('darkswarm-close-btn');
+            const dsCancelBtn = document.getElementById('darkswarm-cancel-btn');
+            if(dsCloseBtn) dsCloseBtn.addEventListener('click', closeDarkswarmModal);
+            if(dsCancelBtn) dsCancelBtn.addEventListener('click', closeDarkswarmModal);
+
+            const dsForm = document.getElementById('darkswarm-form');
+            if(dsForm) {
+                dsForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    state.homestead.darkswarm.aggression = Math.min(100, Math.max(0, parseInt(document.getElementById('ds-input-aggression').value) || 0));
+                    state.homestead.darkswarm.lastInvasion = document.getElementById('ds-input-last').value.trim();
+                    const defendersStr = document.getElementById('ds-input-defenders').value;
+                    state.homestead.darkswarm.defenders = defendersStr.split(',').map(s => s.trim()).filter(s => s);
+                    saveState();
+                    renderHomestead();
+                    closeDarkswarmModal();
+                });
+            }
+
+            const updateDsBtn = document.getElementById('update-darkswarm-btn');
+            if (updateDsBtn) {
+                updateDsBtn.addEventListener('click', openDarkswarmModal);
             }
 
             // Global click listener for all + and - buttons
