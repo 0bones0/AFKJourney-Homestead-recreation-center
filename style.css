@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lato:wght@400;700&display=swap');
+body { font-family: 'Lato', sans-serif; background-color: #fdfaf6; color: #2d3748; }
+h1, h2, h3, .heading-font { font-family: 'Cinzel', serif; }
+.chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 40vh; max-height: 400px; }
+@media (max-width: 768px) { .chart-container { height: 35vh; } }
+.nav-active { background-color: #e2e8f0; border-left: 4px solid #d69e2e; font-weight: bold; }
+.custom-scrollbar::-webkit-scrollbar { width: 8px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
