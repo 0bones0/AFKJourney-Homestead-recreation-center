@@ -149,6 +149,119 @@ bossSelector.addEventListener('change', renderBossStrategy);
 // Initialize the first dropdown on load
 updateBossOptions();
 
+    // --- Grind & Task Logic ---
+const dailyTasksContainer = document.getElementById('daily-tasks-container');
+const weeklyTasksContainer = document.getElementById('weekly-tasks-container');
+const addDailyBtn = document.getElementById('add-daily-task-btn');
+const addWeeklyBtn = document.getElementById('add-weekly-task-btn');
+const progressBar = document.getElementById('daily-progress-bar');
+const progressText = document.getElementById('daily-progress-text');
+
+// Initialize tasks in state if they don't exist
+if (!state.tasks) {
+    state.tasks = JSON.parse(localStorage.getItem('afk_tasks')) || [
+        { id: 1, text: "Complete AFK Stage x2", type: "daily", completed: false },
+        { id: 2, text: "Sweep Dura's Trials x3", type: "daily", completed: false },
+        { id: 3, text: "Dream Realm Attacks", type: "daily", completed: false },
+        { id: 4, text: "Purchase Emporium Daily Items", type: "daily", completed: false },
+        { id: 5, text: "Clear Legend Trial Floor x15", type: "weekly", completed: false },
+        { id: 6, text: "Participate in Guild Supremacy x24", type: "weekly", completed: false }
+    ];
+}
+
+const saveTasks = () => {
+    localStorage.setItem('afk_tasks', JSON.stringify(state.tasks));
+};
+
+function renderTasks() {
+    dailyTasksContainer.innerHTML = '';
+    weeklyTasksContainer.innerHTML = '';
+    
+    let dailyTotal = 0;
+    let dailyCompleted = 0;
+
+    state.tasks.forEach(task => {
+        if (task.type === 'daily') dailyTotal++;
+        if (task.type === 'daily' && task.completed) dailyCompleted++;
+
+        const taskDiv = document.createElement('div');
+        taskDiv.className = `flex justify-between items-center p-3 rounded-lg border ${task.completed ? 'bg-slate-50 border-slate-200 opacity-60' : 'bg-white border-slate-200 shadow-sm'}`;
+        
+        taskDiv.innerHTML = `
+            <label class="flex items-center cursor-pointer flex-1">
+                <input type="checkbox" class="task-checkbox mr-3 w-4 h-4 text-yellow-500 rounded border-slate-300 focus:ring-yellow-500" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
+                <span class="${task.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${task.text}</span>
+            </label>
+            <button class="edit-task-btn text-slate-400 hover:text-slate-800 ml-2" data-id="${task.id}" aria-label="Edit Task">✏️</button>
+        `;
+
+        if (task.type === 'daily') {
+            dailyTasksContainer.appendChild(taskDiv);
+        } else {
+            weeklyTasksContainer.appendChild(taskDiv);
+        }
+    });
+
+    // Update Progress Bar
+    const percentage = dailyTotal === 0 ? 0 : Math.round((dailyCompleted / dailyTotal) * 100);
+    progressBar.style.width = `${percentage}%`;
+    progressText.textContent = `${percentage}%`;
+
+    attachTaskListeners();
+}
+
+function attachTaskListeners() {
+    // Checkbox toggles
+    document.querySelectorAll('.task-checkbox').forEach(box => {
+        box.addEventListener('change', (e) => {
+            const taskId = parseInt(e.target.getAttribute('data-id'));
+            const task = state.tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = e.target.checked;
+                saveTasks();
+                renderTasks();
+            }
+        });
+    });
+
+    // Edit buttons
+    document.querySelectorAll('.edit-task-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const taskId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const task = state.tasks.find(t => t.id === taskId);
+            if (task) {
+                const newText = prompt("Modify task:", task.text);
+                if (newText !== null && newText.trim() !== "") {
+                    task.text = newText.trim();
+                    saveTasks();
+                    renderTasks();
+                }
+            }
+        });
+    });
+}
+
+function addNewTask(type) {
+    const text = prompt(`Enter new ${type} task:`);
+    if (text && text.trim() !== "") {
+        const newTask = {
+            id: Date.now(), // simple unique ID generator
+            text: text.trim(),
+            type: type,
+            completed: false
+        };
+        state.tasks.push(newTask);
+        saveTasks();
+        renderTasks();
+    }
+}
+
+addDailyBtn.addEventListener('click', () => addNewTask('daily'));
+addWeeklyBtn.addEventListener('click', () => addNewTask('weekly'));
+
+// Initialize task render
+renderTasks();
+
     // --- 4. Mobile Menu Toggle ---
     DOM.mobileMenuBtn.addEventListener('click', () => DOM.mobileMenu.classList.remove('hidden'));
     DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
