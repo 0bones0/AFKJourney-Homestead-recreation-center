@@ -7,57 +7,86 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lato:wght@400;700&family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Lato:wght@400;700&family=Inter:wght@400;700&display=swap');
         
         :root {
             --base-font-size: 16px;
         }
 
-        html { font-size: var(--base-font-size); transition: font-size 0.2s ease-out; }
-        body { font-family: 'Lato', sans-serif; background-color: #fdfaf6; color: #2d3748; transition: background-color 0.3s, color 0.3s; }
-        h1, h2, h3, .heading-font { font-family: 'Cinzel', serif; }
+        html { font-size: var(--base-font-size); transition: font-size 0.2s ease-out; scroll-behavior: smooth; }
+        body { font-family: 'Lato', sans-serif; background-color: #fdfaf6; color: #2d3748; transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        /* Modern, clean titles */
+        h1, h2, h3, h4, h5, .heading-font { 
+            font-family: 'Outfit', sans-serif; 
+            letter-spacing: -0.02em; 
+        }
         
         .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 40vh; max-height: 400px; }
         @media (max-width: 768px) { .chart-container { height: 35vh; } }
         
-        .nav-active { background-color: #e2e8f0; border-left: 4px solid #d69e2e; font-weight: bold; }
+        .nav-active { background-color: #e2e8f0; border-left: 4px solid #d69e2e; font-weight: 700; }
         
         .custom-scrollbar::-webkit-scrollbar { width: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-        /* THEME: DARK MODE */
-        body.theme-dark { background-color: #111827; color: #e2e8f0; }
-        body.theme-dark .bg-white, body.theme-dark aside, body.theme-dark #mobile-menu > div { background-color: #1e293b !important; border-color: #334155 !important; color: #f1f5f9; }
+        /* --- THEME: DARK MODE --- */
+        body.theme-dark { background-color: #0f172a; color: #e2e8f0; }
+        body.theme-dark .bg-white, body.theme-dark aside, body.theme-dark #mobile-menu > div { background-color: #1e293b !important; border-color: #334155 !important; color: #f8fafc; }
         body.theme-dark .bg-slate-50 { background-color: #0f172a !important; border-color: #334155 !important; color: #cbd5e1; }
         body.theme-dark .text-slate-800, body.theme-dark .text-slate-700 { color: #f8fafc !important; }
         body.theme-dark .text-slate-600, body.theme-dark .text-slate-500 { color: #94a3b8 !important; }
         body.theme-dark .border-slate-200, body.theme-dark .border-slate-100, body.theme-dark .border-slate-300 { border-color: #334155 !important; }
-        body.theme-dark input, body.theme-dark select { background-color: #0f172a !important; color: #f1f5f9 !important; border-color: #475569 !important; }
-        body.theme-dark .nav-active { background-color: #334155 !important; }
-        body.theme-dark .shadow-sm, body.theme-dark .shadow-lg { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5) !important; }
-        /* Tint Adjustments for Dark Mode */
-        body.theme-dark .bg-indigo-50 { background-color: rgba(79, 70, 229, 0.1) !important; border-color: rgba(79, 70, 229, 0.25) !important; }
-        body.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.1) !important; border-color: rgba(245, 158, 11, 0.25) !important; }
-        body.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.1) !important; border-color: rgba(16, 185, 129, 0.25) !important; }
-        body.theme-dark .bg-rose-50 { background-color: rgba(244, 63, 94, 0.1) !important; border-color: rgba(244, 63, 94, 0.25) !important; }
-        body.theme-dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.1) !important; border-color: rgba(6, 182, 212, 0.25) !important; }
-        body.theme-dark .bg-fuchsia-50 { background-color: rgba(217, 70, 239, 0.1) !important; border-color: rgba(217, 70, 239, 0.25) !important; }
+        body.theme-dark input, body.theme-dark select { background-color: #0f172a !important; color: #f8fafc !important; border-color: #475569 !important; }
+        body.theme-dark .nav-active { background-color: #334155 !important; border-left-color: #fbbf24 !important; }
+        body.theme-dark .shadow-sm, body.theme-dark .shadow-lg { box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.5) !important; }
+        
+        /* Dark Mode: Vibrant Accents for Data Cards */
+        body.theme-dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.12) !important; border-color: rgba(99, 102, 241, 0.25) !important; }
+        body.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12) !important; border-color: rgba(245, 158, 11, 0.25) !important; }
+        body.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.12) !important; border-color: rgba(16, 185, 129, 0.25) !important; }
+        body.theme-dark .bg-rose-50, body.theme-dark .bg-red-50 { background-color: rgba(244, 63, 94, 0.12) !important; border-color: rgba(244, 63, 94, 0.25) !important; }
+        body.theme-dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.12) !important; border-color: rgba(6, 182, 212, 0.25) !important; }
+        body.theme-dark .bg-fuchsia-50 { background-color: rgba(217, 70, 239, 0.12) !important; border-color: rgba(217, 70, 239, 0.25) !important; }
+        body.theme-dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.12) !important; border-color: rgba(59, 130, 246, 0.25) !important; }
+        
+        /* Dark Mode: Text Contrast Fixes */
+        body.theme-dark .text-indigo-900, body.theme-dark .text-indigo-800 { color: #a5b4fc !important; }
+        body.theme-dark .text-indigo-700, body.theme-dark .text-indigo-600 { color: #818cf8 !important; }
+        body.theme-dark .text-amber-900, body.theme-dark .text-amber-800 { color: #fcd34d !important; }
+        body.theme-dark .text-amber-700, body.theme-dark .text-amber-600 { color: #fbbf24 !important; }
+        body.theme-dark .text-emerald-900, body.theme-dark .text-emerald-800 { color: #6ee7b7 !important; }
+        body.theme-dark .text-emerald-700, body.theme-dark .text-emerald-600 { color: #34d399 !important; }
+        body.theme-dark .text-rose-900, body.theme-dark .text-rose-800, body.theme-dark .text-red-900, body.theme-dark .text-red-800 { color: #fda4af !important; }
+        body.theme-dark .text-rose-700, body.theme-dark .text-rose-600, body.theme-dark .text-red-700, body.theme-dark .text-red-600 { color: #fb7185 !important; }
+        body.theme-dark .text-cyan-900, body.theme-dark .text-cyan-800 { color: #67e8f9 !important; }
+        body.theme-dark .text-cyan-700, body.theme-dark .text-cyan-600 { color: #22d3ee !important; }
+        body.theme-dark .text-fuchsia-900, body.theme-dark .text-fuchsia-800 { color: #f0abfc !important; }
+        body.theme-dark .text-fuchsia-700, body.theme-dark .text-fuchsia-600 { color: #e879f9 !important; }
+        body.theme-dark .text-blue-900, body.theme-dark .text-blue-800 { color: #93c5fd !important; }
+        body.theme-dark .text-blue-700, body.theme-dark .text-blue-600 { color: #60a5fa !important; }
 
-        /* THEME: SAGE MODE */
-        body.theme-sage { background-color: #edf1ed; color: #2c3e2e; }
-        body.theme-sage .bg-white, body.theme-sage aside, body.theme-sage #mobile-menu > div { background-color: #f7f9f7 !important; border-color: #cdd6cd !important; color: #2c3e2e; }
-        body.theme-sage .bg-slate-50 { background-color: #e5ebe5 !important; border-color: #cdd6cd !important; color: #3e5040; }
-        body.theme-sage .text-slate-800, body.theme-sage .text-slate-700 { color: #1e2b1f !important; }
+        /* Dark Mode: Interactive Buttons (+/-) */
+        body.theme-dark button[data-action="minus"], body.theme-dark button[data-action="plus"] { background-color: rgba(255,255,255,0.1) !important; color: #f8fafc !important; }
+        body.theme-dark button[data-action="minus"]:hover, body.theme-dark button[data-action="plus"]:hover { background-color: rgba(255,255,255,0.25) !important; }
+        body.theme-dark .bg-white\/60 { background-color: rgba(30, 41, 59, 0.6) !important; border-color: rgba(255,255,255,0.05) !important; }
+
+        /* --- THEME: SAGE MODE --- */
+        body.theme-sage { background-color: #eef2eb; color: #2a3a2d; }
+        body.theme-sage .bg-white, body.theme-sage aside, body.theme-sage #mobile-menu > div { background-color: #f8faf7 !important; border-color: #d4ddd5 !important; color: #2a3a2d; }
+        body.theme-sage .bg-slate-50 { background-color: #e6ebe6 !important; border-color: #d4ddd5 !important; color: #3e5241; }
+        body.theme-sage .text-slate-800, body.theme-sage .text-slate-700 { color: #1e2c20 !important; }
         body.theme-sage .text-slate-600, body.theme-sage .text-slate-500 { color: #4e6b52 !important; }
-        body.theme-sage .border-slate-200, body.theme-sage .border-slate-100, body.theme-sage .border-slate-300 { border-color: #cdd6cd !important; }
-        body.theme-sage input, body.theme-sage select { background-color: #f7f9f7 !important; color: #2c3e2e !important; border-color: #a8b8aa !important; }
-        body.theme-sage .nav-active { background-color: #d8e0d8 !important; border-left-color: #6b8e23 !important; }
+        body.theme-sage .border-slate-200, body.theme-sage .border-slate-100, body.theme-sage .border-slate-300 { border-color: #d4ddd5 !important; }
+        body.theme-sage input, body.theme-sage select { background-color: #fdfefd !important; color: #2a3a2d !important; border-color: #bccbbd !important; }
+        body.theme-sage .nav-active { background-color: #d9e2da !important; border-left-color: #6b8e23 !important; }
 
         /* Namecard specific styles */
         .namecard-bg { background: linear-gradient(135deg, #a7b8c2 0%, #e0e7e9 100%); }
-        body.theme-dark .namecard-bg { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
+        body.theme-dark .namecard-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        body.theme-sage .namecard-bg { background: linear-gradient(135deg, #a3b8a7 0%, #d8e2d9 100%); }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden theme-light">
@@ -124,52 +153,51 @@
 			
             <!-- ===================== VIEW: THE DAILY GRIND ===================== -->
 			<section id="view-grind" class="view-section active h-full">
-                <!-- ... existing mode insights ... -->
                 <div class="mb-10">
                     <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
                     
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                         
                         <!-- AFK Progression Card -->
-                        <div class="bg-indigo-50 p-6 md:p-8 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                        <div class="bg-indigo-50 p-6 md:p-8 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between transition-colors">
                             <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">⏳</span>
                             <div class="mb-4 relative z-10">
-                                <h4 class="text-indigo-800 font-bold uppercase text-sm mb-1">AFK Stages</h4>
-                                <p class="text-sm text-indigo-700">Goal: 1850 (Phase 3)</p>
+                                <h4 class="text-indigo-800 font-bold uppercase text-sm mb-1 tracking-wide">AFK Stages</h4>
+                                <p class="text-sm text-indigo-700 font-medium">Goal: 1850 (Phase 3)</p>
                             </div>
-                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-indigo-100 shadow-inner relative z-10">
+                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-indigo-100 shadow-inner relative z-10 transition-colors">
                                 <button data-target="afk" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">-</button>
-                                <span id="insight-afk-stage" class="text-4xl font-bold text-indigo-900 heading-font">1819</span>
+                                <span id="insight-afk-stage" class="text-4xl font-bold text-indigo-900 heading-font tracking-tight">1819</span>
                                 <button data-target="afk" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">+</button>
                             </div>
                         </div>
                         
                         <!-- Dura's Trials Card -->
-                        <div class="bg-amber-50 p-6 md:p-8 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                        <div class="bg-amber-50 p-6 md:p-8 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden flex flex-col justify-between transition-colors">
                             <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">🛡️</span>
                             <div class="mb-4 relative z-10">
-                                <h4 class="text-amber-800 font-bold uppercase text-sm mb-1">Dura's Trials</h4>
+                                <h4 class="text-amber-800 font-bold uppercase text-sm mb-1 tracking-wide">Dura's Trials</h4>
                                 <p class="text-sm font-bold text-amber-900">Ironwall (Tank) <span class="text-amber-700 font-normal">| Target: Mythic</span></p>
                             </div>
-                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-amber-100 shadow-inner relative z-10">
+                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-amber-100 shadow-inner relative z-10 transition-colors">
                                 <button data-target="dura" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <div class="text-center">
                                     <span class="text-sm text-amber-600 font-bold uppercase tracking-wider block mb-[-4px]">Floor</span>
-                                    <span id="insight-dura-floor" class="text-4xl font-bold text-amber-900 heading-font">40</span>
+                                    <span id="insight-dura-floor" class="text-4xl font-bold text-amber-900 heading-font tracking-tight">40</span>
                                 </div>
                                 <button data-target="dura" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">+</button>
                             </div>
                         </div>
 
                         <!-- Legend Trials Card -->
-                        <div class="bg-emerald-50 p-6 md:p-8 rounded-2xl border border-emerald-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                        <div class="bg-emerald-50 p-6 md:p-8 rounded-2xl border border-emerald-200 shadow-sm relative overflow-hidden flex flex-col justify-between transition-colors">
                             <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">🗼</span>
                             <div class="mb-4 relative z-10">
-                                <h4 class="text-emerald-800 font-bold uppercase text-sm mb-1">Legend Trials</h4>
-                                <p class="text-sm text-emerald-700">Faction Tower Floors</p>
+                                <h4 class="text-emerald-800 font-bold uppercase text-sm mb-1 tracking-wide">Legend Trials</h4>
+                                <p class="text-sm text-emerald-700 font-medium">Faction Tower Floors</p>
                             </div>
                             <div class="grid grid-cols-2 gap-3 relative z-10">
-                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
+                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Light</span>
                                     <div class="flex items-center space-x-2">
                                         <button data-target="light" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
@@ -177,7 +205,7 @@
                                         <button data-target="light" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
+                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Nature</span>
                                     <div class="flex items-center space-x-2">
                                         <button data-target="nature" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
@@ -185,7 +213,7 @@
                                         <button data-target="nature" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
+                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Eternity</span>
                                     <div class="flex items-center space-x-2">
                                         <button data-target="eternity" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
@@ -193,7 +221,7 @@
                                         <button data-target="eternity" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100">
+                                <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Will</span>
                                     <div class="flex items-center space-x-2">
                                         <button data-target="will" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
@@ -205,17 +233,17 @@
                         </div>
 
                         <!-- Supreme Arena Card -->
-                        <div class="bg-rose-50 p-6 md:p-8 rounded-2xl border border-rose-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                        <div class="bg-rose-50 p-6 md:p-8 rounded-2xl border border-rose-200 shadow-sm relative overflow-hidden flex flex-col justify-between transition-colors">
                             <span class="absolute top-4 right-6 text-6xl opacity-10 pointer-events-none">⚔️</span>
                             <div class="mb-4 relative z-10">
-                                <h4 class="text-rose-800 font-bold uppercase text-sm mb-1">Supreme Arena</h4>
-                                <p class="text-sm text-rose-700">Status: Champion Tier</p>
+                                <h4 class="text-rose-800 font-bold uppercase text-sm mb-1 tracking-wide">Supreme Arena</h4>
+                                <p class="text-sm text-rose-700 font-medium">Status: Champion Tier</p>
                             </div>
-                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-rose-100 shadow-inner relative z-10">
+                            <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-rose-100 shadow-inner relative z-10 transition-colors">
                                 <button data-target="arena" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <div class="text-center">
                                     <span class="text-sm text-rose-600 font-bold uppercase tracking-wider block mb-[-4px]">Top Rank</span>
-                                    <span id="insight-arena-rank" class="text-4xl font-bold text-rose-900 heading-font">82</span>
+                                    <span id="insight-arena-rank" class="text-4xl font-bold text-rose-900 heading-font tracking-tight">82</span>
                                 </div>
                                 <button data-target="arena" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">+</button>
                             </div>
@@ -270,7 +298,6 @@
 
             <!-- ===================== VIEW: RESONATING HALL ===================== -->
 			<section id="view-heroes" class="view-section hidden h-full">
-                <!-- ... existing resonating hall ... -->
 				<div class="max-w-6xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🦸‍♂️</span> The Resonating Hall</h2>
@@ -283,13 +310,13 @@
                         
                         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
                             <!-- Season Resonance Level -->
-                            <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                            <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-200 shadow-sm relative overflow-hidden flex flex-col justify-between transition-colors">
                                 <span class="absolute top-4 right-4 text-5xl opacity-10 pointer-events-none">✨</span>
                                 <div class="mb-4 relative z-10">
-                                    <h4 class="text-indigo-800 font-bold uppercase text-xs mb-1">Season Resonance</h4>
-                                    <p class="text-xs text-indigo-700">Overall Level</p>
+                                    <h4 class="text-indigo-800 font-bold uppercase text-xs mb-1 tracking-wide">Season Resonance</h4>
+                                    <p class="text-xs text-indigo-700 font-medium">Overall Level</p>
                                 </div>
-                                <div class="flex items-center justify-between bg-white/60 rounded-xl p-2 border border-indigo-100 shadow-inner relative z-10">
+                                <div class="flex items-center justify-between bg-white/60 rounded-xl p-2 border border-indigo-100 shadow-inner relative z-10 transition-colors">
                                     <button data-target="resonance" data-action="minus" class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold text-xl transition-all">-</button>
                                     <span id="hall-resonance-level" class="text-2xl font-bold text-indigo-900 heading-font">924</span>
                                     <button data-target="resonance" data-action="plus" class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold text-xl transition-all">+</button>
@@ -297,12 +324,12 @@
                             </div>
 
                             <!-- Soul Pact -->
-                            <div class="bg-fuchsia-50 p-5 rounded-2xl border border-fuchsia-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                            <div class="bg-fuchsia-50 p-5 rounded-2xl border border-fuchsia-200 shadow-sm relative overflow-hidden flex flex-col justify-between transition-colors">
                                 <span class="absolute top-4 right-4 text-5xl opacity-10 pointer-events-none">🤝</span>
                                 <div class="mb-4 relative z-10 flex justify-between items-start">
                                     <div>
-                                        <h4 class="text-fuchsia-800 font-bold uppercase text-xs mb-1">Soul Pact</h4>
-                                        <p class="text-xs text-fuchsia-700">Creature Levels</p>
+                                        <h4 class="text-fuchsia-800 font-bold uppercase text-xs mb-1 tracking-wide">Soul Pact</h4>
+                                        <p class="text-xs text-fuchsia-700 font-medium">Creature Levels</p>
                                     </div>
                                     <button id="update-soulpact-btn" class="text-[10px] font-bold text-white bg-fuchsia-600 hover:bg-fuchsia-700 px-2 py-1 rounded shadow transition-colors">Edit</button>
                                 </div>
@@ -312,15 +339,15 @@
                             </div>
 
                             <!-- Equipment -->
-                            <div class="bg-cyan-50 p-5 rounded-2xl border border-cyan-200 shadow-sm relative overflow-hidden flex flex-col justify-between lg:col-span-2">
+                            <div class="bg-cyan-50 p-5 rounded-2xl border border-cyan-200 shadow-sm relative overflow-hidden flex flex-col justify-between lg:col-span-2 transition-colors">
                                 <span class="absolute top-4 right-6 text-5xl opacity-10 pointer-events-none">🛡️</span>
                                 <div class="mb-4 relative z-10">
-                                    <h4 class="text-cyan-800 font-bold uppercase text-xs mb-1">Season Equipment</h4>
-                                    <p class="text-xs text-cyan-700">Class Forging Levels</p>
+                                    <h4 class="text-cyan-800 font-bold uppercase text-xs mb-1 tracking-wide">Season Equipment</h4>
+                                    <p class="text-xs text-cyan-700 font-medium">Class Forging Levels</p>
                                 </div>
                                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 relative z-10">
                                     <!-- Tank -->
-                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100 transition-colors">
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Tank</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-tank" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
@@ -329,7 +356,7 @@
                                         </div>
                                     </div>
                                     <!-- Warrior -->
-                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100 transition-colors">
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Warrior</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-warrior" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
@@ -338,7 +365,7 @@
                                         </div>
                                     </div>
                                     <!-- Rogue -->
-                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100 transition-colors">
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Rogue</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-rogue" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
@@ -347,7 +374,7 @@
                                         </div>
                                     </div>
                                     <!-- Marksman -->
-                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100 transition-colors">
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Marksman</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-marksman" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
@@ -356,7 +383,7 @@
                                         </div>
                                     </div>
                                     <!-- Mage -->
-                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100 transition-colors">
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Mage</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-mage" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
@@ -365,7 +392,7 @@
                                         </div>
                                     </div>
                                     <!-- Support -->
-                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100">
+                                    <div class="flex items-center justify-between bg-white/60 rounded p-1.5 border border-cyan-100 transition-colors">
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Support</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-support" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
@@ -389,16 +416,16 @@
 
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col justify-center">
-							<h3 class="text-lg font-bold mb-4 text-center">Faction Distribution</h3>
+							<h3 class="text-lg font-bold mb-4 text-center text-slate-800">Faction Distribution</h3>
 							<div class="chart-container">
 								<canvas id="factionChart"></canvas>
 							</div>
 						</div>
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-2">
 							<div class="flex justify-between items-center mb-4 border-b pb-2">
-								<h3 class="text-xl font-bold">Hero Database</h3>
+								<h3 class="text-xl font-bold text-slate-800">Hero Database</h3>
 								<div class="flex items-center space-x-2">
-									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold px-3 py-1.5 rounded shadow-sm transition-colors">
+									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-sm font-bold px-3 py-1.5 rounded shadow-sm transition-colors">
 										+ Add Hero
 									</button>
 								</div>
@@ -431,35 +458,34 @@
 
             <!-- ===================== VIEW: HOMESTEAD ===================== -->
 			<section id="view-homestead" class="view-section hidden h-full">
-                <!-- ... existing homestead view ... -->
 				<div class="max-w-6xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
 						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
 					</header>
 
-					<div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden">
+					<div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden transition-colors">
 						<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl pointer-events-none">🛡️</div>
 						<h3 class="text-xl font-bold text-red-800 mb-4 flex items-center relative z-10">
                             <span class="mr-2">⚠️</span> Darkswarm Invasion Tracker
                         </h3>
 						<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
 							<div>
-								<p class="text-sm text-red-600 uppercase font-bold mb-1">Aggression Level</p>
+								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Aggression Level</p>
 								<div class="flex items-end space-x-2">
 									<span id="ds-aggression-text" class="text-3xl font-bold text-red-700 heading-font">75/100</span>
-									<span id="ds-status-text" class="text-sm text-red-500 mb-1">High</span>
+									<span id="ds-status-text" class="text-sm text-red-500 mb-1 font-medium">High</span>
 								</div>
 								<div class="w-full bg-red-200 rounded-full h-2 mt-2">
 									<div id="ds-aggression-bar" class="bg-red-600 h-2 rounded-full" style="width: 75%"></div>
 								</div>
 							</div>
 							<div>
-								<p class="text-sm text-red-600 uppercase font-bold mb-1">Last Invasion</p>
+								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Last Invasion</p>
 								<p id="ds-last-invasion" class="text-lg font-semibold text-slate-800">Today</p>
 							</div>
 							<div>
-								<p class="text-sm text-red-600 uppercase font-bold mb-1">Assigned Defenders</p>
+								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Assigned Defenders</p>
 								<div id="ds-defenders" class="flex flex-wrap gap-2 mt-1">
 									<!-- Dynamically populated -->
 								</div>
@@ -476,8 +502,8 @@
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- Resources Column -->
                         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 h-fit">
-                            <div class="flex justify-between items-center mb-4 border-b pb-2">
-                                <h3 class="text-xl font-bold flex items-center"><span class="mr-2">📦</span> Resources</h3>
+                            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                                <h3 class="text-xl font-bold flex items-center text-slate-800"><span class="mr-2">📦</span> Resources</h3>
                                 <button id="update-resources-btn" class="text-sm font-bold text-yellow-600 hover:text-yellow-800 transition-colors">Update</button>
                             </div>
                             
@@ -505,8 +531,8 @@
 
                         <!-- Buildings Column -->
                         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-2">
-                            <div class="flex justify-between items-center mb-6 border-b pb-2">
-                                <h3 class="text-xl font-bold flex items-center"><span class="mr-2">🏗️</span> Infrastructure</h3>
+                            <div class="flex justify-between items-center mb-6 border-b border-slate-100 pb-2">
+                                <h3 class="text-xl font-bold flex items-center text-slate-800"><span class="mr-2">🏗️</span> Infrastructure</h3>
                                 <div class="flex gap-2">
                                     <select id="building-filter" class="border border-slate-300 rounded px-3 py-1.5 text-sm font-bold bg-slate-50 outline-none focus:border-yellow-500 cursor-pointer">
                                         <option value="All">All Buildings</option>
@@ -528,7 +554,6 @@
 
             <!-- ===================== VIEW: TREASURY ===================== -->
 			<section id="view-treasury" class="view-section hidden h-full">
-                <!-- ... existing treasury view ... -->
 				<div class="max-w-5xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">💎</span> Treasury & Gacha Planner</h2>
@@ -537,18 +562,18 @@
 
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative lg:col-span-1">
-							<h3 class="text-lg font-bold mb-2 absolute top-6 left-6">Diamond Reserve</h3>
+							<h3 class="text-lg font-bold mb-2 absolute top-6 left-6 text-slate-800">Diamond Reserve</h3>
 							<div class="chart-container mt-8 w-full"><canvas id="diamondChart"></canvas></div>
 							<div class="text-center mt-4">
-								<p id="treasury-diamonds-text" class="text-3xl font-bold text-slate-800 heading-font">0 <span class="text-xl">💎</span></p>
-								<p class="text-sm text-slate-500">Goal: 30,000 for Rate-Up</p>
+								<p id="treasury-diamonds-text" class="text-3xl font-bold text-blue-600 heading-font">0 <span class="text-xl">💎</span></p>
+								<p class="text-sm text-slate-500 font-medium">Goal: 30,000 for Rate-Up</p>
 							</div>
-                            <button id="update-treasury-btn" class="mt-4 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors bg-blue-100 px-4 py-1.5 rounded">Update Values</button>
+                            <button id="update-treasury-btn" class="mt-4 text-sm font-bold text-blue-700 hover:text-blue-900 transition-colors bg-blue-100 px-4 py-1.5 rounded">Update Values</button>
 						</div>
 
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between lg:col-span-1">
 							<div>
-								<h3 class="text-lg font-bold mb-6 border-b pb-2">Summoning Items</h3>
+								<h3 class="text-lg font-bold mb-6 border-b border-slate-100 pb-2 text-slate-800">Summoning Items</h3>
 								<div class="space-y-6">
 									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
 										<div class="flex items-center">
@@ -585,7 +610,7 @@
 						</div>
 
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col">
-							<h3 class="text-lg font-bold mb-4 flex items-center border-b pb-2"><span class="mr-2">🛒</span> Emporium Wishlist</h3>
+							<h3 class="text-lg font-bold mb-4 flex items-center border-b border-slate-100 pb-2 text-slate-800"><span class="mr-2">🛒</span> Emporium Wishlist</h3>
 							<div class="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-2" id="wishlist-container">
                                 <!-- Populated by JS -->
                             </div>
@@ -600,7 +625,6 @@
 
             <!-- ===================== VIEW: STRATEGY VAULT ===================== -->
 			<section id="view-strategy" class="view-section hidden h-full">
-                <!-- ... existing strategy view ... -->
                 <div class="max-w-5xl mx-auto">
                     <header class="mb-8 border-b border-slate-200 pb-4">
                         <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🧠</span> Strategy Vault</h2>
@@ -608,10 +632,10 @@
                     </header>
 
                     <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-lg">
-                        <div class="flex flex-col sm:flex-row gap-4 mb-8 border-b border-slate-200 pb-6">
+                        <div class="flex flex-col sm:flex-row gap-4 mb-8 border-b border-slate-100 pb-6">
                             <div class="w-full sm:w-1/2">
                                 <label class="text-xs font-bold text-slate-600 uppercase mb-1 block">Game Mode</label>
-                                <select id="mode-selector" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 bg-slate-50 font-semibold text-slate-800 outline-none focus:border-yellow-500 transition-colors">
+                                <select id="mode-selector" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 bg-slate-50 font-semibold text-slate-800 outline-none focus:border-yellow-500 transition-colors cursor-pointer">
                                     <option value="dream-realm">Dream Realm</option>
                                     <option value="primal-lord">Primal Lord</option>
                                     <option value="guild-supremacy">Guild Supremacy</option>
@@ -620,7 +644,7 @@
                             </div>
                             <div class="w-full sm:w-1/2">
                                 <label class="text-xs font-bold text-slate-600 uppercase mb-1 block">Target Boss</label>
-                                <select id="boss-selector" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 bg-slate-50 font-semibold text-slate-800 outline-none focus:border-yellow-500 transition-colors">
+                                <select id="boss-selector" class="w-full border border-slate-300 rounded-lg px-4 py-2.5 bg-slate-50 font-semibold text-slate-800 outline-none focus:border-yellow-500 transition-colors cursor-pointer">
                                     <!-- Populated by JS -->
                                 </select>
                             </div>
@@ -671,17 +695,17 @@
                                 <select id="settings-font" class="w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer">
                                     <option value="'Lato', sans-serif">Lato (Modern & Clean)</option>
                                     <option value="'Inter', sans-serif">Inter (Sleek Tech)</option>
-                                    <option value="'Georgia', serif">Georgia (Classic Book)</option>
+                                    <option value="'Outfit', sans-serif">Outfit (Bold & Geometric)</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label class="text-xs font-bold text-slate-600 uppercase mb-2 flex justify-between">
                                     <span>UI Scale (Font Size)</span>
-                                    <span id="settings-size-display" class="text-indigo-600">16px</span>
+                                    <span id="settings-size-display" class="text-indigo-600 font-bold">16px</span>
                                 </label>
                                 <input id="settings-size" type="range" min="12" max="22" step="1" value="16" class="w-full accent-indigo-600 cursor-pointer">
-                                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                                <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-bold uppercase tracking-wider">
                                     <span>Smaller</span>
                                     <span>Larger</span>
                                 </div>
@@ -701,7 +725,7 @@
                                         </div>
                                         <div class="ml-4">
                                             <p class="font-bold text-lg text-slate-800 leading-tight" id="profile-name-display">Aster</p>
-                                            <p class="text-xs text-slate-500">ID: 40164131</p>
+                                            <p class="text-xs text-slate-500 font-medium">ID: 40164131</p>
                                         </div>
                                     </div>
                                     <button id="btn-open-profile" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition-colors">
@@ -1054,62 +1078,6 @@
                             <button type="submit" class="px-4 py-2 text-sm rounded bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-colors">Save Formation</button>
                         </div>
                     </form>
-                </div>
-            </div>
-
-            <!-- User Profile Namecard Modal -->
-            <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="profile-backdrop"></div>
-                <div class="relative bg-white w-[92%] max-w-sm rounded-[24px] shadow-2xl z-10 overflow-hidden border border-slate-200">
-                    <!-- Top Cover & Close -->
-                    <div class="h-32 w-full namecard-bg relative">
-                        <button id="profile-close-btn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition-colors">✕</button>
-                        <div class="absolute top-4 left-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-white shadow flex items-center">
-                            <span class="mr-1">♾️</span> 24330 <span class="ml-2 font-serif text-[10px]">i</span>
-                        </div>
-                        <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white bg-slate-200 overflow-hidden shadow-md">
-                            <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    
-                    <div class="pt-12 pb-6 px-6 text-center">
-                        <h2 class="text-2xl font-bold heading-font text-slate-800" id="modal-profile-name">Aster</h2>
-                        <div class="flex items-center justify-center space-x-2 mt-1">
-                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm flex items-center">🎖️ Lauded Hero</span>
-                        </div>
-                        <p class="text-xs text-emerald-600 font-bold mt-2 flex items-center justify-center"><span class="mr-1">🌱</span> Sprout Starter</p>
-                        
-                        <div class="mt-4 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-between items-center px-4">
-                            <span class="text-xs font-bold text-slate-500">Base Power</span>
-                            <span class="font-bold text-slate-800 text-sm">86200K <span class="text-[10px] text-slate-400 font-normal ml-1">ⓘ</span></span>
-                        </div>
-
-                        <!-- Hero Overview -->
-                        <div class="mt-6 text-left">
-                            <div class="flex items-center justify-center mb-3 relative">
-                                <div class="border-t border-slate-200 absolute w-full z-0"></div>
-                                <span class="bg-white px-3 text-xs font-bold text-slate-400 uppercase relative z-10">Hero Overview</span>
-                            </div>
-                            <div class="flex justify-center gap-2" id="modal-profile-heroes">
-                                <!-- Populated dynamically by top 5 heroes from DB -->
-                            </div>
-                        </div>
-
-                        <!-- Bio -->
-                        <div class="mt-6 text-center relative">
-                            <span class="absolute -top-3 left-4 text-3xl text-slate-200 font-serif">"</span>
-                            <p class="text-xs text-slate-500 px-6 italic" id="modal-profile-bio">Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...</p>
-                            <span class="absolute -bottom-4 right-4 text-3xl text-slate-200 font-serif rotate-180">"</span>
-                        </div>
-                        
-                        <p class="text-[10px] text-slate-400 mt-6" id="modal-profile-meta">User ID : 40164131 | Server : G289</p>
-                    </div>
-                    
-                    <!-- Tabs -->
-                    <div class="flex border-t border-slate-200">
-                        <button class="flex-1 py-3 text-sm font-bold bg-emerald-600 text-white">Profile</button>
-                        <button class="flex-1 py-3 text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">Homestead</button>
-                    </div>
                 </div>
             </div>
 
@@ -1684,7 +1652,7 @@
                 spCreatures.forEach(c => {
                     const level = state.hall.soulPact[c.id] || 0;
                     spHtml += `
-                        <div class="flex flex-col items-center justify-center bg-white/60 rounded-xl p-1.5 border border-fuchsia-100 shadow-inner w-full" title="${c.name}">
+                        <div class="flex flex-col items-center justify-center bg-white/60 rounded-xl p-1.5 border border-fuchsia-100 shadow-inner w-full transition-colors" title="${c.name}">
                             <span class="text-xl leading-none mb-1">${c.icon}</span>
                             <span class="text-xs font-bold text-fuchsia-900">${level}</span>
                         </div>
@@ -1697,16 +1665,16 @@
                 let artHtml = '';
                 state.hall.artifacts.forEach(art => {
                     artHtml += `
-                        <div class="bg-white rounded-xl border border-amber-200 shadow-sm p-4 relative group flex flex-col justify-between">
+                        <div class="bg-white rounded-xl border border-amber-200 shadow-sm p-4 relative group flex flex-col justify-between transition-colors">
                             <button class="edit-artifact-btn absolute top-2 right-2 text-slate-400 hover:text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" data-id="${art.id}">✏️</button>
                             <div class="flex items-center mb-3">
-                                <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-2xl mr-3 border border-amber-200 flex-shrink-0">${sanitize(art.icon)}</div>
+                                <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-2xl mr-3 border border-amber-200 flex-shrink-0 transition-colors">${sanitize(art.icon)}</div>
                                 <div>
                                     <h5 class="font-bold text-slate-800 text-sm leading-tight">${sanitize(art.name)}</h5>
                                     <span class="text-xs font-bold text-amber-600">Level ${art.level}</span>
                                 </div>
                             </div>
-                            <div class="bg-slate-50 rounded p-2 text-[10px] text-slate-600 font-mono tracking-tight break-words border border-slate-100 mt-auto">
+                            <div class="bg-slate-50 rounded p-2 text-[10px] text-slate-600 font-mono tracking-tight break-words border border-slate-100 mt-auto transition-colors">
                                 ${sanitize(art.stats)}
                             </div>
                         </div>
@@ -1845,7 +1813,7 @@
                 prodResContainer.innerHTML = '';
                 state.homestead.production.forEach(res => {
                     prodResContainer.innerHTML += `
-                        <tr class="border-b border-slate-100 last:border-0 hover:bg-slate-50">
+                        <tr class="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
                             <td class="py-3 font-bold text-slate-700 text-xs">${res.icon} <span class="ml-1">${sanitize(res.name)}</span></td>
                             <td class="py-3 text-right text-emerald-600 font-semibold">+${res.prod}/h</td>
                             <td class="py-3 text-right font-bold text-slate-800">${res.stock.toLocaleString()}</td>
@@ -1859,11 +1827,11 @@
                 
                 state.homestead.buildings.filter(b => filterVal === 'All' || b.type === filterVal).forEach(b => {
                     bldContainer.innerHTML += `
-                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-all">
                             <span class="text-4xl mb-2 mt-2">${b.icon}</span>
                             <h4 class="font-bold text-slate-800 text-sm mb-1 line-clamp-1">${sanitize(b.name)}</h4>
                             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4">${sanitize(b.type)}</p>
-                            <div class="flex items-center justify-between w-full bg-white rounded-lg p-1.5 border border-slate-100 mt-auto">
+                            <div class="flex items-center justify-between w-full bg-white rounded-lg p-1.5 border border-slate-100 mt-auto transition-colors">
                                 <button data-target="building" data-action="minus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">-</button>
                                 <span class="font-bold text-indigo-700 w-12 text-sm">Lvl ${b.level}</span>
                                 <button data-target="building" data-action="plus" data-id="${b.id}" class="w-8 h-8 rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 font-bold flex items-center justify-center transition-colors">+</button>
@@ -1979,7 +1947,7 @@
                     } else {
                         state.treasury.wishlist.forEach((hero, index) => {
                             wishlistCont.innerHTML += `
-                                <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-100 group">
+                                <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-100 group transition-colors">
                                     <span class="font-bold text-slate-700 text-sm">${sanitize(hero)}</span>
                                     <button class="remove-wishlist-btn text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" data-index="${index}">✕</button>
                                 </div>
@@ -2154,10 +2122,10 @@
                 // Sort newest to oldest
                 filteredComps.sort((a, b) => b.id - a.id).forEach(comp => {
                     const heroBlocks = comp.heroes.map(hName => {
-                        if (!hName) return `<div class="w-10 h-10 bg-slate-100 rounded border border-slate-200"></div>`;
+                        if (!hName) return `<div class="w-10 h-10 bg-slate-100 rounded border border-slate-200 transition-colors"></div>`;
                         const hero = state.heroes.find(h => h.name === hName);
                         const shortName = hName.substring(0, 3).toUpperCase();
-                        return `<div class="w-10 h-10 bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-[10px] font-bold text-slate-600 overflow-hidden shadow-sm" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
+                        return `<div class="w-10 h-10 bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-[10px] font-bold text-slate-600 overflow-hidden shadow-sm transition-colors" title="${sanitize(hName)}">${sanitize(shortName)}</div>`;
                     }).join('');
 
                     // Safely extract Artifact info
@@ -2178,15 +2146,15 @@
                     }
 
                     formationsContainer.innerHTML += `
-                        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center gap-4 relative group">
+                        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center gap-4 relative group transition-colors">
                             <button class="delete-comp-btn absolute top-2 right-2 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" data-id="${comp.id}">✕</button>
                             <div class="flex items-center space-x-4 w-full md:w-auto">
-                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl shadow-inner border border-indigo-200" title="${sanitize(artifactName)}">${sanitize(artifactIcon)}</div>
+                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl shadow-inner border border-indigo-200 transition-colors" title="${sanitize(artifactName)}">${sanitize(artifactIcon)}</div>
                                 <div class="flex space-x-2">
                                     ${heroBlocks}
                                 </div>
                             </div>
-                            <div class="text-right w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-6 pr-4">
+                            <div class="text-right w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-6 pr-4 transition-colors">
                                 <p class="text-xs text-slate-500 uppercase font-bold">Total Damage</p>
                                 <p class="text-2xl font-bold text-red-600 heading-font">${sanitize(comp.damage)}</p>
                                 <p class="text-xs text-slate-400 mt-1">Recorded: ${sanitize(comp.date)}</p>
