@@ -59,6 +59,96 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Strategy Vault Logic ---
+const modeSelector = document.getElementById('mode-selector');
+const bossSelector = document.getElementById('boss-selector');
+const currentBossTitle = document.getElementById('current-boss-title');
+const addCompBtn = document.getElementById('add-comp-btn');
+const formationsContainer = document.getElementById('formations-container');
+
+// Boss Data (Based on video analysis)
+const bossData = {
+    'dream-realm': [
+        { id: 'sarethiel', name: 'Sarethiel' },
+        { id: 'gloommaw', name: 'Gloommaw' },
+        { id: 'doomscourge', name: 'Doomscourge' },
+        { id: 'blightshroom', name: 'Blightshroom' },
+        { id: 'king-croaker', name: 'King Croaker' },
+        { id: 'necrodrakon', name: 'Necrodrakon' }
+    ],
+    'primal-lord': [
+        { id: 'midnight-harvester', name: 'Midnight Harvester' },
+        { id: 'lone-gaze', name: 'Lone Gaze' }
+    ],
+    'guild-supremacy': [
+        { id: 'mimic-chest', name: 'Supreme Mimic' },
+        { id: 'mimic-crystal', name: 'Crystal Defense' }
+    ],
+    'battle-drills': [
+        { id: 'corrupt-creature', name: 'Corrupt Core' }
+    ]
+};
+
+// Update Boss Dropdown based on Mode
+function updateBossOptions() {
+    const selectedMode = modeSelector.value;
+    const bosses = bossData[selectedMode] || [];
+    
+    bossSelector.innerHTML = '<option value="" disabled selected>-- Choose Target --</option>';
+    
+    bosses.forEach(boss => {
+        const option = document.createElement('option');
+        option.value = boss.id;
+        option.textContent = boss.name;
+        bossSelector.appendChild(option);
+    });
+    
+    // Reset view when mode changes
+    currentBossTitle.textContent = "Select a Target";
+    addCompBtn.classList.add('hidden');
+    formationsContainer.innerHTML = `
+        <div class="text-center text-slate-400 py-10 flex flex-col items-center">
+            <span class="text-4xl mb-3">🎯</span>
+            <p>Select a boss to view or record your optimal team compositions.</p>
+        </div>`;
+}
+
+// Render formations when a boss is selected
+function renderBossStrategy() {
+    const selectedBossName = bossSelector.options[bossSelector.selectedIndex].text;
+    currentBossTitle.textContent = selectedBossName;
+    addCompBtn.classList.remove('hidden');
+    
+    // Placeholder for logged formations (this is where you'd map over saved data)
+    formationsContainer.innerHTML = `
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-4 w-full md:w-auto">
+                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl shadow-inner border border-indigo-200">
+                    🔮 </div>
+                <div class="flex space-x-2">
+                    <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
+                    <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
+                    <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
+                    <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
+                    <div class="w-10 h-10 bg-slate-200 rounded border border-slate-300"></div>
+                </div>
+            </div>
+            <div class="text-right w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-6">
+                <p class="text-xs text-slate-500 uppercase font-bold">Total Damage</p>
+                <p class="text-2xl font-bold text-red-600 heading-font">190B</p>
+                <p class="text-xs text-slate-400 mt-1">Recorded: April 12, 2026</p>
+            </div>
+        </div>
+    `;
+}
+
+// Event Listeners
+modeSelector.addEventListener('change', updateBossOptions);
+bossSelector.addEventListener('change', renderBossStrategy);
+
+// Initialize the first dropdown on load
+updateBossOptions();
+
     // --- 4. Mobile Menu Toggle ---
     DOM.mobileMenuBtn.addEventListener('click', () => DOM.mobileMenu.classList.remove('hidden'));
     DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
