@@ -347,17 +347,16 @@
 
             <!-- ===================== VIEW: HOMESTEAD ===================== -->
 			<section id="view-homestead" class="view-section hidden h-full">
-				<div class="max-w-6xl mx-auto">
+				<div class="max-w-5xl mx-auto">
 					<header class="mb-8 border-b border-slate-200 pb-4">
 						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
 						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
 					</header>
 
 					<div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden">
-						<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">🛡️</div>
-						<h3 class="text-xl font-bold text-red-800 mb-4 flex justify-between items-center">
-                            <span class="flex items-center"><span class="mr-2">⚠️</span> Darkswarm Invasion Tracker</span>
-                            <button id="update-darkswarm-btn" class="text-sm font-bold text-red-600 hover:text-red-800 transition-colors bg-red-100 px-3 py-1 rounded">Update</button>
+						<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl pointer-events-none">🛡️</div>
+						<h3 class="text-xl font-bold text-red-800 mb-4 flex items-center relative z-10">
+                            <span class="mr-2">⚠️</span> Darkswarm Invasion Tracker
                         </h3>
 						<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
 							<div>
@@ -383,7 +382,12 @@
 								</div>
 							</div>
 						</div>
-						<p class="mt-4 text-sm text-red-700 italic border-t border-red-200 pt-3">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
+						<div class="mt-6 border-t border-red-200 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
+                            <p class="text-sm text-red-700 italic">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
+                            <button id="update-darkswarm-btn" class="text-sm font-bold text-white hover:bg-red-700 transition-colors bg-red-600 px-5 py-2 rounded-lg shadow-md whitespace-nowrap uppercase tracking-wider flex items-center">
+                                <span class="mr-2">✏️</span> Update Tracker
+                            </button>
+                        </div>
 					</div>
 
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -614,11 +618,14 @@
                         </div>
                         <div>
                             <label class="text-xs font-bold text-slate-600 uppercase">Last Invasion</label>
-                            <input id="ds-input-last" type="text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-red-500 outline-none" placeholder="e.g. Today, Yesterday" />
+                            <input id="ds-input-last" type="date" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-red-500 outline-none" />
                         </div>
                         <div>
-                            <label class="text-xs font-bold text-slate-600 uppercase">Defenders (Comma Separated)</label>
-                            <input id="ds-input-defenders" type="text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-red-500 outline-none" placeholder="e.g. Thoran, Antandra, Cecia" />
+                            <label class="text-xs font-bold text-slate-600 uppercase mb-1 block">Assigned Defenders</label>
+                            <div id="ds-input-defenders-container" class="max-h-32 overflow-y-auto border border-slate-300 rounded p-2 bg-slate-50 space-y-1 custom-scrollbar">
+                                <!-- Dynamically populated checkboxes -->
+                            </div>
+                            <p class="text-[10px] text-slate-500 mt-1">Select heroes from your Resonating Hall.</p>
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-2">
                             <button type="button" id="darkswarm-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
@@ -663,7 +670,7 @@
                 },
                 homestead: JSON.parse(localStorage.getItem('afk_homestead')) || {
                     core: { wish: 1115689, coin: 217559, stamina: 5000 },
-                    darkswarm: { aggression: 75, lastInvasion: "Today", defenders: ["Thoran", "Antandra", "Cecia"] },
+                    darkswarm: { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] },
                     production: [
                         { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' },
                         { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
@@ -1069,8 +1076,32 @@
             const openDarkswarmModal = () => {
                 if (!state.homestead.darkswarm) return;
                 document.getElementById('ds-input-aggression').value = state.homestead.darkswarm.aggression;
-                document.getElementById('ds-input-last').value = state.homestead.darkswarm.lastInvasion;
-                document.getElementById('ds-input-defenders').value = state.homestead.darkswarm.defenders.join(', ');
+                
+                // Ensure date format is valid for <input type="date">
+                let lastInv = state.homestead.darkswarm.lastInvasion;
+                if (!lastInv || !lastInv.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                    lastInv = new Date().toISOString().split('T')[0];
+                }
+                document.getElementById('ds-input-last').value = lastInv;
+
+                // Populate Multi-Select Checkboxes from Resonating Hall database
+                const defContainer = document.getElementById('ds-input-defenders-container');
+                defContainer.innerHTML = '';
+                
+                if (state.heroes.length === 0) {
+                    defContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-1">No heroes added to Resonating Hall yet!</p>';
+                } else {
+                    state.heroes.forEach(hero => {
+                        const isChecked = state.homestead.darkswarm.defenders.includes(hero.name) ? 'checked' : '';
+                        defContainer.innerHTML += `
+                            <label class="flex items-center space-x-2 p-1 hover:bg-slate-200 rounded cursor-pointer transition-colors">
+                                <input type="checkbox" value="${hero.name}" class="ds-defender-checkbox text-red-600 rounded border-slate-300 focus:ring-red-500" ${isChecked}>
+                                <span class="text-sm font-semibold text-slate-700">${hero.name} <span class="text-xs font-normal text-slate-400">(${hero.faction})</span></span>
+                            </label>
+                        `;
+                    });
+                }
+
                 document.getElementById('darkswarm-modal').classList.remove('hidden');
                 document.getElementById('ds-input-aggression').focus();
             };
@@ -1086,9 +1117,12 @@
                 dsForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     state.homestead.darkswarm.aggression = Math.min(100, Math.max(0, parseInt(document.getElementById('ds-input-aggression').value) || 0));
-                    state.homestead.darkswarm.lastInvasion = document.getElementById('ds-input-last').value.trim();
-                    const defendersStr = document.getElementById('ds-input-defenders').value;
-                    state.homestead.darkswarm.defenders = defendersStr.split(',').map(s => s.trim()).filter(s => s);
+                    state.homestead.darkswarm.lastInvasion = document.getElementById('ds-input-last').value;
+                    
+                    // Capture selected defenders
+                    const selectedCheckboxes = document.querySelectorAll('.ds-defender-checkbox:checked');
+                    state.homestead.darkswarm.defenders = Array.from(selectedCheckboxes).map(cb => cb.value);
+                    
                     saveState();
                     renderHomestead();
                     closeDarkswarmModal();
