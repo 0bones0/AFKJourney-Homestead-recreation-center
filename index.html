@@ -794,7 +794,6 @@
             }
 
             function renderTasks() {
-                // Null check prevents crashing if you hide the elements!
                 if (!dailyTasksContainer || !weeklyTasksContainer) return;
 
                 dailyTasksContainer.innerHTML = '';
@@ -911,8 +910,7 @@
 
             if (addDailyBtn) addDailyBtn.addEventListener('click', () => openTaskModal(null, 'daily'));
             if (addWeeklyBtn) addWeeklyBtn.addEventListener('click', () => openTaskModal(null, 'weekly'));
-            renderTasks();
-                
+            
             // --- 6. Mode Insights Logic (Interactive Controls) ---
             function renderInsights() {
                 if (!document.getElementById('insight-afk-stage')) return;
@@ -933,7 +931,7 @@
                 const bldContainer = document.getElementById('buildings-container');
                 const bldFilter = document.getElementById('building-filter');
                 
-                if (!coreResContainer) return;
+                if (!coreResContainer || !bldContainer) return;
 
                 // Core Resources
                 coreResContainer.innerHTML = `
@@ -1051,8 +1049,6 @@
                 renderInsights();
             });
 
-            renderInsights();
-
             // --- 7. Mobile Menu & Modal Toggles ---
             if (DOM.mobileMenuBtn) DOM.mobileMenuBtn.addEventListener('click', () => DOM.mobileMenu.classList.remove('hidden'));
             if (DOM.closeMobileBtn) DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
@@ -1157,8 +1153,10 @@
             }
 
             // Init Hall
-            renderHeroes(); 
+            renderTasks();
+            renderInsights();
             renderHomestead();
+            renderHeroes(); 
         });
     </script>
 </body>
