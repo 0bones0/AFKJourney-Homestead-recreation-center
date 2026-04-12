@@ -113,6 +113,309 @@
 						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-2">
 							<div class="flex justify-between items-center mb-4 border-b pb-2">
 								<h3 class="text-xl font-bold">Hero Database</h3>
+								<div class="flex items-center space-x-2">
+									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold px-3 py-1.5 rounded shadow-sm">
+										+ Add Hero
+									</button>
+									<select id="faction-filter" class="border border-slate-300 rounded px-3 py-1 text-sm bg-white outline-none">
+										<option value="All">All Factions</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- Add Hero Modal -->
+							<div id="add-hero-modal" class="hidden fixed inset-0 z-50 items-center justify-center">
+								<div class="absolute inset-0 bg-slate-900/50" id="add-hero-backdrop"></div>
+								<div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6">
+									<div class="flex items-center justify-between mb-4">
+										<h4 class="text-lg font-bold heading-font text-slate-800">Add / Update Hero</h4>
+										<button id="add-hero-close" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+									</div>
+
+									<form id="add-hero-form" class="space-y-4">
+										<div>
+											<label class="text-xs font-bold text-slate-600 uppercase">Name</label>
+											<input id="hero-name" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. Cecia" />
+										</div>
+
+										<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+											<div>
+												<label class="text-xs font-bold text-slate-600 uppercase">Faction</label>
+												<select id="hero-faction" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm bg-white">
+													<option value="Graveborn">Graveborn</option>
+													<option value="Mauler">Mauler</option>
+													<option value="Lightbearer">Lightbearer</option>
+													<option value="Wilder">Wilder</option>
+													<option value="Celestial">Celestial</option>
+													<option value="Hypogean">Hypogean</option>
+												</select>
+											</div>
+											<div>
+												<label class="text-xs font-bold text-slate-600 uppercase">Class</label>
+												<input id="hero-class" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. Tank" />
+											</div>
+										</div>
+
+										<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+											<div>
+												<label class="text-xs font-bold text-slate-600 uppercase">Ascension</label>
+												<input id="hero-asc" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. Mythic+" />
+											</div>
+											<div>
+												<label class="text-xs font-bold text-slate-600 uppercase">Ex. Wpn</label>
+												<input id="hero-ex" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. +10" />
+											</div>
+										</div>
+
+										<div>
+											<label class="text-xs font-bold text-slate-600 uppercase">Role</label>
+											<input id="hero-role" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm" placeholder="e.g. 🔥 Boss Killer" />
+										</div>
+
+										<div class="flex items-center justify-end space-x-2 pt-2">
+											<button type="button" id="add-hero-cancel" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+											<button type="submit" class="px-4 py-2 text-sm rounded bg-green-600 hover:bg-green-700 text-white font-bold">Save Hero</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="overflow-x-auto">
+								<table class="w-full text-left border-collapse">
+									<thead>
+										<tr class="bg-slate-50 text-slate-600 text-sm uppercase tracking-wider">
+											<th class="py-3 px-4 border-b font-bold">Name</th>
+											<th class="py-3 px-4 border-b font-bold">Faction</th>
+											<th class="py-3 px-4 border-b font-bold">Class</th>
+											<th class="py-3 px-4 border-b font-bold">Ascension</th>
+											<th class="py-3 px-4 border-b font-bold">Ex. Wpn</th>
+											<th class="py-3 px-4 border-b font-bold">Role</th>
+										</tr>
+									</thead>
+									<tbody id="hero-table-body" class="text-sm"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="view-homestead" class="view-section hidden h-full">
+				<div class="max-w-5xl mx-auto">
+					<header class="mb-8 border-b border-slate-200 pb-4">
+						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
+						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
+					</header>
+
+					<div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden">
+						<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">🛡️</div>
+						<h3 class="text-xl font-bold text-red-800 mb-4 flex items-center"><span class="mr-2">⚠️</span> Darkswarm Invasion Tracker</h3>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+							<div>
+								<p class="text-sm text-red-600 uppercase font-bold mb-1">Aggression Level</p>
+								<div class="flex items-end space-x-2">
+									<span class="text-3xl font-bold text-red-700 heading-font">75/100</span>
+									<span class="text-sm text-red-500 mb-1">High</span>
+								</div>
+								<div class="w-full bg-red-200 rounded-full h-2 mt-2">
+									<div class="bg-red-600 h-2 rounded-full" style="width: 75%"></div>
+								</div>
+							</div>
+							<div>
+								<p class="text-sm text-red-600 uppercase font-bold mb-1">Last Invasion</p>
+								<p class="text-lg font-semibold text-slate-800">Today</p>
+							</div>
+							<div>
+								<p class="text-sm text-red-600 uppercase font-bold mb-1">Assigned Defenders</p>
+								<div class="flex space-x-2 mt-1">
+									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Thoran</span>
+									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Antandra</span>
+									<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">Cecia</span>
+								</div>
+							</div>
+						</div>
+						<p class="mt-4 text-sm text-red-700 italic border-t border-red-200 pt-3">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
+					</div>
+
+					<h3 class="text-2xl font-bold mb-4 flex items-center"><span class="mr-2">🛠️</span> Infrastructure & Crafting</h3>
+					<div id="buildings-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+				</div>
+			</section>
+
+			<section id="view-treasury" class="view-section hidden h-full">
+				<div class="max-w-5xl mx-auto">
+					<header class="mb-8 border-b border-slate-200 pb-4">
+						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">💎</span> Treasury & Gacha Planner</h2>
+						<p class="text-slate-600">Track your accumulated premium currencies and plan your next big summoning session. This visual representation helps manage resources efficiently and tracks your emporium wishlist to prevent impulsive spending.</p>
+					</header>
+
+					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative">
+							<h3 class="text-lg font-bold mb-2 absolute top-6 left-6">Diamond Reserve</h3>
+							<div class="chart-container mt-8"><canvas id="diamondChart"></canvas></div>
+							<div class="text-center mt-4">
+								<p class="text-3xl font-bold text-slate-800 heading-font">15,400 <span class="text-xl">💎</span></p>
+								<p class="text-sm text-slate-500">Goal: 30,000 for next Rate-Up</p>
+							</div>
+						</div>
+
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+							<div>
+								<h3 class="text-lg font-bold mb-6 border-b pb-2">Summoning Items</h3>
+								<div class="space-y-6">
+									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
+										<div class="flex items-center">
+											<span class="text-2xl mr-3">✉️</span>
+											<div>
+												<p class="font-bold text-slate-800">Epic Invite Letters</p>
+												<p class="text-xs text-slate-500">Waiting for Pity</p>
+											</div>
+										</div>
+										<span class="text-2xl font-bold text-amber-600 heading-font">24</span>
+									</div>
+									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
+										<div class="flex items-center">
+											<span class="text-2xl mr-3">💌</span>
+											<div>
+												<p class="font-bold text-slate-800">All-Hero Letters</p>
+												<p class="text-xs text-slate-500">General Pool</p>
+											</div>
+										</div>
+										<span class="text-2xl font-bold text-amber-600 heading-font">45</span>
+									</div>
+									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
+										<div class="flex items-center">
+											<span class="text-2xl mr-3">🌌</span>
+											<div>
+												<p class="font-bold text-slate-800">Stargaze Crystals</p>
+												<p class="text-xs text-slate-500">Target: Reiner/Scarlita</p>
+											</div>
+										</div>
+										<span class="text-2xl font-bold text-purple-600 heading-font">12</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+							<h3 class="text-lg font-bold mb-4 flex items-center border-b pb-2"><span class="mr-2">🛒</span> Emporium Wishlist</h3>
+							<div class="space-y-3" id="wishlist-container"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="view-strategy" class="view-section hidden h-full">
+				<div class="max-w-4xl mx-auto">
+					<header class="mb-8 border-b border-slate-200 pb-4">
+						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🧠</span> Strategy Vault</h2>
+						<p class="text-slate-600">Access your synchronized battle plans. Select a Dream Realm Boss to instantly review your optimal team composition based on your Resonating Hall database, historical high scores, and faction advantages.</p>
+					</header>
+
+					<div class="bg-white p-8 rounded-xl border border-slate-200 shadow-lg">
+						<div class="flex flex-col md:flex-row gap-8">
+							<div class="w-full md:w-1/3 border-r border-slate-200 pr-0 md:pr-6">
+								<h3 class="font-bold text-lg mb-4">Select Target</h3>
+								<div class="space-y-2" id="boss-selector"></div>
+							</div>
+							<div class="w-full md:w-2/3" id="boss-details">
+								<div class="text-center text-slate-400 py-10 flex flex-col items-center">
+									<span class="text-4xl mb-3">🎯</span>
+									<p>Select a boss from the list to view your optimal strategy.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-8 bg-blue-50 border border-blue-200 p-4 rounded-lg text-sm text-blue-800 flex items-start">
+							<span class="mr-3 text-xl">💡</span>
+							<p><strong>Sync Note:</strong> As you acquire new characters or upgrade Exclusive Weapons in the Resonating Hall, return here to refine your team compositions. Faction advantages play a massive role in pushing higher damage brackets.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<script src="./app.js"></script>
+</body>
+</html>		</nav>
+		<div class="p-6 border-t border-slate-200 text-xs text-slate-400 italic">
+			"In the heart of Esperia, strategy is your greatest weapon."
+		</div>
+	</aside>
+
+	<!-- Mobile Top Bar -->
+	<div class="md:hidden bg-slate-50 border-b border-slate-200 flex justify-between items-center p-4 fixed w-full top-0 z-30 shadow-sm">
+		<div class="flex items-center space-x-2">
+			<span class="text-2xl">🏰</span>
+			<h1 class="font-bold text-lg heading-font">Command Center</h1>
+		</div>
+		<button id="mobile-menu-btn" class="text-2xl">☰</button>
+	</div>
+
+	<!-- Mobile Menu -->
+	<div id="mobile-menu" class="hidden fixed inset-0 bg-slate-800 bg-opacity-50 z-40">
+		<div class="bg-white w-64 h-full shadow-xl flex flex-col absolute right-0 transform transition-transform">
+			<button id="close-mobile-menu" class="self-end p-4 text-2xl">✕</button>
+			<nav class="flex-1 flex flex-col" id="mobile-nav-menu">
+				<a href="#" data-target="view-grind" class="mobile-nav-item px-6 py-4 border-b">📌 The Daily Grind</a>
+				<a href="#" data-target="view-heroes" class="mobile-nav-item px-6 py-4 border-b">🦸‍♂️ Resonating Hall</a>
+				<a href="#" data-target="view-homestead" class="mobile-nav-item px-6 py-4 border-b">🏡 Homestead Estate</a>
+				<a href="#" data-target="view-treasury" class="mobile-nav-item px-6 py-4 border-b">💎 Treasury & Gacha</a>
+				<a href="#" data-target="view-strategy" class="mobile-nav-item px-6 py-4 border-b">🧠 Strategy Vault</a>
+			</nav>
+		</div>
+	</div>
+
+	<main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 relative bg-white">
+		<div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative w-full h-full">
+			<section id="view-grind" class="view-section active h-full">
+				<div class="max-w-4xl mx-auto">
+					<header class="mb-8 border-b border-slate-200 pb-4">
+						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">📌</span> The Daily Grind</h2>
+						<p class="text-slate-600">This section provides a structured overview of your recurring tasks in Esperia. Track your daily operations and weekly objectives to ensure you are maximizing your resource generation. Interacting with the checklists updates your progress automatically.</p>
+					</header>
+
+					<div class="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm">
+						<div class="flex justify-between items-end mb-2">
+							<h3 class="text-lg font-bold">Daily Completion Goal</h3>
+							<span id="daily-progress-text" class="text-2xl font-bold text-yellow-600 heading-font">0%</span>
+						</div>
+						<div class="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
+							<div id="daily-progress-bar" class="bg-yellow-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+							<h3 class="text-xl font-bold mb-4 flex items-center border-b pb-2"><span class="mr-2">☀️</span> Daily Tasks (Reset 00:00 UTC)</h3>
+							<div id="daily-tasks-container" class="space-y-3"></div>
+						</div>
+
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+							<h3 class="text-xl font-bold mb-4 flex items-center border-b pb-2"><span class="mr-2">📅</span> Weekly / Periodic</h3>
+							<div id="weekly-tasks-container" class="space-y-3"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="view-heroes" class="view-section hidden h-full">
+				<div class="max-w-6xl mx-auto">
+					<header class="mb-8 border-b border-slate-200 pb-4">
+						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🦸‍♂️</span> The Resonating Hall</h2>
+						<p class="text-slate-600">Manage your core hero roster and analyze your faction distribution. This interactive database allows you to filter your units to quickly assess your strengths and identify gaps in your formations for specific content.</p>
+					</header>
+
+					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col justify-center">
+							<h3 class="text-lg font-bold mb-4 text-center">Faction Distribution</h3>
+							<div class="chart-container">
+								<canvas id="factionChart"></canvas>
+							</div>
+						</div>
+						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-2">
+							<div class="flex justify-between items-center mb-4 border-b pb-2">
+								<h3 class="text-xl font-bold">Hero Database</h3>
 								<div class="flex space-x-2">
 									<select id="faction-filter" class="border border-slate-300 rounded px-3 py-1 text-sm bg-white outline-none">
 										<option value="All">All Factions</option>
