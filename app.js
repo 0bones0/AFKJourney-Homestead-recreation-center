@@ -270,76 +270,68 @@ addWeeklyBtn.addEventListener('click', () => addNewTask('weekly'));
 
 // Initialize task render
 renderTasks();
-
+    
 // --- 8. Mode Insights Logic (Interactive Controls) ---
 
-if (!state.insights) {
-    state.insights = JSON.parse(localStorage.getItem('afk_insights')) || {
-        afkStage: 1819,
-        durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic (Lvl 25)' },
-        legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 },
-        supremeArena: { rank: 82 }
-    };
-}
+    function renderInsights() {
+        // If the HTML elements don't exist yet, don't try to update them
+        if (!document.getElementById('insight-afk-stage')) return;
 
-const saveInsights = () => {
-    localStorage.setItem('afk_insights', JSON.stringify(state.insights));
-};
-
-function renderInsights() {
-    document.getElementById('insight-afk-stage').textContent = state.insights.afkStage;
-    document.getElementById('insight-dura-floor').textContent = state.insights.durasTrials.floor;
-    document.getElementById('insight-legend-light').textContent = state.insights.legendTrials.light;
-    document.getElementById('insight-legend-nature').textContent = state.insights.legendTrials.nature;
-    document.getElementById('insight-legend-eternity').textContent = state.insights.legendTrials.eternity;
-    document.getElementById('insight-legend-will').textContent = state.insights.legendTrials.will;
-    document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
-}
-
-// Global click listener for all + and - buttons
-document.addEventListener('click', (e) => {
-    // Check if we clicked a button with data-action
-    const btn = e.target.closest('button[data-action]');
-    if (!btn) return;
-
-    const target = btn.getAttribute('data-target');
-    const action = btn.getAttribute('data-action');
-    
-    // Determine the modifier (+1 or -1)
-    const modifier = action === 'plus' ? 1 : -1;
-
-    // Apply the math to the correct state variable
-    switch (target) {
-        case 'afk':
-            state.insights.afkStage += modifier;
-            break;
-        case 'dura':
-            state.insights.durasTrials.floor += modifier;
-            break;
-        case 'light':
-            state.insights.legendTrials.light += modifier;
-            break;
-        case 'nature':
-            state.insights.legendTrials.nature += modifier;
-            break;
-        case 'eternity':
-            state.insights.legendTrials.eternity += modifier;
-            break;
-        case 'will':
-            state.insights.legendTrials.will += modifier;
-            break;
-        case 'arena':
-            // Ranks usually go down to get better, so subtracting lowers the rank number
-            // However, preventing negative ranks is important
-            let newRank = state.insights.supremeArena.rank + modifier;
-            state.insights.supremeArena.rank = newRank < 1 ? 1 : newRank;
-            break;
+        document.getElementById('insight-afk-stage').textContent = state.insights.afkStage;
+        document.getElementById('insight-dura-floor').textContent = state.insights.durasTrials.floor;
+        document.getElementById('insight-legend-light').textContent = state.insights.legendTrials.light;
+        document.getElementById('insight-legend-nature').textContent = state.insights.legendTrials.nature;
+        document.getElementById('insight-legend-eternity').textContent = state.insights.legendTrials.eternity;
+        document.getElementById('insight-legend-will').textContent = state.insights.legendTrials.will;
+        document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
     }
 
-    // Save and update the UI instantly
-    saveInsights();
+    // Global click listener for all + and - buttons
+    document.addEventListener('click', (e) => {
+        // Find the closest button with a data-action attribute
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+
+        const target = btn.getAttribute('data-target');
+        const action = btn.getAttribute('data-action');
+        
+        // Determine if we are adding or subtracting
+        const modifier = action === 'plus' ? 1 : -1;
+
+        // Update the state based on which button was clicked
+        switch (target) {
+            case 'afk':
+                state.insights.afkStage += modifier;
+                break;
+            case 'dura':
+                state.insights.durasTrials.floor += modifier;
+                break;
+            case 'light':
+                state.insights.legendTrials.light += modifier;
+                break;
+            case 'nature':
+                state.insights.legendTrials.nature += modifier;
+                break;
+            case 'eternity':
+                state.insights.legendTrials.eternity += modifier;
+                break;
+            case 'will':
+                state.insights.legendTrials.will += modifier;
+                break;
+            case 'arena':
+                // For Arena, Rank 1 is the best, so prevent going below 1
+                let newRank = state.insights.supremeArena.rank + modifier;
+                state.insights.supremeArena.rank = newRank < 1 ? 1 : newRank;
+                break;
+        }
+
+        // Save to LocalStorage and update the screen
+        saveState();
+        renderInsights();
+    });
+
+    // Run this once when the app loads to populate the initial numbers
     renderInsights();
-});
 
 // Initial Render
 renderInsights();
