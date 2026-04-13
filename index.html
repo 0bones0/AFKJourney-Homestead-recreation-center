@@ -113,6 +113,11 @@
         /* Toast Animation */
         @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .toast-enter { animation: slideInUp 0.3s ease-out forwards; }
+
+        /* Editable Content styling */
+        [contenteditable="true"] { transition: background-color 0.2s, border-radius 0.2s; outline: none; }
+        [contenteditable="true"]:hover { background-color: rgba(0,0,0,0.05); border-radius: 4px; cursor: text; }
+        body.theme-dark [contenteditable="true"]:hover { background-color: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden theme-light">
@@ -183,7 +188,10 @@
             <!-- ===================== VIEW: THE DAILY GRIND ===================== -->
 			<section id="view-grind" class="view-section active h-full">
                 <div class="mb-10">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
+                    <div class="flex justify-between items-end mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
+                        <p class="text-xs text-slate-500 font-medium">Tip: Click on any big number to type and edit it directly.</p>
+                    </div>
                     
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                         
@@ -196,7 +204,7 @@
                             </div>
                             <div class="flex items-center justify-between bg-white/60 rounded-xl p-3 border border-indigo-100 shadow-inner relative z-10 transition-colors">
                                 <button data-target="afk" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">-</button>
-                                <span id="insight-afk-stage" class="text-4xl font-bold text-indigo-900 heading-font tracking-tight">1819</span>
+                                <span id="insight-afk-stage" class="text-4xl font-bold text-indigo-900 heading-font tracking-tight px-2" contenteditable="true" data-stat="afkStage">1819</span>
                                 <button data-target="afk" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:shadow font-bold text-2xl transition-all">+</button>
                             </div>
                         </div>
@@ -212,7 +220,7 @@
                                 <button data-target="dura" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <div class="text-center">
                                     <span class="text-sm text-amber-600 font-bold uppercase tracking-wider block mb-[-4px]">Floor</span>
-                                    <span id="insight-dura-floor" class="text-4xl font-bold text-amber-900 heading-font tracking-tight">40</span>
+                                    <span id="insight-dura-floor" class="text-4xl font-bold text-amber-900 heading-font tracking-tight px-2" contenteditable="true" data-stat="duraFloor">40</span>
                                 </div>
                                 <button data-target="dura" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 hover:shadow font-bold text-2xl transition-all">+</button>
                             </div>
@@ -228,34 +236,34 @@
                             <div class="grid grid-cols-2 gap-3 relative z-10">
                                 <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Light</span>
-                                    <div class="flex items-center space-x-2">
-                                        <button data-target="light" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                        <span id="insight-legend-light" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                        <button data-target="light" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
+                                    <div class="flex items-center space-x-1">
+                                        <button data-target="light" data-action="minus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
+                                        <span id="insight-legend-light" class="text-lg font-bold text-emerald-800 w-8 text-center px-1" contenteditable="true" data-stat="ltLight">141</span>
+                                        <button data-target="light" data-action="plus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
                                 <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Nature</span>
-                                    <div class="flex items-center space-x-2">
-                                        <button data-target="nature" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                        <span id="insight-legend-nature" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                        <button data-target="nature" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
+                                    <div class="flex items-center space-x-1">
+                                        <button data-target="nature" data-action="minus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
+                                        <span id="insight-legend-nature" class="text-lg font-bold text-emerald-800 w-8 text-center px-1" contenteditable="true" data-stat="ltNature">141</span>
+                                        <button data-target="nature" data-action="plus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
                                 <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Eternity</span>
-                                    <div class="flex items-center space-x-2">
-                                        <button data-target="eternity" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                        <span id="insight-legend-eternity" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                        <button data-target="eternity" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
+                                    <div class="flex items-center space-x-1">
+                                        <button data-target="eternity" data-action="minus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
+                                        <span id="insight-legend-eternity" class="text-lg font-bold text-emerald-800 w-8 text-center px-1" contenteditable="true" data-stat="ltEternity">141</span>
+                                        <button data-target="eternity" data-action="plus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
                                 <div class="flex items-center justify-between bg-white/60 rounded-lg p-2 border border-emerald-100 transition-colors">
                                     <span class="font-bold text-emerald-900 w-16">Will</span>
-                                    <div class="flex items-center space-x-2">
-                                        <button data-target="will" data-action="minus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
-                                        <span id="insight-legend-will" class="text-lg font-bold text-emerald-800 w-8 text-center">141</span>
-                                        <button data-target="will" data-action="plus" class="w-7 h-7 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
+                                    <div class="flex items-center space-x-1">
+                                        <button data-target="will" data-action="minus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">-</button>
+                                        <span id="insight-legend-will" class="text-lg font-bold text-emerald-800 w-8 text-center px-1" contenteditable="true" data-stat="ltWill">141</span>
+                                        <button data-target="will" data-action="plus" class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 font-bold">+</button>
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +280,7 @@
                                 <button data-target="arena" data-action="minus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">-</button>
                                 <div class="text-center">
                                     <span class="text-sm text-rose-600 font-bold uppercase tracking-wider block mb-[-4px]">Top Rank</span>
-                                    <span id="insight-arena-rank" class="text-4xl font-bold text-rose-900 heading-font tracking-tight">82</span>
+                                    <span id="insight-arena-rank" class="text-4xl font-bold text-rose-900 heading-font tracking-tight px-2" contenteditable="true" data-stat="arenaRank">82</span>
                                 </div>
                                 <button data-target="arena" data-action="plus" class="w-12 h-12 flex items-center justify-center rounded-lg bg-rose-100 text-rose-700 hover:bg-rose-200 hover:shadow font-bold text-2xl transition-all">+</button>
                             </div>
@@ -347,7 +355,7 @@
                                 </div>
                                 <div class="flex items-center justify-between bg-white/60 rounded-xl p-2 border border-indigo-100 shadow-inner relative z-10 transition-colors">
                                     <button data-target="resonance" data-action="minus" class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold text-xl transition-all">-</button>
-                                    <span id="hall-resonance-level" class="text-2xl font-bold text-indigo-900 heading-font">924</span>
+                                    <span id="hall-resonance-level" class="text-2xl font-bold text-indigo-900 heading-font px-2" contenteditable="true" data-stat="resonanceLvl">924</span>
                                     <button data-target="resonance" data-action="plus" class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold text-xl transition-all">+</button>
                                 </div>
                             </div>
@@ -380,7 +388,7 @@
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Tank</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-tank" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
-                                            <span id="hall-eq-tank" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <span id="hall-eq-tank" class="text-xs font-bold text-cyan-800 w-8 text-center px-1" contenteditable="true" data-stat="eqTank">900</span>
                                             <button data-target="eq-tank" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
                                         </div>
                                     </div>
@@ -389,7 +397,7 @@
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Warrior</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-warrior" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
-                                            <span id="hall-eq-warrior" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <span id="hall-eq-warrior" class="text-xs font-bold text-cyan-800 w-8 text-center px-1" contenteditable="true" data-stat="eqWarrior">900</span>
                                             <button data-target="eq-warrior" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
                                         </div>
                                     </div>
@@ -398,7 +406,7 @@
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Rogue</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-rogue" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
-                                            <span id="hall-eq-rogue" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <span id="hall-eq-rogue" class="text-xs font-bold text-cyan-800 w-8 text-center px-1" contenteditable="true" data-stat="eqRogue">900</span>
                                             <button data-target="eq-rogue" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
                                         </div>
                                     </div>
@@ -407,7 +415,7 @@
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Marksman</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-marksman" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
-                                            <span id="hall-eq-marksman" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <span id="hall-eq-marksman" class="text-xs font-bold text-cyan-800 w-8 text-center px-1" contenteditable="true" data-stat="eqMarksman">900</span>
                                             <button data-target="eq-marksman" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
                                         </div>
                                     </div>
@@ -416,7 +424,7 @@
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Mage</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-mage" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
-                                            <span id="hall-eq-mage" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <span id="hall-eq-mage" class="text-xs font-bold text-cyan-800 w-8 text-center px-1" contenteditable="true" data-stat="eqMage">900</span>
                                             <button data-target="eq-mage" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
                                         </div>
                                     </div>
@@ -425,7 +433,7 @@
                                         <span class="font-bold text-cyan-900 text-[10px] uppercase w-14">Support</span>
                                         <div class="flex items-center space-x-1">
                                             <button data-target="eq-support" data-action="minus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">-</button>
-                                            <span id="hall-eq-support" class="text-xs font-bold text-cyan-800 w-6 text-center">900</span>
+                                            <span id="hall-eq-support" class="text-xs font-bold text-cyan-800 w-8 text-center px-1" contenteditable="true" data-stat="eqSupport">900</span>
                                             <button data-target="eq-support" data-action="plus" class="w-5 h-5 flex items-center justify-center rounded bg-cyan-100 text-cyan-700 hover:bg-cyan-200 font-bold text-xs">+</button>
                                         </div>
                                     </div>
@@ -463,19 +471,20 @@
 								<table class="w-full text-left border-collapse">
 									<thead>
 										<tr class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider">
-											<th class="py-3 px-3 border-b font-bold">Name</th>
-											<th class="py-3 px-3 border-b font-bold">Faction</th>
-											<th class="py-3 px-3 border-b font-bold">Grade</th>
-											<th class="py-3 px-3 border-b font-bold">Class</th>
-											<th class="py-3 px-3 border-b font-bold">Ascension</th>
-											<th class="py-3 px-3 border-b font-bold">Ex. Wpn</th>
-											<th class="py-3 px-3 border-b font-bold">Attack</th>
-											<th class="py-3 px-3 border-b font-bold">Range</th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="name">Name <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="faction">Faction <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="grade">Grade <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="hClass">Class <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="ascension">Ascension <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="exWpn">Ex. Wpn <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="attack">Attack <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="range">Range <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold text-right">Actions</th>
 										</tr>
 									</thead>
 									<tbody id="hero-table-body" class="text-sm"> 
 										<tr id="empty-state-row">
-											<td colspan="8" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td>
+											<td colspan="9" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td>
 										</tr>
 									</tbody>
 								</table>
@@ -833,11 +842,12 @@
                 <div class="absolute inset-0 bg-slate-900/50" id="add-hero-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-lg font-bold heading-font text-slate-800">Add / Update Hero</h4>
+                        <h4 id="hero-modal-title" class="text-lg font-bold heading-font text-slate-800">Add Hero</h4>
                         <button id="add-hero-close" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
                     </div>
 
                     <form id="add-hero-form" class="space-y-4">
+                        <input type="hidden" id="edit-hero-original-name" value="">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="text-xs font-bold text-slate-600 uppercase">Name</label>
@@ -912,7 +922,7 @@
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-slate-600 uppercase">Range</label>
-                                <input id="hero-range" type="number" min="1" max="10" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-green-500" placeholder="1 to 10" />
+                                <input id="hero-range" type="number" min="1" max="25" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-green-500" placeholder="1 to 25" />
                             </div>
                         </div>
 
@@ -1131,10 +1141,11 @@
                 <div class="absolute inset-0 bg-slate-900/50" id="comp-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-lg font-bold heading-font text-slate-800">Log Team Formation</h4>
+                        <h4 id="comp-modal-title" class="text-lg font-bold heading-font text-slate-800">Log Team Formation</h4>
                         <button id="comp-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
                     </div>
                     <form id="comp-form" class="space-y-4">
+                        <input type="hidden" id="edit-comp-id" value="">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="text-xs font-bold text-slate-600 uppercase">Damage Score</label>
@@ -1169,62 +1180,6 @@
                 </div>
             </div>
 
-            <!-- User Profile Namecard Modal -->
-            <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="profile-backdrop"></div>
-                <div class="relative bg-white w-[92%] max-w-sm rounded-[24px] shadow-2xl z-10 overflow-hidden border border-slate-200">
-                    <!-- Top Cover & Close -->
-                    <div class="h-32 w-full namecard-bg relative">
-                        <button id="profile-close-btn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition-colors">✕</button>
-                        <div class="absolute top-4 left-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-white shadow flex items-center">
-                            <span class="mr-1">♾️</span> <span id="modal-profile-resonance">24330</span> <span class="ml-2 font-serif text-[10px]">i</span>
-                        </div>
-                        <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white bg-slate-200 overflow-hidden shadow-md">
-                            <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    
-                    <div class="pt-12 pb-6 px-6 text-center">
-                        <h2 class="text-2xl font-bold heading-font text-slate-800" id="modal-profile-name">Aster</h2>
-                        <div class="flex items-center justify-center space-x-2 mt-1">
-                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm flex items-center">🎖️ Lauded Hero</span>
-                        </div>
-                        <p class="text-xs text-emerald-600 font-bold mt-2 flex items-center justify-center"><span class="mr-1">🌱</span> Sprout Starter</p>
-                        
-                        <div class="mt-4 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-between items-center px-4">
-                            <span class="text-xs font-bold text-slate-500">Base Power</span>
-                            <span class="font-bold text-slate-800 text-sm">86200K <span class="text-[10px] text-slate-400 font-normal ml-1">ⓘ</span></span>
-                        </div>
-
-                        <!-- Hero Overview -->
-                        <div class="mt-6 text-left">
-                            <div class="flex items-center justify-center mb-3 relative">
-                                <div class="border-t border-slate-200 absolute w-full z-0"></div>
-                                <span class="bg-white px-3 text-xs font-bold text-slate-400 uppercase relative z-10">Hero Overview</span>
-                            </div>
-                            <div class="flex justify-center gap-2" id="modal-profile-heroes">
-                                <!-- Populated dynamically by top 5 heroes from DB -->
-                            </div>
-                        </div>
-
-                        <!-- Bio -->
-                        <div class="mt-6 text-center relative">
-                            <span class="absolute -top-3 left-4 text-3xl text-slate-200 font-serif">"</span>
-                            <p class="text-xs text-slate-500 px-6 italic" id="modal-profile-bio">Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...</p>
-                            <span class="absolute -bottom-4 right-4 text-3xl text-slate-200 font-serif rotate-180">"</span>
-                        </div>
-                        
-                        <p class="text-[10px] text-slate-400 mt-6" id="modal-profile-meta">User ID : 40164131 | Server : G289</p>
-                    </div>
-                    
-                    <!-- Tabs -->
-                    <div class="flex border-t border-slate-200">
-                        <button class="flex-1 py-3 text-sm font-bold bg-emerald-600 text-white">Profile</button>
-                        <button class="flex-1 py-3 text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">Homestead</button>
-                    </div>
-                </div>
-            </div>
-
 		</div>
 	</main>
 
@@ -1252,7 +1207,7 @@
         const showToast = (message) => {
             const toastContainer = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'bg-slate-800 text-white px-4 py-2 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 opacity-0 transform translate-y-4';
+            toast.className = 'bg-slate-800 text-white px-4 py-3 rounded-lg shadow-xl text-sm font-bold tracking-wide transition-all duration-300 opacity-0 transform translate-y-4 border-l-4 border-indigo-500';
             toast.textContent = message;
             
             toastContainer.appendChild(toast);
@@ -1267,14 +1222,6 @@
                 toast.classList.add('opacity-0', 'translate-y-4');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
-        };
-
-        const artifactNames = {
-            lightheal: '🔮 Lightheal',
-            manawake: '💧 Manawake',
-            rockbind: '🪨 Rockbind',
-            blazeburn: '🔥 Blazeburn',
-            earthshell: '🐢 Earthshell'
         };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1422,6 +1369,42 @@
                 localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
             };
             
+            // --- Content Editable Click-To-Type Listeners ---
+            document.querySelectorAll('[contenteditable="true"][data-stat]').forEach(el => {
+                el.addEventListener('blur', (e) => {
+                    const statStr = e.target.getAttribute('data-stat');
+                    const val = parseInt(e.target.textContent.replace(/\D/g, '')) || 0;
+                    
+                    e.target.textContent = val; // clean formatting
+                    
+                    if (statStr === 'afkStage') state.insights.afkStage = val;
+                    if (statStr === 'duraFloor') state.insights.durasTrials.floor = val;
+                    if (statStr === 'ltLight') state.insights.legendTrials.light = val;
+                    if (statStr === 'ltNature') state.insights.legendTrials.nature = val;
+                    if (statStr === 'ltEternity') state.insights.legendTrials.eternity = val;
+                    if (statStr === 'ltWill') state.insights.legendTrials.will = val;
+                    if (statStr === 'arenaRank') state.insights.supremeArena.rank = Math.max(1, val);
+                    
+                    if (statStr === 'resonanceLvl') state.hall.resonanceLevel = val;
+                    if (statStr === 'eqTank') state.hall.equipment.tank = val;
+                    if (statStr === 'eqWarrior') state.hall.equipment.warrior = val;
+                    if (statStr === 'eqRogue') state.hall.equipment.rogue = val;
+                    if (statStr === 'eqMarksman') state.hall.equipment.marksman = val;
+                    if (statStr === 'eqMage') state.hall.equipment.mage = val;
+                    if (statStr === 'eqSupport') state.hall.equipment.support = val;
+
+                    saveState();
+                    showToast("Stats updated");
+                });
+                
+                el.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        e.target.blur();
+                    }
+                });
+            });
+
             // --- UI Settings & Theming ---
             function applySettings() {
                 document.body.className = `flex h-screen overflow-hidden theme-${state.settings.theme}`;
@@ -1629,6 +1612,7 @@
                         state.tasks = state.tasks.filter(t => t.id !== taskId);
                         saveState();
                         renderTasks();
+                        showToast("Task removed");
                     });
                 });
             }
@@ -1769,7 +1753,31 @@
             });
 
             // --- Hero Manager (Resonating Hall) ---
-            const openHeroModal = () => { document.getElementById('add-hero-modal').classList.remove('hidden'); }
+            let heroSortConfig = { column: null, asc: true };
+
+            const openHeroModal = (hero = null) => { 
+                const title = document.getElementById('hero-modal-title');
+                const origNameInput = document.getElementById('edit-hero-original-name');
+                
+                if (hero && hero.name) {
+                    title.textContent = 'Edit Hero';
+                    origNameInput.value = hero.name;
+                    document.getElementById('hero-name').value = hero.name;
+                    document.getElementById('hero-grade').value = hero.grade || 'S-Level';
+                    document.getElementById('hero-faction').value = hero.faction || 'Graveborn';
+                    document.getElementById('hero-class').value = hero.hClass || 'Tank';
+                    document.getElementById('hero-asc').value = hero.ascension || 'Epic';
+                    document.getElementById('hero-ex').value = hero.exWpn || '+0';
+                    document.getElementById('hero-attack').value = hero.attack || 'Physical';
+                    document.getElementById('hero-range').value = hero.range || '1';
+                } else {
+                    title.textContent = 'Add Hero';
+                    origNameInput.value = '';
+                    document.getElementById('add-hero-form').reset();
+                }
+                document.getElementById('add-hero-modal').classList.remove('hidden'); 
+            };
+
             const closeHeroModal = () => {
                 document.getElementById('add-hero-modal').classList.add('hidden');
                 document.getElementById('add-hero-form').reset();
@@ -1778,16 +1786,48 @@
             const hAddBtn = document.getElementById('add-hero-btn');
             const hCloseBtn = document.getElementById('add-hero-close');
             const hCancelBtn = document.getElementById('add-hero-cancel');
-            if (hAddBtn) hAddBtn.addEventListener('click', openHeroModal);
+            if (hAddBtn) hAddBtn.addEventListener('click', () => openHeroModal(null));
             if (hCloseBtn) hCloseBtn.addEventListener('click', closeHeroModal);
             if (hCancelBtn) hCancelBtn.addEventListener('click', closeHeroModal);
+
+            // Sorting logic for Hero Table
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+                th.addEventListener('click', (e) => {
+                    const col = e.currentTarget.getAttribute('data-sort');
+                    if (heroSortConfig.column === col) {
+                        heroSortConfig.asc = !heroSortConfig.asc;
+                    } else {
+                        heroSortConfig.column = col;
+                        heroSortConfig.asc = true;
+                    }
+
+                    state.heroes.sort((a, b) => {
+                        let valA = a[col] || '';
+                        let valB = b[col] || '';
+                        
+                        // Parse range as integer if sorting by range
+                        if (col === 'range') {
+                            valA = parseInt(valA) || 0;
+                            valB = parseInt(valB) || 0;
+                        } else {
+                            if (typeof valA === 'string') valA = valA.toLowerCase();
+                            if (typeof valB === 'string') valB = valB.toLowerCase();
+                        }
+                        
+                        if (valA < valB) return heroSortConfig.asc ? -1 : 1;
+                        if (valA > valB) return heroSortConfig.asc ? 1 : -1;
+                        return 0;
+                    });
+                    renderHeroes();
+                });
+            });
 
             function renderHeroes() {
                 if (!DOM.tableBody) return;
                 DOM.tableBody.innerHTML = ''; 
                 
                 if (state.heroes.length === 0) {
-                    DOM.tableBody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td></tr>`;
+                    DOM.tableBody.innerHTML = `<tr><td colspan="9" class="py-6 text-center text-slate-500 italic">No heroes registered in the Resonating Hall yet.</td></tr>`;
                     updateFactionChart();
                     return;
                 }
@@ -1804,18 +1844,49 @@
                         <td class="py-3 px-3">${sanitize(hero.exWpn)}</td>
                         <td class="py-3 px-3">${sanitize(hero.attack || '-')}</td>
                         <td class="py-3 px-3">${sanitize(hero.range || '-')}</td>
+                        <td class="py-3 px-3 text-right whitespace-nowrap">
+                            <button class="edit-hero-btn text-orange-400 hover:text-orange-600 transition-colors mr-3" data-name="${sanitize(hero.name)}" title="Edit">✏️</button>
+                            <button class="delete-hero-btn text-slate-300 hover:text-red-500 text-lg leading-none transition-colors" data-name="${sanitize(hero.name)}" title="Delete">✕</button>
+                        </td>
                     `;
                     DOM.tableBody.appendChild(tr);
                 });
                 updateFactionChart();
+
+                document.querySelectorAll('.edit-hero-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const hName = e.target.getAttribute('data-name');
+                        const hero = state.heroes.find(h => h.name === hName);
+                        if(hero) openHeroModal(hero);
+                    });
+                });
+
+                document.querySelectorAll('.delete-hero-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const hName = e.target.getAttribute('data-name');
+                        state.heroes = state.heroes.filter(h => h.name !== hName);
+                        
+                        state.homestead.darkswarm.defenders = state.homestead.darkswarm.defenders.filter(d => d !== hName);
+                        
+                        saveState();
+                        renderHeroes();
+                        renderHomestead();
+                        if (document.getElementById('comp-artifact')) populateCompDropdowns();
+                        showToast(`Hero removed`);
+                    });
+                });
             }
 
             const addHeroFormEl = document.getElementById('add-hero-form');
             if (addHeroFormEl) {
                 addHeroFormEl.addEventListener('submit', (e) => {
                     e.preventDefault(); 
+                    
+                    const origName = document.getElementById('edit-hero-original-name').value;
+                    const newName = document.getElementById('hero-name').value.trim();
+
                     const newHero = {
-                        name: document.getElementById('hero-name').value,
+                        name: newName,
                         faction: document.getElementById('hero-faction').value,
                         hClass: document.getElementById('hero-class').value,
                         ascension: document.getElementById('hero-asc').value,
@@ -1824,10 +1895,28 @@
                         attack: document.getElementById('hero-attack').value,
                         range: document.getElementById('hero-range').value
                     };
-                    state.heroes.push(newHero);
+
+                    if (origName) {
+                        const index = state.heroes.findIndex(h => h.name === origName);
+                        if (index !== -1) {
+                            state.heroes[index] = newHero;
+                            if (origName !== newName) {
+                                state.homestead.darkswarm.defenders = state.homestead.darkswarm.defenders.map(d => d === origName ? newName : d);
+                                state.strategy.formations.forEach(comp => {
+                                    comp.heroes = comp.heroes.map(h => h === origName ? newName : h);
+                                });
+                            }
+                            showToast(`${newName} successfully updated!`);
+                        }
+                    } else {
+                        state.heroes.push(newHero);
+                        showToast(`${newName} successfully added!`);
+                    }
+
                     saveState();
                     renderHeroes();
-                    showToast(`${newHero.name} successfully added!`);
+                    renderHomestead(); 
+                    if (document.getElementById('comp-artifact')) populateCompDropdowns();
                     closeHeroModal();
                 });
             }
@@ -1910,6 +1999,7 @@
                 });
                 spContainer.innerHTML = spHtml;
 
+                // Artifacts Grid View
                 const artContainer = document.getElementById('hall-artifacts-container');
                 let artHtml = '';
                 state.hall.artifacts.forEach(art => {
@@ -1973,6 +2063,7 @@
                 });
             }
 
+            // Single Artifact Edit Modal Handlers
             const openArtifactEditModal = (artId) => {
                 const artifact = state.hall.artifacts.find(a => a.id === artId);
                 if (!artifact) return;
@@ -2210,7 +2301,6 @@
                     closeAddBuildingModal();
                 });
             }
-
 
             const openDarkswarmModal = () => {
                 if (!state.homestead.darkswarm) return;
