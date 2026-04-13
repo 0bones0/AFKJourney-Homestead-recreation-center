@@ -509,17 +509,17 @@
 							<div>
 								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Assigned Defenders</p>
 								<div id="ds-defenders" class="flex flex-wrap gap-2 mt-1">
-									<!-- Dynamically populated -->
-								</div>
-							</div>
-						</div>
-                        <div class="mt-6 border-t border-red-200 pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
-                            <p class="text-sm text-red-700 italic">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
-                            <button id="update-darkswarm-btn" class="text-sm font-bold text-white hover:bg-red-700 transition-colors bg-red-600 px-5 py-2 rounded-lg shadow-md whitespace-nowrap uppercase tracking-wider flex items-center">
-                                <span class="mr-2">✏️</span> Update Tracker
-                            </button>
-                        </div>
-					</div>
+			<!-- ===================== VIEW: HOMESTEAD ===================== -->
+			<section id="view-homestead" class="view-section hidden h-full">
+				<div class="max-w-6xl mx-auto">
+					<header class="mb-8 border-b border-slate-200 pb-4">
+						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
+						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
+					</header>
+
+					<div id="darkswarm-tracker-container">
+                        <!-- Populated dynamically by JS based on aggression level -->
+                    </div>
 
 					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- Resources Column -->
@@ -1049,6 +1049,10 @@
                         <div>
                             <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🪙</span> Ancient Coins</label>
                             <input id="res-coin" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">⚡</span> Stamina</label>
+                            <input id="res-stamina" type="number" min="0" max="5000" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" />
                         </div>
                         <div class="flex items-center justify-end space-x-2 pt-2">
                             <button type="button" id="resource-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
@@ -1986,28 +1990,80 @@
                 const prodResContainer = document.getElementById('production-resources-container');
                 const bldContainer = document.getElementById('buildings-container');
                 const bldFilter = document.getElementById('building-filter');
+                const dsContainer = document.getElementById('darkswarm-tracker-container');
                 
                 if (!coreResContainer || !bldContainer) return;
 
-                // Darkswarm UI
-                const dsAggressionText = document.getElementById('ds-aggression-text');
-                const dsStatusText = document.getElementById('ds-status-text');
-                const dsAggressionBar = document.getElementById('ds-aggression-bar');
-                const dsLastInvasion = document.getElementById('ds-last-invasion');
-                const dsDefenders = document.getElementById('ds-defenders');
-
-                if (dsAggressionText && state.homestead.darkswarm) {
+                // Darkswarm UI (Dynamic Theming)
+                if (dsContainer && state.homestead.darkswarm) {
                     const aggr = state.homestead.darkswarm.aggression;
-                    dsAggressionText.textContent = `${aggr}/100`;
-                    dsAggressionBar.style.width = `${aggr}%`;
-                    dsStatusText.textContent = aggr >= 80 ? 'Critical' : (aggr >= 50 ? 'High' : 'Low');
-                    dsLastInvasion.textContent = sanitize(state.homestead.darkswarm.lastInvasion);
+                    let themeKey = 'red';
+                    let statusTxt = 'Critical';
+
+                    if (aggr < 50) {
+                        themeKey = 'emerald';
+                        statusTxt = 'Low';
+                    } else if (aggr < 80) {
+                        themeKey = 'amber';
+                        statusTxt = 'Medium';
+                    } else {
+                        themeKey = 'red';
+                        statusTxt = 'High';
+                    }
+
+                    // Strict mappings to prevent Tailwind purging
+                    const th = {
+                        emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text800: 'text-emerald-800', text700: 'text-emerald-700', text600: 'text-emerald-600', text500: 'text-emerald-500', barBg: 'bg-emerald-200', barFill: 'bg-emerald-600', btnBg: 'bg-emerald-600', btnHover: 'hover:bg-emerald-700' },
+                        amber: { bg: 'bg-amber-50', border: 'border-amber-200', text800: 'text-amber-800', text700: 'text-amber-700', text600: 'text-amber-600', text500: 'text-amber-500', barBg: 'bg-amber-200', barFill: 'bg-amber-500', btnBg: 'bg-amber-500', btnHover: 'hover:bg-amber-600' },
+                        red: { bg: 'bg-red-50', border: 'border-red-200', text800: 'text-red-800', text700: 'text-red-700', text600: 'text-red-600', text500: 'text-red-500', barBg: 'bg-red-200', barFill: 'bg-red-600', btnBg: 'bg-red-600', btnHover: 'hover:bg-red-700' }
+                    }[themeKey];
                     
-                    dsDefenders.innerHTML = '';
+                    let defendersHtml = '';
                     const defenders = state.homestead.darkswarm.defenders || [];
                     defenders.forEach(hero => {
-                        dsDefenders.innerHTML += `<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">${sanitize(hero.trim())}</span>`;
+                        defendersHtml += `<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">${sanitize(hero.trim())}</span>`;
                     });
+
+                    dsContainer.innerHTML = `
+                        <div class="${th.bg} border ${th.border} rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden transition-colors">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl pointer-events-none">🛡️</div>
+                            <h3 class="text-xl font-bold ${th.text800} mb-4 flex items-center relative z-10">
+                                <span class="mr-2">⚠️</span> Darkswarm Invasion Tracker
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                                <div>
+                                    <p class="text-sm ${th.text600} uppercase font-bold mb-1 tracking-wide">Aggression Level</p>
+                                    <div class="flex items-end space-x-2">
+                                        <span class="text-3xl font-bold ${th.text700} heading-font">${aggr}/100</span>
+                                        <span class="text-sm ${th.text500} mb-1 font-medium">${statusTxt}</span>
+                                    </div>
+                                    <div class="w-full ${th.barBg} rounded-full h-2 mt-2">
+                                        <div class="${th.barFill} h-2 rounded-full transition-all duration-500" style="width: ${aggr}%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm ${th.text600} uppercase font-bold mb-1 tracking-wide">Last Invasion</p>
+                                    <p class="text-lg font-semibold text-slate-800">${sanitize(state.homestead.darkswarm.lastInvasion)}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm ${th.text600} uppercase font-bold mb-1 tracking-wide">Assigned Defenders</p>
+                                    <div class="flex flex-wrap gap-2 mt-1">
+                                        ${defendersHtml}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 border-t ${th.border} pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative z-10">
+                                <p class="text-sm ${th.text700} italic">Notes: Need to ask Guildmates for assist if Aggression hits 100.</p>
+                                <button id="update-darkswarm-btn" class="text-sm font-bold text-white ${th.btnHover} transition-colors ${th.btnBg} px-5 py-2 rounded-lg shadow-md whitespace-nowrap uppercase tracking-wider flex items-center">
+                                    <span class="mr-2">✏️</span> Update Tracker
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    // Bind the newly injected button
+                    const dsBtn = document.getElementById('update-darkswarm-btn');
+                    if (dsBtn) dsBtn.addEventListener('click', openDarkswarmModal);
                 }
 
                 // Core Resources
@@ -2163,12 +2219,10 @@
                 });
             }
 
-            const updateDsBtn = document.getElementById('update-darkswarm-btn');
-            if (updateDsBtn) updateDsBtn.addEventListener('click', openDarkswarmModal);
-
             const openResourceModal = () => {
                 document.getElementById('res-wish').value = state.homestead.core.wish;
                 document.getElementById('res-coin').value = state.homestead.core.coin;
+                document.getElementById('res-stamina').value = state.homestead.core.stamina;
                 document.getElementById('resource-modal').classList.remove('hidden');
                 document.getElementById('res-wish').focus();
             };
@@ -2185,6 +2239,7 @@
                     e.preventDefault();
                     state.homestead.core.wish = Math.max(0, parseInt(document.getElementById('res-wish').value) || 0);
                     state.homestead.core.coin = Math.max(0, parseInt(document.getElementById('res-coin').value) || 0);
+                    state.homestead.core.stamina = Math.min(5000, Math.max(0, parseInt(document.getElementById('res-stamina').value) || 0));
                     saveState();
                     renderHomestead();
                     closeResourceModal();
