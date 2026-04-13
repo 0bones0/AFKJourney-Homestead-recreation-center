@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>AFK Journey: Magister's Command Center</title>
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AFK Journey: Magister's Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Lato:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
         
         :root {
@@ -27,7 +27,7 @@
         
         .nav-active { background-color: #e2e8f0; border-left: 4px solid #d69e2e; font-weight: 700; }
         
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
@@ -88,73 +88,74 @@
         /* Editable Content styling */
         [contenteditable="true"] { transition: background-color 0.2s, border-radius 0.2s; outline: none; }
         [contenteditable="true"]:hover { background-color: rgba(0,0,0,0.05); border-radius: 4px; cursor: text; }
-        body.theme-dark [contenteditable="true"]:hover { background-color: rgba(255,255,255,0.1); }
+        [contenteditable="true"]:focus { background-color: rgba(0,0,0,0.05); border-radius: 4px; box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4); }
+        body.theme-dark [contenteditable="true"]:hover, body.theme-dark [contenteditable="true"]:focus { background-color: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden theme-light">
-	<!-- Desktop Sidebar -->
-	<aside class="w-64 bg-slate-50 border-r border-slate-200 flex flex-col hidden md:flex z-20 shadow-lg transition-colors duration-300">
-		<div class="p-6 border-b border-slate-200 flex items-center space-x-3">
-			<span class="text-3xl">🏰</span>
-			<div>
-				<h1 class="text-xl font-bold text-slate-800 leading-tight">Command Center</h1>
-				<p class="text-xs text-slate-500">Magister's Terminal</p>
-			</div>
-		</div>
-		<nav class="flex-1 overflow-y-auto py-4 space-y-1 custom-scrollbar" id="nav-menu">
-			<a href="#" data-target="view-grind" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors nav-active">
-				<span class="mr-3 text-lg">📌</span> The Daily Grind
-			</a>
-			<a href="#" data-target="view-heroes" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
-				<span class="mr-3 text-lg">🦸‍♂️</span> Resonating Hall
-			</a>
-			<a href="#" data-target="view-homestead" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
-				<span class="mr-3 text-lg">🏡</span> Homestead Estate
-			</a>
-			<a href="#" data-target="view-treasury" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
-				<span class="mr-3 text-lg">💎</span> Treasury & Gacha
-			</a>
-			<a href="#" data-target="view-strategy" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
-				<span class="mr-3 text-lg">🧠</span> Strategy Vault
-			</a>
+    <!-- Desktop Sidebar -->
+    <aside class="w-64 bg-slate-50 border-r border-slate-200 flex flex-col hidden md:flex z-20 shadow-lg transition-colors duration-300">
+        <div class="p-6 border-b border-slate-200 flex items-center space-x-3">
+            <span class="text-3xl">🏰</span>
+            <div>
+                <h1 class="text-xl font-bold text-slate-800 leading-tight">Command Center</h1>
+                <p class="text-xs text-slate-500">Magister's Terminal</p>
+            </div>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4 space-y-1 custom-scrollbar" id="nav-menu">
+            <a href="#" data-target="view-grind" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors nav-active">
+                <span class="mr-3 text-lg">📌</span> The Daily Grind
+            </a>
+            <a href="#" data-target="view-heroes" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
+                <span class="mr-3 text-lg">🦸‍♂️</span> Resonating Hall
+            </a>
+            <a href="#" data-target="view-homestead" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
+                <span class="mr-3 text-lg">🏡</span> Homestead Estate
+            </a>
+            <a href="#" data-target="view-treasury" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
+                <span class="mr-3 text-lg">💎</span> Treasury & Gacha
+            </a>
+            <a href="#" data-target="view-strategy" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
+                <span class="mr-3 text-lg">🧠</span> Strategy Vault
+            </a>
             <a href="#" data-target="view-settings" class="nav-item flex items-center px-6 py-3 text-slate-700 hover:bg-slate-100 transition-colors">
-				<span class="mr-3 text-lg">⚙️</span> Settings
-			</a>
-		</nav>
-	</aside>
+                <span class="mr-3 text-lg">⚙️</span> Settings
+            </a>
+        </nav>
+    </aside>
 
-	<!-- Mobile Top Bar -->
-	<div class="md:hidden bg-slate-50 border-b border-slate-200 flex justify-between items-center p-4 fixed w-full top-0 z-30 shadow-sm transition-colors duration-300">
-		<div class="flex items-center space-x-2">
-			<span class="text-2xl">🏰</span>
-			<h1 class="font-bold text-lg heading-font">Command Center</h1>
-		</div>
-		<button id="mobile-menu-btn" class="text-2xl" aria-label="Open mobile menu">☰</button>
-	</div>
+    <!-- Mobile Top Bar -->
+    <div class="md:hidden bg-slate-50 border-b border-slate-200 flex justify-between items-center p-4 fixed w-full top-0 z-30 shadow-sm transition-colors duration-300">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl">🏰</span>
+            <h1 class="font-bold text-lg heading-font">Command Center</h1>
+        </div>
+        <button id="mobile-menu-btn" class="text-2xl" aria-label="Open mobile menu">☰</button>
+    </div>
 
-	<!-- Mobile Menu -->
-	<div id="mobile-menu" class="hidden fixed inset-0 bg-slate-800 bg-opacity-50 z-40 transition-opacity">
-		<div class="bg-white w-64 h-full shadow-xl flex flex-col absolute right-0 transform transition-transform duration-300">
-			<button id="close-mobile-menu" class="self-end p-4 text-2xl">✕</button>
-			<nav class="flex-1 flex flex-col" id="mobile-nav-menu">
-				<a href="#" data-target="view-grind" class="mobile-nav-item px-6 py-4 border-b border-slate-100">📌 The Daily Grind</a>
-				<a href="#" data-target="view-heroes" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🦸‍♂️ Resonating Hall</a>
-				<a href="#" data-target="view-homestead" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🏡 Homestead Estate</a>
-				<a href="#" data-target="view-treasury" class="mobile-nav-item px-6 py-4 border-b border-slate-100">💎 Treasury & Gacha</a>
-				<a href="#" data-target="view-strategy" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🧠 Strategy Vault</a>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-slate-800 bg-opacity-50 z-40 transition-opacity">
+        <div class="bg-white w-64 h-full shadow-xl flex flex-col absolute right-0 transform transition-transform duration-300">
+            <button id="close-mobile-menu" class="self-end p-4 text-2xl">✕</button>
+            <nav class="flex-1 flex flex-col" id="mobile-nav-menu">
+                <a href="#" data-target="view-grind" class="mobile-nav-item px-6 py-4 border-b border-slate-100">📌 The Daily Grind</a>
+                <a href="#" data-target="view-heroes" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🦸‍♂️ Resonating Hall</a>
+                <a href="#" data-target="view-homestead" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🏡 Homestead Estate</a>
+                <a href="#" data-target="view-treasury" class="mobile-nav-item px-6 py-4 border-b border-slate-100">💎 Treasury & Gacha</a>
+                <a href="#" data-target="view-strategy" class="mobile-nav-item px-6 py-4 border-b border-slate-100">🧠 Strategy Vault</a>
                 <a href="#" data-target="view-settings" class="mobile-nav-item px-6 py-4 border-b border-slate-100">⚙️ Settings</a>
-			</nav>
-		</div>
-	</div>
+            </nav>
+        </div>
+    </div>
 
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
-	<main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 relative bg-transparent">
-		<div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative w-full h-full">
-			
+    <main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 relative bg-transparent">
+        <div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative w-full h-full">
+            
             <!-- ===================== VIEW: THE DAILY GRIND ===================== -->
-			<section id="view-grind" class="view-section active h-full">
+            <section id="view-grind" class="view-section active h-full">
                 <div class="mb-10">
                     <div class="flex justify-between items-end mb-6">
                         <h3 class="text-2xl font-bold text-slate-800 flex items-center"><span class="mr-2">📊</span> Mode Insights</h3>
@@ -285,11 +286,11 @@
             </section>
 
             <!-- ===================== VIEW: RESONATING HALL ===================== -->
-			<section id="view-heroes" class="view-section hidden h-full">
-				<div class="max-w-6xl mx-auto">
-					<header class="mb-8 border-b border-slate-200 pb-4">
-						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🦸‍♂️</span> The Resonating Hall</h2>
-					</header>
+            <section id="view-heroes" class="view-section hidden h-full">
+                <div class="max-w-6xl mx-auto">
+                    <header class="mb-8 border-b border-slate-200 pb-4">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🦸‍♂️</span> The Resonating Hall</h2>
+                    </header>
 
                     <!-- Account Progression Dashboard -->
                     <div class="mb-10">
@@ -384,56 +385,56 @@
                         </div>
                     </div>
 
-					<div class="grid grid-cols-1 gap-8 mb-8">
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-center">
-							<h3 class="text-lg font-bold mb-4 text-center text-slate-800">Faction Distribution</h3>
-							<div class="chart-container">
-								<canvas id="factionChart"></canvas>
-							</div>
-						</div>
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-							<div class="flex justify-between items-center mb-4 border-b pb-2">
-								<h3 class="text-xl font-bold text-slate-800">Hero Database</h3>
-								<div class="flex items-center space-x-2">
-									<button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-sm font-bold px-3 py-1.5 rounded shadow-sm transition-colors">
-										+ Add Hero
-									</button>
-								</div>
-							</div>
-							<div class="overflow-x-auto">
-								<table class="w-full text-left border-collapse">
-									<thead>
-										<tr class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider">
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="name">Name <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="faction">Faction <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="grade">Grade <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="hClass">Class <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="ascension">Ascension <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="exWpn">Ex. Wpn <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="attack">Attack <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
-											<th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="range">Range <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                    <div class="grid grid-cols-1 gap-8 mb-8">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-center">
+                            <h3 class="text-lg font-bold mb-4 text-center text-slate-800">Faction Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="factionChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                                <h3 class="text-xl font-bold text-slate-800">Hero Database</h3>
+                                <div class="flex items-center space-x-2">
+                                    <button id="add-hero-btn" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-sm font-bold px-3 py-1.5 rounded shadow-sm transition-colors">
+                                        + Add Hero
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider">
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="name">Name <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="faction">Faction <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="grade">Grade <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="hClass">Class <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="ascension">Ascension <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="exWpn">Ex. Wpn <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="attack">Attack <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
+                                            <th class="py-3 px-3 border-b font-bold cursor-pointer hover:text-indigo-600 transition-colors group select-none" data-sort="range">Range <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">↕</span></th>
                                             <th class="py-3 px-3 border-b font-bold text-right">Actions</th>
-										</tr>
-									</thead>
-									<tbody id="hero-table-body" class="text-sm"> 
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="hero-table-body" class="text-sm"> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- ===================== VIEW: HOMESTEAD ===================== -->
-			<section id="view-homestead" class="view-section hidden h-full">
-				<div class="max-w-6xl mx-auto">
-					<header class="mb-8 border-b border-slate-200 pb-4">
-						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
-					</header>
+            <section id="view-homestead" class="view-section hidden h-full">
+                <div class="max-w-6xl mx-auto">
+                    <header class="mb-8 border-b border-slate-200 pb-4">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
+                    </header>
 
-					<div id="darkswarm-tracker-container"></div>
+                    <div id="darkswarm-tracker-container"></div>
 
-					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 h-fit">
                             <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
                                 <h3 class="text-xl font-bold flex items-center text-slate-800"><span class="mr-2">📦</span> Resources</h3>
@@ -480,77 +481,77 @@
                             </div>
                         </div>
                     </div>
-				</div>
-			</section>
+                </div>
+            </section>
 
             <!-- ===================== VIEW: TREASURY ===================== -->
-			<section id="view-treasury" class="view-section hidden h-full">
-				<div class="max-w-5xl mx-auto">
-					<header class="mb-8 border-b border-slate-200 pb-4">
-						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">💎</span> Treasury & Gacha Planner</h2>
-					</header>
+            <section id="view-treasury" class="view-section hidden h-full">
+                <div class="max-w-5xl mx-auto">
+                    <header class="mb-8 border-b border-slate-200 pb-4">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">💎</span> Treasury & Gacha Planner</h2>
+                    </header>
 
-					<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative lg:col-span-1">
-							<h3 class="text-lg font-bold mb-2 absolute top-6 left-6 text-slate-800">Diamond Reserve</h3>
-							<div class="chart-container mt-8 w-full"><canvas id="diamondChart"></canvas></div>
-							<div class="text-center mt-4">
-								<p id="treasury-diamonds-text" class="text-3xl font-bold text-blue-600 heading-font">0 <span class="text-xl">💎</span></p>
-								<p class="text-sm text-slate-500 font-medium">Goal: 30,000 for Rate-Up</p>
-							</div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative lg:col-span-1">
+                            <h3 class="text-lg font-bold mb-2 absolute top-6 left-6 text-slate-800">Diamond Reserve</h3>
+                            <div class="chart-container mt-8 w-full"><canvas id="diamondChart"></canvas></div>
+                            <div class="text-center mt-4">
+                                <p id="treasury-diamonds-text" class="text-3xl font-bold text-blue-600 heading-font">0 <span class="text-xl">💎</span></p>
+                                <p class="text-sm text-slate-500 font-medium">Goal: 30,000 for Rate-Up</p>
+                            </div>
                             <button id="update-treasury-btn" class="mt-4 text-sm font-bold text-blue-700 hover:text-blue-900 transition-colors bg-blue-100 px-4 py-1.5 rounded">Update Values</button>
-						</div>
+                        </div>
 
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between lg:col-span-1">
-							<div>
-								<h3 class="text-lg font-bold mb-6 border-b border-slate-100 pb-2 text-slate-800">Summoning Items</h3>
-								<div class="space-y-6">
-									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
-										<div class="flex items-center">
-											<span class="text-2xl mr-3">✉️</span>
-											<div>
-												<p class="font-bold text-slate-800">Epic Invite Letters</p>
-											</div>
-										</div>
-										<span id="treasury-epic-invites" class="text-2xl font-bold text-amber-600 heading-font">0</span>
-									</div>
-									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
-										<div class="flex items-center">
-											<span class="text-2xl mr-3">💌</span>
-											<div>
-												<p class="font-bold text-slate-800">All-Hero Letters</p>
-											</div>
-										</div>
-										<span id="treasury-all-hero" class="text-2xl font-bold text-amber-600 heading-font">0</span>
-									</div>
-									<div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
-										<div class="flex items-center">
-											<span class="text-2xl mr-3">🌌</span>
-											<div>
-												<p class="font-bold text-slate-800">Stargaze Crystals</p>
-											</div>
-										</div>
-										<span id="treasury-stargaze" class="text-2xl font-bold text-purple-600 heading-font">0</span>
-									</div>
-								</div>
-							</div>
-						</div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between lg:col-span-1">
+                            <div>
+                                <h3 class="text-lg font-bold mb-6 border-b border-slate-100 pb-2 text-slate-800">Summoning Items</h3>
+                                <div class="space-y-6">
+                                    <div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-3">✉️</span>
+                                            <div>
+                                                <p class="font-bold text-slate-800">Epic Invite Letters</p>
+                                            </div>
+                                        </div>
+                                        <span id="treasury-epic-invites" class="text-2xl font-bold text-amber-600 heading-font">0</span>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-3">💌</span>
+                                            <div>
+                                                <p class="font-bold text-slate-800">All-Hero Letters</p>
+                                            </div>
+                                        </div>
+                                        <span id="treasury-all-hero" class="text-2xl font-bold text-amber-600 heading-font">0</span>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-3">🌌</span>
+                                            <div>
+                                                <p class="font-bold text-slate-800">Stargaze Crystals</p>
+                                            </div>
+                                        </div>
+                                        <span id="treasury-stargaze" class="text-2xl font-bold text-purple-600 heading-font">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col">
-							<h3 class="text-lg font-bold mb-4 flex items-center border-b border-slate-100 pb-2 text-slate-800"><span class="mr-2">🛒</span> Emporium Wishlist</h3>
-							<div class="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-2" id="wishlist-container">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1 flex flex-col">
+                            <h3 class="text-lg font-bold mb-4 flex items-center border-b border-slate-100 pb-2 text-slate-800"><span class="mr-2">🛒</span> Emporium Wishlist</h3>
+                            <div class="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-2" id="wishlist-container">
                             </div>
                             <form id="wishlist-form" class="mt-4 flex gap-2 pt-4 border-t border-slate-100">
                                 <input type="text" id="wishlist-input" placeholder="Add hero to wishlist..." required class="flex-1 border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-blue-500">
                                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded text-sm transition-colors">Add</button>
                             </form>
-						</div>
-					</div>
-				</div>
-			</section>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- ===================== VIEW: STRATEGY VAULT ===================== -->
-			<section id="view-strategy" class="view-section hidden h-full">
+            <section id="view-strategy" class="view-section hidden h-full">
                 <div class="max-w-5xl mx-auto">
                     <header class="mb-8 border-b border-slate-200 pb-4">
                         <h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🧠</span> Strategy Vault</h2>
@@ -590,7 +591,7 @@
             </section>
 
             <!-- ===================== VIEW: SETTINGS ===================== -->
-			<section id="view-settings" class="view-section hidden h-full">
+            <section id="view-settings" class="view-section hidden h-full">
                 <div class="max-w-4xl mx-auto">
                     <header class="mb-8 border-b border-slate-200 pb-4 flex justify-between items-end">
                         <div>
@@ -618,7 +619,7 @@
             <!-- ===================== GLOBAL MODALS ===================== -->
             
             <div id="add-building-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="add-building-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="add-building-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-lg font-bold heading-font text-slate-800">Add Infrastructure</h4>
@@ -679,7 +680,7 @@
 
             <!-- Hero Modal -->
             <div id="add-hero-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="add-hero-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="add-hero-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 id="hero-modal-title" class="text-lg font-bold heading-font text-slate-800">Add Hero</h4>
@@ -777,7 +778,7 @@
 
             <!-- Single Artifact Edit Modal -->
             <div id="single-artifact-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="single-artifact-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="single-artifact-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-lg font-bold heading-font text-slate-800">Edit Artifact</h4>
@@ -825,7 +826,7 @@
 
             <!-- Task Modal -->
             <div id="task-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="task-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="task-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 id="task-modal-title" class="text-lg font-bold heading-font text-slate-800">Add Task</h4>
@@ -833,7 +834,13 @@
                     </div>
                     <form id="task-form" class="space-y-4">
                         <input type="hidden" id="task-id" value="">
-                        <input type="hidden" id="task-type" value="">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Task Type</label>
+                            <select id="task-type" class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                            </select>
+                        </div>
                         <div>
                             <label class="text-xs font-bold text-slate-600 uppercase">Task Description</label>
                             <input id="task-text" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none" placeholder="e.g. Complete AFK Stage x2" autocomplete="off" />
@@ -848,7 +855,7 @@
 
             <!-- Resource Modal -->
             <div id="resource-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="resource-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="resource-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-lg font-bold heading-font text-slate-800">Update Resources</h4>
@@ -877,7 +884,7 @@
 
             <!-- Darkswarm Modal -->
             <div id="darkswarm-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="darkswarm-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="darkswarm-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-lg font-bold heading-font text-slate-800">Update Invasion Tracker</h4>
@@ -908,7 +915,7 @@
 
             <!-- Treasury Update Modal -->
             <div id="treasury-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="treasury-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="treasury-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-lg font-bold heading-font text-slate-800">Update Treasury</h4>
@@ -941,7 +948,7 @@
 
             <!-- Strategy Comp Modal -->
             <div id="comp-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-                <div class="absolute inset-0 bg-slate-900/50" id="comp-backdrop"></div>
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="comp-backdrop"></div>
                 <div class="relative bg-white w-[92%] max-w-lg rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
                     <div class="flex items-center justify-between mb-4">
                         <h4 id="comp-modal-title" class="text-lg font-bold heading-font text-slate-800">Log Team Formation</h4>
@@ -982,10 +989,49 @@
                 </div>
             </div>
 
-		</div>
-	</main>
+            <!-- Soul Pact Modal (NEW) -->
+            <div id="soulpact-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50 cursor-pointer backdrop-click" id="soulpact-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Update Soul Pact</h4>
+                        <button id="soulpact-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="soulpact-form" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🛡️</span> Lightbearer</label>
+                                <input id="sp-lb" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-fuchsia-500 outline-none" />
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🦁</span> Mauler</label>
+                                <input id="sp-ml" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-fuchsia-500 outline-none" />
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">🌿</span> Wilder</label>
+                                <input id="sp-wd" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-fuchsia-500 outline-none" />
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">💀</span> Graveborn</label>
+                                <input id="sp-gb" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-fuchsia-500 outline-none" />
+                            </div>
+                            <div class="col-span-2">
+                                <label class="text-xs font-bold text-slate-600 uppercase flex items-center"><span class="mr-1">✨</span> Celestial/Hypogean</label>
+                                <input id="sp-ch" type="number" min="0" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm focus:border-fuchsia-500 outline-none" />
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100 mt-4">
+                            <button type="button" id="soulpact-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold transition-colors">Save Pacts</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-	<script>
+        </div>
+    </main>
+
+    <script>
         const STORAGE_KEYS = {
             HEROES: 'afk_heroes', TASKS: 'afk_tasks', INSIGHTS: 'afk_insights',
             HOMESTEAD: 'afk_homestead', TREASURY: 'afk_treasury', STRATEGY: 'afk_strategy',
@@ -1019,7 +1065,11 @@
             toast.className = 'bg-slate-800 text-white px-4 py-3 rounded-lg shadow-xl text-sm font-bold tracking-wide transition-all duration-300 opacity-0 transform translate-y-4 border-l-4 border-indigo-500';
             toast.textContent = message;
             toastContainer.appendChild(toast);
-            setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-4'), 10);
+            
+            // Trigger reflow
+            void toast.offsetWidth; 
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-4');
                 setTimeout(() => toast.remove(), 300);
@@ -1044,7 +1094,7 @@
                 homestead: JSON.parse(localStorage.getItem(STORAGE_KEYS.HOMESTEAD)) || {},
                 treasury: JSON.parse(localStorage.getItem(STORAGE_KEYS.TREASURY)) || { diamonds: 15400, epicInvites: 24, allHeroLetters: 45, stargazeCrystals: 12, wishlist: [] },
                 strategy: JSON.parse(localStorage.getItem(STORAGE_KEYS.STRATEGY)) || { formations: [] },
-                hall: JSON.parse(localStorage.getItem(STORAGE_KEYS.HALL)) || { resonanceLevel: 924, soulPact: {}, equipment: { tank: 900, warrior: 900, rogue: 900, marksman: 900, mage: 900, support: 900 }, artifacts: [] },
+                hall: JSON.parse(localStorage.getItem(STORAGE_KEYS.HALL)) || { resonanceLevel: 924, soulPact: {lb:0, ml:0, wd:0, gb:0, ch:0}, equipment: { tank: 900, warrior: 900, rogue: 900, marksman: 900, mage: 900, support: 900 }, artifacts: [] },
                 settings: JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS)) || { theme: 'light' }
             };
 
@@ -1065,6 +1115,10 @@
                     if (!comp.damageValue) { comp.damageValue = parseDamage(comp.damage); hasMigrations = true; }
                 });
             }
+            
+            // Ensure SoulPact defaults exist
+            if (!state.hall.soulPact) state.hall.soulPact = {lb:0, ml:0, wd:0, gb:0, ch:0};
+            if (state.hall.soulPact.lb === undefined) state.hall.soulPact = {lb:0, ml:0, wd:0, gb:0, ch:0};
 
             if (!state.homestead.core) state.homestead.core = { wish: 1115689, coin: 217559, stamina: 5000 };
             if (!state.homestead.darkswarm) state.homestead.darkswarm = { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: [] };
@@ -1123,6 +1177,17 @@
             
             if (hasMigrations) saveState();
 
+            // Setup Backdrop Closes
+            const modals = ['add-building', 'add-hero', 'single-artifact', 'task', 'resource', 'darkswarm', 'treasury', 'comp', 'soulpact'];
+            modals.forEach(m => {
+                const backdrop = document.getElementById(`${m}-backdrop`);
+                if (backdrop) {
+                    backdrop.addEventListener('click', () => {
+                        document.getElementById(`${m}-modal`).classList.add('hidden');
+                    });
+                }
+            });
+
             // --- Theme Config ---
             function applySettings() {
                 document.body.className = `flex h-screen overflow-hidden theme-${state.settings.theme}`;
@@ -1145,9 +1210,12 @@
                     else { view.classList.add('hidden'); view.classList.remove('active'); }
                 });
                 if (DOM.mobileMenu) DOM.mobileMenu.classList.add('hidden');
-                if (targetId === 'view-heroes') setTimeout(updateFactionChart, 50);
-                if (targetId === 'view-treasury') setTimeout(updateDiamondChart, 50);
+                
+                // Charts update requires container to be visible for dimensions calculation
+                if (targetId === 'view-heroes') setTimeout(() => { updateFactionChart(); }, 100);
+                if (targetId === 'view-treasury') setTimeout(() => { updateDiamondChart(); }, 100);
             }
+            
             DOM.navItems.forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1200,8 +1268,14 @@
                 if (e.target.closest('.delete-hero-btn')) {
                     const hId = e.target.closest('.delete-hero-btn').getAttribute('data-id');
                     state.heroes = state.heroes.filter(h => h.id !== hId);
+                    
+                    // Cascade delete
                     state.homestead.darkswarm.defenders = state.homestead.darkswarm.defenders.filter(d => d !== hId);
-                    saveState(); renderHeroes(); renderHomestead(); showToast("Hero removed");
+                    state.strategy.formations.forEach(comp => {
+                        comp.heroes = comp.heroes.map(heroId => heroId === hId ? '' : heroId);
+                    });
+                    
+                    saveState(); renderHeroes(); renderHomestead(); renderBossStrategy(); showToast("Hero removed");
                 }
                 if (e.target.closest('.edit-hero-btn')) {
                     const hId = e.target.closest('.edit-hero-btn').getAttribute('data-id');
@@ -1377,7 +1451,7 @@
                 if (text) {
                     if (id) {
                         const t = state.tasks.find(x => x.id === parseInt(id));
-                        if (t) t.text = text;
+                        if (t) { t.text = text; t.type = type; }
                     } else {
                         state.tasks.push({ id: Date.now(), text, type, completed: false });
                     }
@@ -1510,8 +1584,11 @@
                 const dataArr = labels.map(l => counts[l] || 0);
 
                 const data = { labels, datasets: [{ data: dataArr, backgroundColor: ['#10b981', '#ef4444', '#3b82f6', '#22c55e', '#f59e0b', '#8b5cf6', '#94a3b8'], borderWidth: 0 }] };
-                if (factionChartInstance) { factionChartInstance.data = data; factionChartInstance.update(); } 
-                else { factionChartInstance = new Chart(ctx, { type: 'doughnut', data, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } } }); }
+                
+                if (factionChartInstance) { 
+                    factionChartInstance.destroy();
+                } 
+                factionChartInstance = new Chart(ctx, { type: 'doughnut', data, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } } });
             }
 
             // --- Hall Dashboard ---
@@ -1519,6 +1596,22 @@
                 document.getElementById('hall-resonance-level').textContent = state.hall.resonanceLevel;
                 ['tank','warrior','rogue','marksman','mage','support'].forEach(c => document.getElementById(`hall-eq-${c}`).textContent = state.hall.equipment[c]);
                 
+                // Soul Pact Display
+                const spContainer = document.getElementById('hall-soulpact-container');
+                const pacts = [
+                    { id: 'lb', icon: '🛡️', name: 'Lightbearer', lvl: state.hall.soulPact.lb },
+                    { id: 'ml', icon: '🦁', name: 'Mauler', lvl: state.hall.soulPact.ml },
+                    { id: 'wd', icon: '🌿', name: 'Wilder', lvl: state.hall.soulPact.wd },
+                    { id: 'gb', icon: '💀', name: 'Graveborn', lvl: state.hall.soulPact.gb },
+                    { id: 'ch', icon: '✨', name: 'Cele/Hypo', lvl: state.hall.soulPact.ch }
+                ];
+                spContainer.innerHTML = pacts.map(p => `
+                    <div class="flex flex-col items-center bg-white/60 rounded p-2 border border-fuchsia-100" title="${p.name}">
+                        <span class="text-xl mb-1">${p.icon}</span>
+                        <span class="font-bold text-fuchsia-900 text-sm">${p.lvl}</span>
+                    </div>
+                `).join('');
+
                 const artContainer = document.getElementById('hall-artifacts-container');
                 artContainer.innerHTML = state.hall.artifacts.map(art => {
                     const stats = Array.isArray(art.stats) ? art.stats.join(' | ') : (art.stats || '').split(' | ').join(' | ');
@@ -1534,6 +1627,30 @@
                 }).join('');
             }
             
+            // Soul Pact Edit Modal
+            document.getElementById('update-soulpact-btn').addEventListener('click', () => {
+                document.getElementById('sp-lb').value = state.hall.soulPact.lb;
+                document.getElementById('sp-ml').value = state.hall.soulPact.ml;
+                document.getElementById('sp-wd').value = state.hall.soulPact.wd;
+                document.getElementById('sp-gb').value = state.hall.soulPact.gb;
+                document.getElementById('sp-ch').value = state.hall.soulPact.ch;
+                document.getElementById('soulpact-modal').classList.remove('hidden');
+            });
+            const closeSoulPactModal = () => { document.getElementById('soulpact-modal').classList.add('hidden'); };
+            document.getElementById('soulpact-close-btn').addEventListener('click', closeSoulPactModal);
+            document.getElementById('soulpact-cancel-btn').addEventListener('click', closeSoulPactModal);
+            document.getElementById('soulpact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                state.hall.soulPact = {
+                    lb: parseInt(document.getElementById('sp-lb').value) || 0,
+                    ml: parseInt(document.getElementById('sp-ml').value) || 0,
+                    wd: parseInt(document.getElementById('sp-wd').value) || 0,
+                    gb: parseInt(document.getElementById('sp-gb').value) || 0,
+                    ch: parseInt(document.getElementById('sp-ch').value) || 0
+                };
+                saveState(); renderHallDashboard(); showToast("Soul Pacts updated"); closeSoulPactModal();
+            });
+
             // Single Artifact Edit Modals
             const openArtifactEditModal = (artId) => {
                 const art = state.hall.artifacts.find(a => a.id === artId);
@@ -1701,8 +1818,11 @@
                 const ctx = document.getElementById('diamondChart'); if (!ctx) return;
                 const rem = Math.max(0, 30000 - state.treasury.diamonds);
                 const data = { labels: ['Current', 'Remaining'], datasets: [{ data: [state.treasury.diamonds, rem], backgroundColor: ['#3b82f6', '#e2e8f0'], borderWidth: 0, cutout: '75%' }] };
-                if (diamondChartInstance) { diamondChartInstance.data = data; diamondChartInstance.update(); } 
-                else { diamondChartInstance = new Chart(ctx, { type: 'doughnut', data, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } }); }
+                
+                if (diamondChartInstance) { 
+                    diamondChartInstance.destroy();
+                } 
+                diamondChartInstance = new Chart(ctx, { type: 'doughnut', data, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
             }
 
             // --- Strategy Vault ---
@@ -1731,7 +1851,7 @@
                 cont.innerHTML = comps.length ? comps.map(comp => {
                     const hHtml = comp.heroes.map(hid => {
                         const h = state.heroes.find(x => x.id === hid);
-                        return h ? `<div class="w-10 h-10 bg-slate-200 rounded border flex items-center justify-center text-[10px] font-bold" title="${sanitize(h.name)}">${sanitize(h.name.substring(0,3).toUpperCase())}</div>` : `<div class="w-10 h-10 bg-slate-100 rounded border"></div>`;
+                        return h ? `<div class="w-10 h-10 bg-slate-200 rounded border flex items-center justify-center text-[10px] font-bold" title="${sanitize(h.name)}">${sanitize(h.name.substring(0,3).toUpperCase())}</div>` : `<div class="w-10 h-10 bg-slate-100 rounded border text-slate-300 flex items-center justify-center font-bold text-xs" title="Unknown or Deleted Hero">?</div>`;
                     }).join('');
                     const art = state.hall.artifacts.find(a => a.id === comp.artifact) || { icon: '✨', name: comp.artifact };
                     return `
