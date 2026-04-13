@@ -60,12 +60,12 @@
         body.theme-dark .shadow-sm, body.theme-dark .shadow-lg { box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.5) !important; }
         
         /* Dark Mode: Vibrant Accents for Data Cards */
-        body.theme-dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.1) !important; border-color: rgba(99, 102, 241, 0.2) !important; }
-        body.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.1) !important; border-color: rgba(245, 158, 11, 0.2) !important; }
-        body.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.1) !important; border-color: rgba(16, 185, 129, 0.2) !important; }
+        body.theme-dark .bg-indigo-50, body.theme-dark .bg-indigo-100 { background-color: rgba(99, 102, 241, 0.1) !important; border-color: rgba(99, 102, 241, 0.2) !important; }
+        body.theme-dark .bg-amber-50, body.theme-dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.1) !important; border-color: rgba(245, 158, 11, 0.2) !important; }
+        body.theme-dark .bg-emerald-50, body.theme-dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.1) !important; border-color: rgba(16, 185, 129, 0.2) !important; }
         body.theme-dark .bg-rose-50, body.theme-dark .bg-red-50 { background-color: rgba(244, 63, 94, 0.1) !important; border-color: rgba(244, 63, 94, 0.2) !important; }
-        body.theme-dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.1) !important; border-color: rgba(6, 182, 212, 0.2) !important; }
-        body.theme-dark .bg-fuchsia-50 { background-color: rgba(217, 70, 239, 0.1) !important; border-color: rgba(217, 70, 239, 0.2) !important; }
+        body.theme-dark .bg-cyan-50, body.theme-dark .bg-cyan-100 { background-color: rgba(6, 182, 212, 0.1) !important; border-color: rgba(6, 182, 212, 0.2) !important; }
+        body.theme-dark .bg-fuchsia-50, body.theme-dark .bg-fuchsia-100 { background-color: rgba(217, 70, 239, 0.1) !important; border-color: rgba(217, 70, 239, 0.2) !important; }
         body.theme-dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.1) !important; border-color: rgba(59, 130, 246, 0.2) !important; }
         
         /* Dark Mode: Text Contrast Fixes */
@@ -109,6 +109,10 @@
         .namecard-bg { background: linear-gradient(135deg, #a7b8c2 0%, #e0e7e9 100%); }
         body.theme-dark .namecard-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
         body.theme-sage .namecard-bg { background: linear-gradient(135deg, #a3b8a7 0%, #d8e2d9 100%); }
+
+        /* Toast Animation */
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .toast-enter { animation: slideInUp 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden theme-light">
@@ -169,6 +173,9 @@
 			</nav>
 		</div>
 	</div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
 	<main class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 relative bg-transparent">
 		<div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar relative w-full h-full">
@@ -486,37 +493,6 @@
 						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
 					</header>
 
-					<div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 shadow-sm relative overflow-hidden transition-colors">
-						<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl pointer-events-none">🛡️</div>
-						<h3 class="text-xl font-bold text-red-800 mb-4 flex items-center relative z-10">
-                            <span class="mr-2">⚠️</span> Darkswarm Invasion Tracker
-                        </h3>
-						<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-							<div>
-								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Aggression Level</p>
-								<div class="flex items-end space-x-2">
-									<span id="ds-aggression-text" class="text-3xl font-bold text-red-700 heading-font">75/100</span>
-									<span id="ds-status-text" class="text-sm text-red-500 mb-1 font-medium">High</span>
-								</div>
-								<div class="w-full bg-red-200 rounded-full h-2 mt-2">
-									<div id="ds-aggression-bar" class="bg-red-600 h-2 rounded-full" style="width: 75%"></div>
-								</div>
-							</div>
-							<div>
-								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Last Invasion</p>
-								<p id="ds-last-invasion" class="text-lg font-semibold text-slate-800">Today</p>
-							</div>
-							<div>
-								<p class="text-sm text-red-600 uppercase font-bold mb-1 tracking-wide">Assigned Defenders</p>
-								<div id="ds-defenders" class="flex flex-wrap gap-2 mt-1">
-			<!-- ===================== VIEW: HOMESTEAD ===================== -->
-			<section id="view-homestead" class="view-section hidden h-full">
-				<div class="max-w-6xl mx-auto">
-					<header class="mb-8 border-b border-slate-200 pb-4">
-						<h2 class="text-3xl font-bold text-slate-800 mb-2 flex items-center"><span class="mr-3">🏡</span> Homestead Estate Manager</h2>
-						<p class="text-slate-600">Oversee the infrastructure of your idle estate. Monitor building levels, crafting queues, and evaluate the current threat level of Darkswarm Invasions. Keeping this running smoothly is crucial for long-term crafting progression.</p>
-					</header>
-
 					<div id="darkswarm-tracker-container">
                         <!-- Populated dynamically by JS based on aggression level -->
                     </div>
@@ -738,22 +714,45 @@
                         <!-- User Profile Setup -->
                         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
                             <div>
-                                <h3 class="text-xl font-bold text-slate-800 border-b border-slate-100 pb-2 mb-6">Magister Profile</h3>
-                                <p class="text-sm text-slate-600 mb-6">View your generated Player Namecard based on your current Resonating Hall progression.</p>
+                                <h3 class="text-xl font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4">Magister Profile</h3>
                                 
-                                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center justify-between hover:shadow-md transition-shadow">
+                                <form id="profile-settings-form" class="space-y-3 mb-6">
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Player Name</label>
+                                            <input id="set-profile-name" required class="w-full border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-indigo-500 transition-colors">
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Account ID</label>
+                                            <input id="set-profile-id" required class="w-full border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-indigo-500 transition-colors">
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Server</label>
+                                            <input id="set-profile-server" required class="w-full border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-indigo-500 transition-colors">
+                                        </div>
+                                        <div class="flex items-end">
+                                            <button type="submit" class="w-full bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold py-1.5 rounded transition-colors text-sm border border-indigo-200">Save Profile</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Bio Signature</label>
+                                        <input id="set-profile-bio" required class="w-full border border-slate-300 rounded px-3 py-1.5 text-sm outline-none focus:border-indigo-500 transition-colors" placeholder="Hi, this is...">
+                                    </div>
+                                </form>
+                                
+                                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer" id="btn-open-profile">
                                     <div class="flex items-center">
                                         <div class="w-12 h-12 rounded-full bg-slate-300 flex items-center justify-center text-xl shadow-inner border border-slate-400 overflow-hidden">
                                             <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar">
                                         </div>
                                         <div class="ml-4">
                                             <p class="font-bold text-lg text-slate-800 leading-tight" id="profile-name-display">Aster</p>
-                                            <p class="text-xs text-slate-500 font-medium">ID: 40164131</p>
+                                            <p class="text-xs text-slate-500 font-medium">Click to view Namecard</p>
                                         </div>
                                     </div>
-                                    <button id="btn-open-profile" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition-colors">
-                                        View Namecard
-                                    </button>
+                                    <span class="text-2xl text-slate-300">→</span>
                                 </div>
                             </div>
                             
@@ -1178,7 +1177,7 @@
                     <div class="h-32 w-full namecard-bg relative">
                         <button id="profile-close-btn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition-colors">✕</button>
                         <div class="absolute top-4 left-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-white shadow flex items-center">
-                            <span class="mr-1">♾️</span> 24330 <span class="ml-2 font-serif text-[10px]">i</span>
+                            <span class="mr-1">♾️</span> <span id="modal-profile-resonance">24330</span> <span class="ml-2 font-serif text-[10px]">i</span>
                         </div>
                         <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white bg-slate-200 overflow-hidden shadow-md">
                             <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar" class="w-full h-full object-cover">
@@ -1249,12 +1248,25 @@
             return div.innerHTML;
         };
 
-        const artifactNames = {
-            lightheal: '🔮 Lightheal',
-            manawake: '💧 Manawake',
-            rockbind: '🪨 Rockbind',
-            blazeburn: '🔥 Blazeburn',
-            earthshell: '🐢 Earthshell'
+        // Utility function to show Toast Notifications
+        const showToast = (message) => {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-800 text-white px-4 py-2 rounded-lg shadow-xl text-sm font-medium transition-all duration-300 opacity-0 transform translate-y-4';
+            toast.textContent = message;
+            
+            toastContainer.appendChild(toast);
+            
+            // Trigger entry animation
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-4');
+            }, 10);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1266,13 +1278,6 @@
                 mobileMenuBtn: document.getElementById('mobile-menu-btn'),
                 mobileMenu: document.getElementById('mobile-menu'),
                 closeMobileBtn: document.getElementById('close-mobile-menu'),
-                
-                // Modal Elements
-                addHeroBtn: document.getElementById('add-hero-btn'),
-                heroModal: document.getElementById('add-hero-modal'),
-                closeModalBtn: document.getElementById('add-hero-close'),
-                cancelModalBtn: document.getElementById('add-hero-cancel'),
-                heroForm: document.getElementById('add-hero-form'),
                 tableBody: document.getElementById('hero-table-body'),
             };
 
@@ -1411,14 +1416,10 @@
             
             // --- UI Settings & Theming ---
             function applySettings() {
-                // Apply Theme
                 document.body.className = `flex h-screen overflow-hidden theme-${state.settings.theme}`;
-                // Apply Font Family
                 document.body.style.fontFamily = state.settings.fontFamily;
-                // Apply Font Size (UI Scale via root rem)
                 document.documentElement.style.setProperty('--base-font-size', `${state.settings.fontSize}px`);
                 
-                // Update Settings View Inputs if on that page
                 const themeSel = document.getElementById('settings-theme');
                 const fontSel = document.getElementById('settings-font');
                 const sizeRange = document.getElementById('settings-size');
@@ -1431,22 +1432,47 @@
                     sizeDisp.textContent = `${state.settings.fontSize}px`;
                 }
 
-                // Update Profile Preview Card
                 const profName = document.getElementById('profile-name-display');
                 if(profName) profName.textContent = state.settings.profile.name;
+                
+                // Form population
+                const setName = document.getElementById('set-profile-name');
+                const setId = document.getElementById('set-profile-id');
+                const setServer = document.getElementById('set-profile-server');
+                const setBio = document.getElementById('set-profile-bio');
+                
+                if(setName) setName.value = state.settings.profile.name;
+                if(setId) setId.value = state.settings.profile.id;
+                if(setServer) setServer.value = state.settings.profile.server;
+                if(setBio) setBio.value = state.settings.profile.bio;
             }
 
             const themeSelect = document.getElementById('settings-theme');
             const fontSelect = document.getElementById('settings-font');
             const sizeInput = document.getElementById('settings-size');
+            const profileForm = document.getElementById('profile-settings-form');
 
-            if (themeSelect) themeSelect.addEventListener('change', (e) => { state.settings.theme = e.target.value; saveState(); applySettings(); });
-            if (fontSelect) fontSelect.addEventListener('change', (e) => { state.settings.fontFamily = e.target.value; saveState(); applySettings(); });
+            if (themeSelect) themeSelect.addEventListener('change', (e) => { state.settings.theme = e.target.value; saveState(); applySettings(); showToast("Theme Updated"); });
+            if (fontSelect) fontSelect.addEventListener('change', (e) => { state.settings.fontFamily = e.target.value; saveState(); applySettings(); showToast("Typography Updated"); });
             if (sizeInput) sizeInput.addEventListener('input', (e) => { 
                 state.settings.fontSize = e.target.value; 
                 document.getElementById('settings-size-display').textContent = `${e.target.value}px`;
                 saveState(); applySettings(); 
             });
+            if (profileForm) {
+                profileForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    state.settings.profile = {
+                        name: document.getElementById('set-profile-name').value.trim(),
+                        id: document.getElementById('set-profile-id').value.trim(),
+                        server: document.getElementById('set-profile-server').value.trim(),
+                        bio: document.getElementById('set-profile-bio').value.trim(),
+                    };
+                    saveState();
+                    applySettings();
+                    showToast("Profile Settings Saved");
+                });
+            }
 
             // Profile Modal Logic
             const openProfileBtn = document.getElementById('btn-open-profile');
@@ -1455,12 +1481,11 @@
 
             if (openProfileBtn) {
                 openProfileBtn.addEventListener('click', () => {
-                    // Populate Profile Modal dynamically
                     document.getElementById('modal-profile-name').textContent = sanitize(state.settings.profile.name);
                     document.getElementById('modal-profile-bio').textContent = sanitize(state.settings.profile.bio);
                     document.getElementById('modal-profile-meta').textContent = `User ID : ${sanitize(state.settings.profile.id)} | Server : ${sanitize(state.settings.profile.server)}`;
+                    document.getElementById('modal-profile-resonance').textContent = state.hall.resonanceLevel;
                     
-                    // Render Top 5 Heroes in Profile Overview
                     const overviewContainer = document.getElementById('modal-profile-heroes');
                     overviewContainer.innerHTML = '';
                     const topHeroes = state.heroes.slice(0, 5);
@@ -1485,7 +1510,6 @@
             function switchView(targetId) {
                 document.querySelectorAll('.nav-item').forEach(nav => {
                     nav.classList.remove('nav-active', 'bg-slate-100');
-                    // Need to remove dark/sage active backgrounds dynamically handled by CSS
                     if (nav.getAttribute('data-target') === targetId) {
                         nav.classList.add('nav-active', 'bg-slate-100');
                     }
@@ -1502,6 +1526,10 @@
                 });
 
                 if (DOM.mobileMenu) DOM.mobileMenu.classList.add('hidden');
+                
+                // Force chart re-renders when their views become visible to prevent sizing bugs
+                if (targetId === 'view-heroes') setTimeout(updateFactionChart, 50);
+                if (targetId === 'view-treasury') setTimeout(updateDiamondChart, 50);
             }
 
             DOM.navItems.forEach(item => {
@@ -1562,7 +1590,6 @@
                     }
                 });
 
-                // Update Progress Bars Separately
                 const dailyPercentage = dailyTotal === 0 ? 0 : Math.round((dailyCompleted / dailyTotal) * 100);
                 if (dailyProgressBar) dailyProgressBar.style.width = `${dailyPercentage}%`;
                 
@@ -1600,7 +1627,6 @@
                 });
             }
 
-            // Task Modal Handling
             function openTaskModal(task = null, type = 'daily') {
                 const modal = document.getElementById('task-modal');
                 const title = document.getElementById('task-modal-title');
@@ -1641,8 +1667,10 @@
                         if (id) {
                             const task = state.tasks.find(t => t.id === parseInt(id));
                             if (task) task.text = text;
+                            showToast("Task updated");
                         } else {
                             state.tasks.push({ id: Date.now(), text: text, type: type, completed: false });
+                            showToast("New task added");
                         }
                         saveState();
                         renderTasks();
@@ -1656,7 +1684,6 @@
             if (addDailyBtn) addDailyBtn.addEventListener('click', () => openTaskModal(null, 'daily'));
             if (addWeeklyBtn) addWeeklyBtn.addEventListener('click', () => openTaskModal(null, 'weekly'));
 
-            // Insights Logic
             function renderInsights() {
                 if (!document.getElementById('insight-afk-stage')) return;
                 document.getElementById('insight-afk-stage').textContent = state.insights.afkStage;
@@ -1668,7 +1695,7 @@
                 document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
             }
 
-            // Global + / - Buttons handler (Includes Infrastructure -> Resource linkage)
+            // Global + / - Buttons handler
             document.addEventListener('click', (e) => {
                 const btn = e.target.closest('button[data-action]');
                 if (!btn) return;
@@ -1685,7 +1712,6 @@
                         b.level += modifier;
                         if (b.level < 1) b.level = 1;
                         
-                        // Production linkage: If building level actually changed, increase associated resource
                         if (oldLevel !== b.level) {
                             const resId = b.produces;
                             if (resId) {
@@ -1700,7 +1726,6 @@
                                 }
                             }
                         }
-                        
                         saveState();
                         renderHomestead();
                     }
@@ -1741,9 +1766,12 @@
                 if (DOM.heroForm) DOM.heroForm.reset();
             };
 
-            if (DOM.addHeroBtn) DOM.addHeroBtn.addEventListener('click', openHeroModal);
-            if (DOM.closeModalBtn) DOM.closeModalBtn.addEventListener('click', closeHeroModal);
-            if (DOM.cancelModalBtn) DOM.cancelModalBtn.addEventListener('click', closeHeroModal);
+            const hAddBtn = document.getElementById('add-hero-btn');
+            const hCloseBtn = document.getElementById('add-hero-close');
+            const hCancelBtn = document.getElementById('add-hero-cancel');
+            if (hAddBtn) hAddBtn.addEventListener('click', openHeroModal);
+            if (hCloseBtn) hCloseBtn.addEventListener('click', closeHeroModal);
+            if (hCancelBtn) hCancelBtn.addEventListener('click', closeHeroModal);
 
             function renderHeroes() {
                 if (!DOM.tableBody) return;
@@ -1789,6 +1817,7 @@
                     state.heroes.push(newHero);
                     saveState();
                     renderHeroes();
+                    showToast(`${newHero.name} successfully added!`);
                     closeHeroModal();
                 });
             }
@@ -1871,7 +1900,6 @@
                 });
                 spContainer.innerHTML = spHtml;
 
-                // Artifacts Grid View
                 const artContainer = document.getElementById('hall-artifacts-container');
                 let artHtml = '';
                 state.hall.artifacts.forEach(art => {
@@ -1927,11 +1955,11 @@
                     }
                     saveState();
                     renderHallDashboard();
+                    showToast("Soul Pact values updated");
                     closeSoulPactModal();
                 });
             }
 
-            // Single Artifact Edit Modal Handlers
             const openArtifactEditModal = (artId) => {
                 const artifact = state.hall.artifacts.find(a => a.id === artId);
                 if (!artifact) return;
@@ -1941,7 +1969,6 @@
                 document.getElementById('edit-art-name').value = artifact.name;
                 document.getElementById('edit-art-level').value = artifact.level;
                 
-                // Split the stats string to populate individual inputs
                 let statsArray = [];
                 if (Array.isArray(artifact.stats)) {
                     statsArray = artifact.stats;
@@ -1979,6 +2006,7 @@
                         saveState();
                         renderHallDashboard();
                         if (document.getElementById('comp-artifact')) populateCompDropdowns();
+                        showToast(`Artifact ${artifact.name} updated`);
                         closeArtifactEditModal();
                     }
                 });
@@ -1994,7 +2022,6 @@
                 
                 if (!coreResContainer || !bldContainer) return;
 
-                // Darkswarm UI (Dynamic Theming)
                 if (dsContainer && state.homestead.darkswarm) {
                     const aggr = state.homestead.darkswarm.aggression;
                     let themeKey = 'red';
@@ -2011,7 +2038,6 @@
                         statusTxt = 'High';
                     }
 
-                    // Strict mappings to prevent Tailwind purging
                     const th = {
                         emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text800: 'text-emerald-800', text700: 'text-emerald-700', text600: 'text-emerald-600', text500: 'text-emerald-500', barBg: 'bg-emerald-200', barFill: 'bg-emerald-600', btnBg: 'bg-emerald-600', btnHover: 'hover:bg-emerald-700' },
                         amber: { bg: 'bg-amber-50', border: 'border-amber-200', text800: 'text-amber-800', text700: 'text-amber-700', text600: 'text-amber-600', text500: 'text-amber-500', barBg: 'bg-amber-200', barFill: 'bg-amber-500', btnBg: 'bg-amber-500', btnHover: 'hover:bg-amber-600' },
@@ -2061,7 +2087,6 @@
                         </div>
                     `;
 
-                    // Bind the newly injected button
                     const dsBtn = document.getElementById('update-darkswarm-btn');
                     if (dsBtn) dsBtn.addEventListener('click', openDarkswarmModal);
                 }
@@ -2114,13 +2139,13 @@
                     `;
                 });
 
-                // Bind Delete Building Buttons
                 document.querySelectorAll('.delete-building-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const bId = e.target.getAttribute('data-id');
                         state.homestead.buildings = state.homestead.buildings.filter(b => b.id !== bId);
                         saveState();
                         renderHomestead();
+                        showToast("Building removed");
                     });
                 });
             }
@@ -2128,7 +2153,6 @@
             const bldFilter = document.getElementById('building-filter');
             if (bldFilter) bldFilter.addEventListener('change', renderHomestead);
 
-            // Add Building Logic
             const openAddBuildingModal = () => {
                 const prodSelect = document.getElementById('bld-produces');
                 prodSelect.innerHTML = '<option value="">None</option>';
@@ -2146,8 +2170,10 @@
             const addBldBtn = document.getElementById('add-building-btn');
             if (addBldBtn) addBldBtn.addEventListener('click', openAddBuildingModal);
             
-            if (document.getElementById('add-building-close-btn')) document.getElementById('add-building-close-btn').addEventListener('click', closeAddBuildingModal);
-            if (document.getElementById('add-building-cancel-btn')) document.getElementById('add-building-cancel-btn').addEventListener('click', closeAddBuildingModal);
+            const bldCloseBtn = document.getElementById('add-building-close-btn');
+            const bldCancelBtn = document.getElementById('add-building-cancel-btn');
+            if (bldCloseBtn) bldCloseBtn.addEventListener('click', closeAddBuildingModal);
+            if (bldCancelBtn) bldCancelBtn.addEventListener('click', closeAddBuildingModal);
 
             if (document.getElementById('add-building-form')) {
                 document.getElementById('add-building-form').addEventListener('submit', (e) => {
@@ -2163,10 +2189,10 @@
                     state.homestead.buildings.push(newBuilding);
                     saveState();
                     renderHomestead();
+                    showToast(`Building ${newBuilding.name} added`);
                     closeAddBuildingModal();
                 });
             }
-
 
             const openDarkswarmModal = () => {
                 if (!state.homestead.darkswarm) return;
@@ -2215,6 +2241,7 @@
                     state.homestead.darkswarm.defenders = Array.from(selectedCheckboxes).map(cb => cb.value);
                     saveState();
                     renderHomestead();
+                    showToast("Darkswarm Tracker Updated");
                     closeDarkswarmModal();
                 });
             }
@@ -2242,6 +2269,7 @@
                     state.homestead.core.stamina = Math.min(5000, Math.max(0, parseInt(document.getElementById('res-stamina').value) || 0));
                     saveState();
                     renderHomestead();
+                    showToast("Estate Resources Updated");
                     closeResourceModal();
                 });
             }
@@ -2302,6 +2330,7 @@
                         saveState();
                         input.value = '';
                         renderTreasury();
+                        showToast(`${val} added to Wishlist`);
                     }
                 });
             }
@@ -2330,6 +2359,7 @@
                     state.treasury.stargazeCrystals = Math.max(0, parseInt(document.getElementById('trs-stargaze').value) || 0);
                     saveState();
                     renderTreasury();
+                    showToast("Treasury Updated");
                     closeTreasuryModal();
                 });
             }
@@ -2493,6 +2523,7 @@
                         state.strategy.formations = state.strategy.formations.filter(f => f.id !== compId);
                         saveState();
                         renderBossStrategy();
+                        showToast("Formation Removed");
                     });
                 });
             }
@@ -2558,6 +2589,7 @@
                     state.strategy.formations.push(newComp);
                     saveState();
                     renderBossStrategy();
+                    showToast("Formation Logged");
                     closeCompModal();
                 });
             }
