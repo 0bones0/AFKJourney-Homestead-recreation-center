@@ -7,19 +7,19 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Lato:wght@400;700&family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Lato:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
         
         :root {
             --base-font-size: 16px;
         }
 
         html { font-size: var(--base-font-size); transition: font-size 0.2s ease-out; scroll-behavior: smooth; }
-        body { font-family: 'Lato', sans-serif; background-color: #fdfaf6; color: #2d3748; transition: background-color 0.3s ease, color 0.3s ease; }
+        body { font-family: 'Lato', sans-serif; background-color: #F8FAFC; color: #0F172A; transition: background-color 0.3s ease, color 0.3s ease; }
         
         /* Modern, clean titles */
         h1, h2, h3, h4, h5, .heading-font { 
-            font-family: 'Outfit', sans-serif; 
-            letter-spacing: -0.02em; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            letter-spacing: -0.03em; 
         }
         
         .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 40vh; max-height: 400px; }
@@ -32,56 +32,78 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+        /* --- THEME: LIGHT MODE --- */
+        body.theme-light { background-color: #F8FAFC; }
+        body.theme-light aside { background-color: #FFFFFF; border-color: #E2E8F0; }
+
         /* --- THEME: DARK MODE --- */
-        body.theme-dark { background-color: #0f172a; color: #e2e8f0; }
-        body.theme-dark .bg-white, body.theme-dark aside, body.theme-dark #mobile-menu > div { background-color: #1e293b !important; border-color: #334155 !important; color: #f8fafc; }
-        body.theme-dark .bg-slate-50 { background-color: #0f172a !important; border-color: #334155 !important; color: #cbd5e1; }
-        body.theme-dark .text-slate-800, body.theme-dark .text-slate-700 { color: #f8fafc !important; }
-        body.theme-dark .text-slate-600, body.theme-dark .text-slate-500 { color: #94a3b8 !important; }
-        body.theme-dark .border-slate-200, body.theme-dark .border-slate-100, body.theme-dark .border-slate-300 { border-color: #334155 !important; }
-        body.theme-dark input, body.theme-dark select { background-color: #0f172a !important; color: #f8fafc !important; border-color: #475569 !important; }
-        body.theme-dark .nav-active { background-color: #334155 !important; border-left-color: #fbbf24 !important; }
+        body.theme-dark { background-color: #0B1121; color: #F8FAFC; }
+        body.theme-dark .bg-white, 
+        body.theme-dark aside, 
+        body.theme-dark #mobile-menu > div { background-color: #151E32 !important; border-color: #26334D !important; color: #F8FAFC; }
+        body.theme-dark .bg-slate-50 { background-color: #0B1121 !important; border-color: #26334D !important; color: #E2E8F0; }
+        
+        /* Fix for active/hover backgrounds in Dark Mode */
+        body.theme-dark .bg-slate-100,
+        body.theme-dark .hover\:bg-slate-100:hover { background-color: #1E2B45 !important; }
+        body.theme-dark .hover\:bg-slate-50:hover { background-color: #1E2B45 !important; }
+        
+        body.theme-dark .text-slate-800, body.theme-dark .text-slate-700 { color: #F8FAFC !important; }
+        body.theme-dark .text-slate-600, body.theme-dark .text-slate-500 { color: #94A3B8 !important; }
+        body.theme-dark .text-slate-400 { color: #64748B !important; }
+        body.theme-dark .border-slate-200, body.theme-dark .border-slate-100, body.theme-dark .border-slate-300 { border-color: #26334D !important; }
+        body.theme-dark input, body.theme-dark select { background-color: #0B1121 !important; color: #F8FAFC !important; border-color: #334155 !important; }
+        
+        /* Ensure active nav items pop with high contrast */
+        body.theme-dark .nav-active { background-color: #1E2B45 !important; border-left-color: #FBBF24 !important; color: #FBBF24 !important; }
+        
         body.theme-dark .shadow-sm, body.theme-dark .shadow-lg { box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.5) !important; }
         
         /* Dark Mode: Vibrant Accents for Data Cards */
-        body.theme-dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.12) !important; border-color: rgba(99, 102, 241, 0.25) !important; }
-        body.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12) !important; border-color: rgba(245, 158, 11, 0.25) !important; }
-        body.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.12) !important; border-color: rgba(16, 185, 129, 0.25) !important; }
-        body.theme-dark .bg-rose-50, body.theme-dark .bg-red-50 { background-color: rgba(244, 63, 94, 0.12) !important; border-color: rgba(244, 63, 94, 0.25) !important; }
-        body.theme-dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.12) !important; border-color: rgba(6, 182, 212, 0.25) !important; }
-        body.theme-dark .bg-fuchsia-50 { background-color: rgba(217, 70, 239, 0.12) !important; border-color: rgba(217, 70, 239, 0.25) !important; }
-        body.theme-dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.12) !important; border-color: rgba(59, 130, 246, 0.25) !important; }
+        body.theme-dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.1) !important; border-color: rgba(99, 102, 241, 0.2) !important; }
+        body.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.1) !important; border-color: rgba(245, 158, 11, 0.2) !important; }
+        body.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.1) !important; border-color: rgba(16, 185, 129, 0.2) !important; }
+        body.theme-dark .bg-rose-50, body.theme-dark .bg-red-50 { background-color: rgba(244, 63, 94, 0.1) !important; border-color: rgba(244, 63, 94, 0.2) !important; }
+        body.theme-dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.1) !important; border-color: rgba(6, 182, 212, 0.2) !important; }
+        body.theme-dark .bg-fuchsia-50 { background-color: rgba(217, 70, 239, 0.1) !important; border-color: rgba(217, 70, 239, 0.2) !important; }
+        body.theme-dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.1) !important; border-color: rgba(59, 130, 246, 0.2) !important; }
         
         /* Dark Mode: Text Contrast Fixes */
-        body.theme-dark .text-indigo-900, body.theme-dark .text-indigo-800 { color: #a5b4fc !important; }
-        body.theme-dark .text-indigo-700, body.theme-dark .text-indigo-600 { color: #818cf8 !important; }
-        body.theme-dark .text-amber-900, body.theme-dark .text-amber-800 { color: #fcd34d !important; }
-        body.theme-dark .text-amber-700, body.theme-dark .text-amber-600 { color: #fbbf24 !important; }
-        body.theme-dark .text-emerald-900, body.theme-dark .text-emerald-800 { color: #6ee7b7 !important; }
-        body.theme-dark .text-emerald-700, body.theme-dark .text-emerald-600 { color: #34d399 !important; }
-        body.theme-dark .text-rose-900, body.theme-dark .text-rose-800, body.theme-dark .text-red-900, body.theme-dark .text-red-800 { color: #fda4af !important; }
-        body.theme-dark .text-rose-700, body.theme-dark .text-rose-600, body.theme-dark .text-red-700, body.theme-dark .text-red-600 { color: #fb7185 !important; }
-        body.theme-dark .text-cyan-900, body.theme-dark .text-cyan-800 { color: #67e8f9 !important; }
-        body.theme-dark .text-cyan-700, body.theme-dark .text-cyan-600 { color: #22d3ee !important; }
-        body.theme-dark .text-fuchsia-900, body.theme-dark .text-fuchsia-800 { color: #f0abfc !important; }
-        body.theme-dark .text-fuchsia-700, body.theme-dark .text-fuchsia-600 { color: #e879f9 !important; }
-        body.theme-dark .text-blue-900, body.theme-dark .text-blue-800 { color: #93c5fd !important; }
-        body.theme-dark .text-blue-700, body.theme-dark .text-blue-600 { color: #60a5fa !important; }
+        body.theme-dark .text-indigo-900, body.theme-dark .text-indigo-800 { color: #A5B4FC !important; }
+        body.theme-dark .text-indigo-700, body.theme-dark .text-indigo-600 { color: #818CF8 !important; }
+        body.theme-dark .text-amber-900, body.theme-dark .text-amber-800 { color: #FCD34D !important; }
+        body.theme-dark .text-amber-700, body.theme-dark .text-amber-600 { color: #FBBF24 !important; }
+        body.theme-dark .text-emerald-900, body.theme-dark .text-emerald-800 { color: #6EE7B7 !important; }
+        body.theme-dark .text-emerald-700, body.theme-dark .text-emerald-600 { color: #34D399 !important; }
+        body.theme-dark .text-rose-900, body.theme-dark .text-rose-800, body.theme-dark .text-red-900, body.theme-dark .text-red-800 { color: #FDA4AF !important; }
+        body.theme-dark .text-rose-700, body.theme-dark .text-rose-600, body.theme-dark .text-red-700, body.theme-dark .text-red-600 { color: #FB7185 !important; }
+        body.theme-dark .text-cyan-900, body.theme-dark .text-cyan-800 { color: #67E8F9 !important; }
+        body.theme-dark .text-cyan-700, body.theme-dark .text-cyan-600 { color: #22D3EE !important; }
+        body.theme-dark .text-fuchsia-900, body.theme-dark .text-fuchsia-800 { color: #F0ABFC !important; }
+        body.theme-dark .text-fuchsia-700, body.theme-dark .text-fuchsia-600 { color: #E879F9 !important; }
+        body.theme-dark .text-blue-900, body.theme-dark .text-blue-800 { color: #93C5FD !important; }
+        body.theme-dark .text-blue-700, body.theme-dark .text-blue-600 { color: #60A5FA !important; }
 
         /* Dark Mode: Interactive Buttons (+/-) */
-        body.theme-dark button[data-action="minus"], body.theme-dark button[data-action="plus"] { background-color: rgba(255,255,255,0.1) !important; color: #f8fafc !important; }
-        body.theme-dark button[data-action="minus"]:hover, body.theme-dark button[data-action="plus"]:hover { background-color: rgba(255,255,255,0.25) !important; }
-        body.theme-dark .bg-white\/60 { background-color: rgba(30, 41, 59, 0.6) !important; border-color: rgba(255,255,255,0.05) !important; }
+        body.theme-dark button[data-action="minus"], body.theme-dark button[data-action="plus"] { background-color: rgba(255,255,255,0.1) !important; color: #F8FAFC !important; }
+        body.theme-dark button[data-action="minus"]:hover, body.theme-dark button[data-action="plus"]:hover { background-color: rgba(255,255,255,0.2) !important; }
+        body.theme-dark .bg-white\/60 { background-color: rgba(30, 41, 59, 0.4) !important; border-color: rgba(255,255,255,0.05) !important; }
 
         /* --- THEME: SAGE MODE --- */
-        body.theme-sage { background-color: #eef2eb; color: #2a3a2d; }
-        body.theme-sage .bg-white, body.theme-sage aside, body.theme-sage #mobile-menu > div { background-color: #f8faf7 !important; border-color: #d4ddd5 !important; color: #2a3a2d; }
-        body.theme-sage .bg-slate-50 { background-color: #e6ebe6 !important; border-color: #d4ddd5 !important; color: #3e5241; }
-        body.theme-sage .text-slate-800, body.theme-sage .text-slate-700 { color: #1e2c20 !important; }
-        body.theme-sage .text-slate-600, body.theme-sage .text-slate-500 { color: #4e6b52 !important; }
-        body.theme-sage .border-slate-200, body.theme-sage .border-slate-100, body.theme-sage .border-slate-300 { border-color: #d4ddd5 !important; }
-        body.theme-sage input, body.theme-sage select { background-color: #fdfefd !important; color: #2a3a2d !important; border-color: #bccbbd !important; }
-        body.theme-sage .nav-active { background-color: #d9e2da !important; border-left-color: #6b8e23 !important; }
+        body.theme-sage { background-color: #EAECE8; color: #2A3A2D; }
+        body.theme-sage .bg-white, body.theme-sage aside, body.theme-sage #mobile-menu > div { background-color: #F4F6F3 !important; border-color: #CCD4CC !important; color: #2A3A2D; }
+        body.theme-sage .bg-slate-50 { background-color: #DFE4DF !important; border-color: #CCD4CC !important; color: #3E5241; }
+        
+        /* Fix for active/hover backgrounds in Sage Mode */
+        body.theme-sage .bg-slate-100,
+        body.theme-sage .hover\:bg-slate-100:hover { background-color: #D4DDD5 !important; }
+        body.theme-sage .hover\:bg-slate-50:hover { background-color: #D4DDD5 !important; }
+        
+        body.theme-sage .text-slate-800, body.theme-sage .text-slate-700 { color: #1E2C20 !important; }
+        body.theme-sage .text-slate-600, body.theme-sage .text-slate-500 { color: #4E6B52 !important; }
+        body.theme-sage .border-slate-200, body.theme-sage .border-slate-100, body.theme-sage .border-slate-300 { border-color: #CCD4CC !important; }
+        body.theme-sage input, body.theme-sage select { background-color: #FDFEFD !important; color: #2A3A2D !important; border-color: #BCCBBD !important; }
+        body.theme-sage .nav-active { background-color: #CEDECE !important; border-left-color: #6B8E23 !important; color: #2A3A2D !important; }
 
         /* Namecard specific styles */
         .namecard-bg { background: linear-gradient(135deg, #a7b8c2 0%, #e0e7e9 100%); }
@@ -695,7 +717,7 @@
                                 <select id="settings-font" class="w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer">
                                     <option value="'Lato', sans-serif">Lato (Modern & Clean)</option>
                                     <option value="'Inter', sans-serif">Inter (Sleek Tech)</option>
-                                    <option value="'Outfit', sans-serif">Outfit (Bold & Geometric)</option>
+                                    <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta (Bold & Geometric)</option>
                                 </select>
                             </div>
 
