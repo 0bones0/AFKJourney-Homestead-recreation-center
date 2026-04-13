@@ -1103,6 +1103,62 @@
                 </div>
             </div>
 
+            <!-- User Profile Namecard Modal -->
+            <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="profile-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-[24px] shadow-2xl z-10 overflow-hidden border border-slate-200">
+                    <!-- Top Cover & Close -->
+                    <div class="h-32 w-full namecard-bg relative">
+                        <button id="profile-close-btn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition-colors">✕</button>
+                        <div class="absolute top-4 left-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-white shadow flex items-center">
+                            <span class="mr-1">♾️</span> 24330 <span class="ml-2 font-serif text-[10px]">i</span>
+                        </div>
+                        <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white bg-slate-200 overflow-hidden shadow-md">
+                            <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aster&backgroundColor=b6e3f4" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    
+                    <div class="pt-12 pb-6 px-6 text-center">
+                        <h2 class="text-2xl font-bold heading-font text-slate-800" id="modal-profile-name">Aster</h2>
+                        <div class="flex items-center justify-center space-x-2 mt-1">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm flex items-center">🎖️ Lauded Hero</span>
+                        </div>
+                        <p class="text-xs text-emerald-600 font-bold mt-2 flex items-center justify-center"><span class="mr-1">🌱</span> Sprout Starter</p>
+                        
+                        <div class="mt-4 bg-slate-50 border border-slate-100 rounded-lg p-2 flex justify-between items-center px-4">
+                            <span class="text-xs font-bold text-slate-500">Base Power</span>
+                            <span class="font-bold text-slate-800 text-sm">86200K <span class="text-[10px] text-slate-400 font-normal ml-1">ⓘ</span></span>
+                        </div>
+
+                        <!-- Hero Overview -->
+                        <div class="mt-6 text-left">
+                            <div class="flex items-center justify-center mb-3 relative">
+                                <div class="border-t border-slate-200 absolute w-full z-0"></div>
+                                <span class="bg-white px-3 text-xs font-bold text-slate-400 uppercase relative z-10">Hero Overview</span>
+                            </div>
+                            <div class="flex justify-center gap-2" id="modal-profile-heroes">
+                                <!-- Populated dynamically by top 5 heroes from DB -->
+                            </div>
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="mt-6 text-center relative">
+                            <span class="absolute -top-3 left-4 text-3xl text-slate-200 font-serif">"</span>
+                            <p class="text-xs text-slate-500 px-6 italic" id="modal-profile-bio">Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...</p>
+                            <span class="absolute -bottom-4 right-4 text-3xl text-slate-200 font-serif rotate-180">"</span>
+                        </div>
+                        
+                        <p class="text-[10px] text-slate-400 mt-6" id="modal-profile-meta">User ID : 40164131 | Server : G289</p>
+                    </div>
+                    
+                    <!-- Tabs -->
+                    <div class="flex border-t border-slate-200">
+                        <button class="flex-1 py-3 text-sm font-bold bg-emerald-600 text-white">Profile</button>
+                        <button class="flex-1 py-3 text-sm font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">Homestead</button>
+                    </div>
+                </div>
+            </div>
+
 		</div>
 	</main>
 
@@ -1214,6 +1270,16 @@
                     profile: { name: 'Aster', id: '40164131', server: 'G289', bio: 'Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...' }
                 }
             };
+
+            // Data Migration / Fallbacks for Homestead Darkswarm tracker bug fix
+            if (!state.homestead.darkswarm) {
+                state.homestead.darkswarm = { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] };
+                localStorage.setItem(STORAGE_KEYS.HOMESTEAD, JSON.stringify(state.homestead));
+            }
+            if (!state.homestead.darkswarm.defenders) {
+                state.homestead.darkswarm.defenders = [];
+                localStorage.setItem(STORAGE_KEYS.HOMESTEAD, JSON.stringify(state.homestead));
+            }
 
             const saveState = () => {
                 localStorage.setItem(STORAGE_KEYS.HEROES, JSON.stringify(state.heroes));
@@ -1333,18 +1399,6 @@
             if (DOM.closeMobileBtn) DOM.closeMobileBtn.addEventListener('click', () => DOM.mobileMenu.classList.add('hidden'));
 
             // --- Grind Manager (Tasks & Insights) ---
-            if (state.tasks.length === 0) {
-                state.tasks = [
-                    { id: 1, text: "Complete AFK Stage x2", type: "daily", completed: false },
-                    { id: 2, text: "Sweep Dura's Trials x3", type: "daily", completed: false },
-                    { id: 3, text: "Dream Realm Attacks", type: "daily", completed: false },
-                    { id: 4, text: "Purchase Emporium Daily Items", type: "daily", completed: false },
-                    { id: 5, text: "Clear Legend Trial Floor x15", type: "weekly", completed: false },
-                    { id: 6, text: "Participate in Guild Supremacy x24", type: "weekly", completed: false }
-                ];
-                saveState();
-            }
-
             function renderTasks() {
                 const dailyTasksContainer = document.getElementById('daily-tasks-container');
                 const weeklyTasksContainer = document.getElementById('weekly-tasks-container');
@@ -1497,7 +1551,7 @@
                 document.getElementById('insight-arena-rank').textContent = state.insights.supremeArena.rank;
             }
 
-            // Global + / - Buttons handler
+            // Global + / - Buttons handler (Includes Infrastructure -> Resource linkage)
             document.addEventListener('click', (e) => {
                 const btn = e.target.closest('button[data-action]');
                 if (!btn) return;
@@ -1510,8 +1564,37 @@
                     const bId = btn.getAttribute('data-id');
                     const b = state.homestead.buildings.find(x => x.id === bId);
                     if (b) {
+                        const oldLevel = b.level;
                         b.level += modifier;
                         if (b.level < 1) b.level = 1;
+                        
+                        // Production linkage: If building level actually changed, increase associated resource
+                        if (oldLevel !== b.level) {
+                            const bToR = { 
+                                'b3': 'r5',  // Kitchen -> Grape
+                                'b5': 'r4',  // Alchemy Workshop -> Emberleaf
+                                'b6': 'r2',  // Lumbermill -> Log
+                                'b7': 'r1',  // Ore Refinery -> Raw Ore
+                                'b8': 'r3',  // Essence Crucible -> Leyline Essence
+                                'b9': 'r1',  // Mine 1 -> Raw Ore
+                                'b10': 'r2', // Logging Site 1 -> Log
+                                'b11': 'r3'  // Elemental Altar 1 -> Leyline Essence
+                            };
+                            const resId = bToR[bId];
+                            if (resId) {
+                                const res = state.homestead.production.find(r => r.id === resId);
+                                if (res) {
+                                    if (modifier > 0) {
+                                        res.prod += 150;
+                                        res.stock += 2500;
+                                    } else if (modifier < 0) {
+                                        res.prod = Math.max(0, res.prod - 150);
+                                        // Stock doesn't strictly decrease on downgrade, keeps it safe
+                                    }
+                                }
+                            }
+                        }
+                        
                         saveState();
                         renderHomestead();
                     }
