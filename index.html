@@ -556,7 +556,8 @@
                             <div class="flex justify-between items-center mb-6 border-b border-slate-100 pb-2">
                                 <h3 class="text-xl font-bold flex items-center text-slate-800"><span class="mr-2">🏗️</span> Infrastructure</h3>
                                 <div class="flex gap-2">
-                                    <select id="building-filter" class="border border-slate-300 rounded px-3 py-1.5 text-sm font-bold bg-slate-50 outline-none focus:border-yellow-500 cursor-pointer">
+                                    <button id="add-building-btn" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm transition-colors whitespace-nowrap">+ Add</button>
+                                    <select id="building-filter" class="border border-slate-300 rounded px-2 py-1.5 text-xs font-bold bg-slate-50 outline-none focus:border-yellow-500 cursor-pointer">
                                         <option value="All">All Buildings</option>
                                         <option value="Functional">Functional</option>
                                         <option value="Production">Production</option>
@@ -766,6 +767,68 @@
 
             <!-- ===================== GLOBAL MODALS ===================== -->
             
+            <!-- Add Building Modal -->
+            <div id="add-building-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-slate-900/50" id="add-building-backdrop"></div>
+                <div class="relative bg-white w-[92%] max-w-sm rounded-xl border border-slate-200 shadow-2xl p-6 z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold heading-font text-slate-800">Add Infrastructure</h4>
+                        <button id="add-building-close-btn" class="text-2xl leading-none text-slate-500 hover:text-slate-800">✕</button>
+                    </div>
+                    <form id="add-building-form" class="space-y-3">
+                        <div>
+                            <label class="text-xs font-bold text-slate-600 uppercase">Building Name</label>
+                            <input id="bld-name" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-yellow-500" placeholder="e.g. Crop Field 8" />
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Type</label>
+                                <select id="bld-type" required class="mt-1 w-full border border-slate-300 rounded px-2 py-2 text-sm outline-none focus:border-yellow-500">
+                                    <option value="Functional">Functional</option>
+                                    <option value="Production">Production</option>
+                                    <option value="Processing">Processing</option>
+                                    <option value="Resource">Resource</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Class (Icon)</label>
+                                <select id="bld-class" required class="mt-1 w-full border border-slate-300 rounded px-2 py-2 text-sm outline-none focus:border-yellow-500">
+                                    <option value="🗼">🗼 Spire</option>
+                                    <option value="⚙️">⚙️ Mill</option>
+                                    <option value="🍳">🍳 Kitchen</option>
+                                    <option value="⚒️">⚒️ Forge</option>
+                                    <option value="🧪">🧪 Alchemy</option>
+                                    <option value="🪚">🪚 Lumbermill</option>
+                                    <option value="🏭">🏭 Refinery</option>
+                                    <option value="🔮">🔮 Crucible</option>
+                                    <option value="⛏️">⛏️ Mine</option>
+                                    <option value="🪓">🪓 Logging Site</option>
+                                    <option value="🗿">🗿 Altar</option>
+                                    <option value="🌾">🌾 Crop Field</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Level</label>
+                                <input id="bld-level" type="number" min="1" value="1" required class="mt-1 w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-yellow-500" />
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-600 uppercase">Produces Link</label>
+                                <select id="bld-produces" class="mt-1 w-full border border-slate-300 rounded px-2 py-2 text-sm outline-none focus:border-yellow-500">
+                                    <!-- Populated dynamically by JS -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100 mt-2">
+                            <button type="button" id="add-building-cancel-btn" class="px-4 py-2 text-sm rounded border border-slate-300 hover:bg-slate-50 transition-colors">Cancel</button>
+                            <button type="submit" class="px-4 py-2 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold transition-colors">Add Building</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Hero Modal -->
             <div id="add-hero-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-slate-900/50" id="add-hero-backdrop"></div>
@@ -1251,34 +1314,52 @@
                     { id: 'r10', name: 'Corn', prod: 66, stock: 32721, icon: '🌽' }
                 ],
                 buildings: [
-                    { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼' },
-                    { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️' },
-                    { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳' },
-                    { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️' },
-                    { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪' },
-                    { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚' },
-                    { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭' },
-                    { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮' },
-                    { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️' },
-                    { id: 'b9_2', name: 'Mine 2', type: 'Resource', level: 12, icon: '⛏️' },
-                    { id: 'b9_3', name: 'Mine 3', type: 'Resource', level: 12, icon: '⛏️' },
-                    { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
-                    { id: 'b10_2', name: 'Logging Site 2', type: 'Resource', level: 12, icon: '🪓' },
-                    { id: 'b10_3', name: 'Logging Site 3', type: 'Resource', level: 12, icon: '🪓' },
-                    { id: 'b10_4', name: 'Logging Site 4', type: 'Resource', level: 12, icon: '🪓' },
-                    { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿' },
-                    { id: 'b11_2', name: 'Elemental Altar 2', type: 'Resource', level: 12, icon: '🗿' },
-                    { id: 'b_cf1', name: 'Crop Field 1', type: 'Resource', level: 12, icon: '🌾' },
-                    { id: 'b_cf2', name: 'Crop Field 2', type: 'Resource', level: 12, icon: '🌾' },
-                    { id: 'b_cf3', name: 'Crop Field 3', type: 'Resource', level: 12, icon: '🌾' },
-                    { id: 'b_cf4', name: 'Crop Field 4', type: 'Resource', level: 12, icon: '🌾' },
-                    { id: 'b_cf5', name: 'Crop Field 5', type: 'Resource', level: 12, icon: '🌾' },
-                    { id: 'b_cf6', name: 'Crop Field 6', type: 'Resource', level: 12, icon: '🌾' },
-                    { id: 'b_cf7', name: 'Crop Field 7', type: 'Resource', level: 12, icon: '🌾' }
+                    { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼', produces: null },
+                    { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️', produces: null },
+                    { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳', produces: null },
+                    { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️', produces: null },
+                    { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪', produces: null },
+                    { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚', produces: 'r2' },
+                    { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭', produces: 'r1' },
+                    { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮', produces: 'r3' },
+                    { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️', produces: 'r1' },
+                    { id: 'b9_2', name: 'Mine 2', type: 'Resource', level: 12, icon: '⛏️', produces: 'r1' },
+                    { id: 'b9_3', name: 'Mine 3', type: 'Resource', level: 12, icon: '⛏️', produces: 'r1' },
+                    { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓', produces: 'r2' },
+                    { id: 'b10_2', name: 'Logging Site 2', type: 'Resource', level: 12, icon: '🪓', produces: 'r2' },
+                    { id: 'b10_3', name: 'Logging Site 3', type: 'Resource', level: 12, icon: '🪓', produces: 'r2' },
+                    { id: 'b10_4', name: 'Logging Site 4', type: 'Resource', level: 12, icon: '🪓', produces: 'r2' },
+                    { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿', produces: 'r3' },
+                    { id: 'b11_2', name: 'Elemental Altar 2', type: 'Resource', level: 12, icon: '🗿', produces: 'r3' },
+                    { id: 'b_cf1', name: 'Crop Field 1', type: 'Resource', level: 12, icon: '🌾', produces: 'r4' },
+                    { id: 'b_cf2', name: 'Crop Field 2', type: 'Resource', level: 12, icon: '🌾', produces: 'r5' },
+                    { id: 'b_cf3', name: 'Crop Field 3', type: 'Resource', level: 12, icon: '🌾', produces: 'r6' },
+                    { id: 'b_cf4', name: 'Crop Field 4', type: 'Resource', level: 12, icon: '🌾', produces: 'r7' },
+                    { id: 'b_cf5', name: 'Crop Field 5', type: 'Resource', level: 12, icon: '🌾', produces: 'r8' },
+                    { id: 'b_cf6', name: 'Crop Field 6', type: 'Resource', level: 12, icon: '🌾', produces: 'r9' },
+                    { id: 'b_cf7', name: 'Crop Field 7', type: 'Resource', level: 12, icon: '🌾', produces: 'r10' }
                 ]
             };
 
             let savedHomestead = JSON.parse(localStorage.getItem(STORAGE_KEYS.HOMESTEAD)) || {};
+            
+            let mergedBuildings = [];
+            if (savedHomestead.buildings && Array.isArray(savedHomestead.buildings)) {
+                mergedBuildings = [...savedHomestead.buildings];
+            }
+            defaultHomesteadState.buildings.forEach(defBld => {
+                if (!mergedBuildings.find(b => b.id === defBld.id)) {
+                    mergedBuildings.push(defBld);
+                }
+            });
+            mergedBuildings = mergedBuildings.map(b => {
+                if (b.produces === undefined) {
+                    const defMatch = defaultHomesteadState.buildings.find(db => db.id === b.id);
+                    return { ...b, produces: defMatch ? defMatch.produces : null };
+                }
+                return b;
+            });
+
             let mergedHomestead = {
                 core: savedHomestead.core || defaultHomesteadState.core,
                 darkswarm: savedHomestead.darkswarm || defaultHomesteadState.darkswarm,
@@ -1286,10 +1367,7 @@
                     const saved = (savedHomestead.production || []).find(r => r.id === defRes.id || r.name === defRes.name);
                     return saved ? { ...defRes, prod: saved.prod, stock: saved.stock } : defRes;
                 }),
-                buildings: defaultHomesteadState.buildings.map(defBld => {
-                    const saved = (savedHomestead.buildings || []).find(b => b.id === defBld.id || b.name === defBld.name);
-                    return saved ? { ...defBld, level: saved.level } : defBld;
-                })
+                buildings: mergedBuildings
             };
             if (!Array.isArray(mergedHomestead.darkswarm.defenders)) {
                 mergedHomestead.darkswarm.defenders = [];
@@ -1605,23 +1683,7 @@
                         
                         // Production linkage: If building level actually changed, increase associated resource
                         if (oldLevel !== b.level) {
-                            const bToR = { 
-                                // Raw Ore mapped to Refinery & Mines
-                                'b7': 'r1', 'b9': 'r1', 'b9_2': 'r1', 'b9_3': 'r1',
-                                // Log mapped to Lumbermill & Logging Sites
-                                'b6': 'r2', 'b10': 'r2', 'b10_2': 'r2', 'b10_3': 'r2', 'b10_4': 'r2',
-                                // Leyline Essence mapped to Crucible & Altars
-                                'b8': 'r3', 'b11': 'r3', 'b11_2': 'r3',
-                                // Crop Fields mapped to respective plants
-                                'b_cf1': 'r4',  // Emberleaf
-                                'b_cf2': 'r5',  // Grape
-                                'b_cf3': 'r6',  // Mistletoe
-                                'b_cf4': 'r7',  // Fuzzy Mushroom
-                                'b_cf5': 'r8',  // Mandrake Root
-                                'b_cf6': 'r9',  // Flamefern
-                                'b_cf7': 'r10' // Corn
-                            };
-                            const resId = bToR[bId];
+                            const resId = b.produces;
                             if (resId) {
                                 const res = state.homestead.production.find(r => r.id === resId);
                                 if (res) {
@@ -1809,6 +1871,10 @@
                 const artContainer = document.getElementById('hall-artifacts-container');
                 let artHtml = '';
                 state.hall.artifacts.forEach(art => {
+                    const statsDisplay = Array.isArray(art.stats) 
+                        ? art.stats.join(' | ') 
+                        : (art.stats || '').split(' | ').join(' | ');
+
                     artHtml += `
                         <div class="bg-white rounded-xl border border-amber-200 shadow-sm p-4 relative group flex flex-col justify-between transition-colors">
                             <button class="edit-artifact-btn absolute top-2 right-2 text-slate-400 hover:text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" data-id="${art.id}">✏️</button>
@@ -1820,7 +1886,7 @@
                                 </div>
                             </div>
                             <div class="bg-slate-50 rounded p-2 text-[10px] text-slate-600 font-mono tracking-tight break-words border border-slate-100 mt-auto transition-colors">
-                                ${sanitize(art.stats)}
+                                ${sanitize(statsDisplay)}
                             </div>
                         </div>
                     `;
@@ -1872,7 +1938,12 @@
                 document.getElementById('edit-art-level').value = artifact.level;
                 
                 // Split the stats string to populate individual inputs
-                const statsArray = artifact.stats ? artifact.stats.split(' | ') : [];
+                let statsArray = [];
+                if (Array.isArray(artifact.stats)) {
+                    statsArray = artifact.stats;
+                } else if (artifact.stats) {
+                    statsArray = artifact.stats.split(' | ');
+                }
                 document.getElementById('edit-art-stat1').value = statsArray[0] || '';
                 document.getElementById('edit-art-stat2').value = statsArray[1] || '';
                 document.getElementById('edit-art-stat3').value = statsArray[2] || '';
@@ -1973,7 +2044,8 @@
                 
                 state.homestead.buildings.filter(b => filterVal === 'All' || b.type === filterVal).forEach(b => {
                     bldContainer.innerHTML += `
-                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-all">
+                        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col items-center text-center relative hover:shadow-md transition-all group">
+                            <button class="delete-building-btn absolute top-2 right-2 text-slate-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" data-id="${b.id}">✕</button>
                             <span class="text-4xl mb-2 mt-2">${b.icon}</span>
                             <h4 class="font-bold text-slate-800 text-sm mb-1 line-clamp-1">${sanitize(b.name)}</h4>
                             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4">${sanitize(b.type)}</p>
@@ -1985,10 +2057,60 @@
                         </div>
                     `;
                 });
+
+                // Bind Delete Building Buttons
+                document.querySelectorAll('.delete-building-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const bId = e.target.getAttribute('data-id');
+                        state.homestead.buildings = state.homestead.buildings.filter(b => b.id !== bId);
+                        saveState();
+                        renderHomestead();
+                    });
+                });
             }
 
             const bldFilter = document.getElementById('building-filter');
             if (bldFilter) bldFilter.addEventListener('change', renderHomestead);
+
+            // Add Building Logic
+            const openAddBuildingModal = () => {
+                const prodSelect = document.getElementById('bld-produces');
+                prodSelect.innerHTML = '<option value="">None</option>';
+                state.homestead.production.forEach(res => {
+                    prodSelect.innerHTML += `<option value="${res.id}">${sanitize(res.icon)} ${sanitize(res.name)}</option>`;
+                });
+                document.getElementById('add-building-modal').classList.remove('hidden');
+            };
+
+            const closeAddBuildingModal = () => {
+                document.getElementById('add-building-modal').classList.add('hidden');
+                document.getElementById('add-building-form').reset();
+            };
+
+            const addBldBtn = document.getElementById('add-building-btn');
+            if (addBldBtn) addBldBtn.addEventListener('click', openAddBuildingModal);
+            
+            if (document.getElementById('add-building-close-btn')) document.getElementById('add-building-close-btn').addEventListener('click', closeAddBuildingModal);
+            if (document.getElementById('add-building-cancel-btn')) document.getElementById('add-building-cancel-btn').addEventListener('click', closeAddBuildingModal);
+
+            if (document.getElementById('add-building-form')) {
+                document.getElementById('add-building-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newBuilding = {
+                        id: 'b_custom_' + Date.now(),
+                        name: document.getElementById('bld-name').value.trim(),
+                        type: document.getElementById('bld-type').value,
+                        icon: document.getElementById('bld-class').value,
+                        level: parseInt(document.getElementById('bld-level').value) || 1,
+                        produces: document.getElementById('bld-produces').value || null
+                    };
+                    state.homestead.buildings.push(newBuilding);
+                    saveState();
+                    renderHomestead();
+                    closeAddBuildingModal();
+                });
+            }
+
 
             const openDarkswarmModal = () => {
                 if (!state.homestead.darkswarm) return;
