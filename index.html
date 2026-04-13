@@ -1269,6 +1269,14 @@
             }, 3000);
         };
 
+        const artifactNames = {
+            lightheal: '🔮 Lightheal',
+            manawake: '💧 Manawake',
+            rockbind: '🪨 Rockbind',
+            blazeburn: '🔥 Blazeburn',
+            earthshell: '🐢 Earthshell'
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- DOM Elements ---
@@ -1435,7 +1443,6 @@
                 const profName = document.getElementById('profile-name-display');
                 if(profName) profName.textContent = state.settings.profile.name;
                 
-                // Form population
                 const setName = document.getElementById('set-profile-name');
                 const setId = document.getElementById('set-profile-id');
                 const setServer = document.getElementById('set-profile-server');
@@ -1527,7 +1534,6 @@
 
                 if (DOM.mobileMenu) DOM.mobileMenu.classList.add('hidden');
                 
-                // Force chart re-renders when their views become visible to prevent sizing bugs
                 if (targetId === 'view-heroes') setTimeout(updateFactionChart, 50);
                 if (targetId === 'view-treasury') setTimeout(updateDiamondChart, 50);
             }
@@ -1649,7 +1655,10 @@
                 inputText.focus();
             }
 
-            const closeTaskModal = () => document.getElementById('task-modal').classList.add('hidden');
+            const closeTaskModal = () => {
+                document.getElementById('task-modal').classList.add('hidden');
+                document.getElementById('task-form').reset();
+            }
             const taskCloseBtn = document.getElementById('task-close-btn');
             const taskCancelBtn = document.getElementById('task-cancel-btn');
             if (taskCloseBtn) taskCloseBtn.addEventListener('click', closeTaskModal);
@@ -1760,10 +1769,10 @@
             });
 
             // --- Hero Manager (Resonating Hall) ---
-            const openHeroModal = () => { if (DOM.heroModal) DOM.heroModal.classList.remove('hidden'); }
+            const openHeroModal = () => { document.getElementById('add-hero-modal').classList.remove('hidden'); }
             const closeHeroModal = () => {
-                if (DOM.heroModal) DOM.heroModal.classList.add('hidden');
-                if (DOM.heroForm) DOM.heroForm.reset();
+                document.getElementById('add-hero-modal').classList.add('hidden');
+                document.getElementById('add-hero-form').reset();
             };
 
             const hAddBtn = document.getElementById('add-hero-btn');
@@ -1801,8 +1810,9 @@
                 updateFactionChart();
             }
 
-            if (DOM.heroForm) {
-                DOM.heroForm.addEventListener('submit', (e) => {
+            const addHeroFormEl = document.getElementById('add-hero-form');
+            if (addHeroFormEl) {
+                addHeroFormEl.addEventListener('submit', (e) => {
                     e.preventDefault(); 
                     const newHero = {
                         name: document.getElementById('hero-name').value,
@@ -1940,7 +1950,10 @@
                 }
                 document.getElementById('soulpact-modal').classList.remove('hidden');
             };
-            const closeSoulPactModal = () => document.getElementById('soulpact-modal').classList.add('hidden');
+            const closeSoulPactModal = () => {
+                document.getElementById('soulpact-modal').classList.add('hidden');
+                document.getElementById('soulpact-form').reset();
+            };
             
             if (document.getElementById('update-soulpact-btn')) document.getElementById('update-soulpact-btn').addEventListener('click', openSoulPactModal);
             if (document.getElementById('soulpact-close-btn')) document.getElementById('soulpact-close-btn').addEventListener('click', closeSoulPactModal);
@@ -1981,7 +1994,10 @@
                 
                 document.getElementById('single-artifact-modal').classList.remove('hidden');
             };
-            const closeArtifactEditModal = () => document.getElementById('single-artifact-modal').classList.add('hidden');
+            const closeArtifactEditModal = () => {
+                document.getElementById('single-artifact-modal').classList.add('hidden');
+                document.getElementById('single-artifact-form').reset();
+            };
 
             if (document.getElementById('single-artifact-close-btn')) document.getElementById('single-artifact-close-btn').addEventListener('click', closeArtifactEditModal);
             if (document.getElementById('single-artifact-cancel-btn')) document.getElementById('single-artifact-cancel-btn').addEventListener('click', closeArtifactEditModal);
@@ -2175,8 +2191,9 @@
             if (bldCloseBtn) bldCloseBtn.addEventListener('click', closeAddBuildingModal);
             if (bldCancelBtn) bldCancelBtn.addEventListener('click', closeAddBuildingModal);
 
-            if (document.getElementById('add-building-form')) {
-                document.getElementById('add-building-form').addEventListener('submit', (e) => {
+            const bldForm = document.getElementById('add-building-form');
+            if (bldForm) {
+                bldForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     const newBuilding = {
                         id: 'b_custom_' + Date.now(),
@@ -2193,6 +2210,7 @@
                     closeAddBuildingModal();
                 });
             }
+
 
             const openDarkswarmModal = () => {
                 if (!state.homestead.darkswarm) return;
@@ -2225,7 +2243,10 @@
                 document.getElementById('ds-input-aggression').focus();
             };
 
-            const closeDarkswarmModal = () => document.getElementById('darkswarm-modal').classList.add('hidden');
+            const closeDarkswarmModal = () => {
+                document.getElementById('darkswarm-modal').classList.add('hidden');
+                document.getElementById('darkswarm-form').reset();
+            };
             const dsCloseBtn = document.getElementById('darkswarm-close-btn');
             const dsCancelBtn = document.getElementById('darkswarm-cancel-btn');
             if(dsCloseBtn) dsCloseBtn.addEventListener('click', closeDarkswarmModal);
@@ -2254,7 +2275,10 @@
                 document.getElementById('res-wish').focus();
             };
 
-            const closeResourceModal = () => document.getElementById('resource-modal').classList.add('hidden');
+            const closeResourceModal = () => {
+                document.getElementById('resource-modal').classList.add('hidden');
+                document.getElementById('resource-form').reset();
+            };
             const resCloseBtn = document.getElementById('resource-close-btn');
             const resCancelBtn = document.getElementById('resource-cancel-btn');
             if(resCloseBtn) resCloseBtn.addEventListener('click', closeResourceModal);
@@ -2343,7 +2367,10 @@
                 document.getElementById('treasury-modal').classList.remove('hidden');
             };
 
-            const closeTreasuryModal = () => document.getElementById('treasury-modal').classList.add('hidden');
+            const closeTreasuryModal = () => {
+                document.getElementById('treasury-modal').classList.add('hidden');
+                document.getElementById('treasury-form').reset();
+            };
             const trsCloseBtn = document.getElementById('treasury-close-btn');
             const trsCancelBtn = document.getElementById('treasury-cancel-btn');
             if(trsCloseBtn) trsCloseBtn.addEventListener('click', closeTreasuryModal);
