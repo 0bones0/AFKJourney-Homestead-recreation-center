@@ -1234,6 +1234,67 @@
             if (Array.isArray(hallData.soulPact)) hallData.soulPact = defaultHallState.soulPact;
             if (!Array.isArray(hallData.artifacts)) hallData.artifacts = defaultHallState.artifacts;
 
+            // --- Homestead Migration & Setup ---
+            const defaultHomesteadState = {
+                core: { wish: 1115689, coin: 217559, stamina: 5000 },
+                darkswarm: { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] },
+                production: [
+                    { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' },
+                    { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
+                    { id: 'r3', name: 'Leyline Essence', prod: 3609, stock: 2189332, icon: '✨' },
+                    { id: 'r4', name: 'Emberleaf', prod: 912, stock: 3886647, icon: '🍁' },
+                    { id: 'r5', name: 'Grape', prod: 808, stock: 3372950, icon: '🍇' },
+                    { id: 'r6', name: 'Mistletoe', prod: 364, stock: 1134200, icon: '🌿' },
+                    { id: 'r7', name: 'Fuzzy Mushroom', prod: 208, stock: 643477, icon: '🍄' },
+                    { id: 'r8', name: 'Mandrake Root', prod: 160, stock: 321890, icon: '🫚' },
+                    { id: 'r9', name: 'Flamefern', prod: 144, stock: 132492, icon: '🍂' },
+                    { id: 'r10', name: 'Corn', prod: 66, stock: 32721, icon: '🌽' }
+                ],
+                buildings: [
+                    { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼' },
+                    { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️' },
+                    { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳' },
+                    { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️' },
+                    { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪' },
+                    { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚' },
+                    { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭' },
+                    { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮' },
+                    { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️' },
+                    { id: 'b9_2', name: 'Mine 2', type: 'Resource', level: 12, icon: '⛏️' },
+                    { id: 'b9_3', name: 'Mine 3', type: 'Resource', level: 12, icon: '⛏️' },
+                    { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
+                    { id: 'b10_2', name: 'Logging Site 2', type: 'Resource', level: 12, icon: '🪓' },
+                    { id: 'b10_3', name: 'Logging Site 3', type: 'Resource', level: 12, icon: '🪓' },
+                    { id: 'b10_4', name: 'Logging Site 4', type: 'Resource', level: 12, icon: '🪓' },
+                    { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿' },
+                    { id: 'b11_2', name: 'Elemental Altar 2', type: 'Resource', level: 12, icon: '🗿' },
+                    { id: 'b_cf1', name: 'Crop Field 1', type: 'Resource', level: 12, icon: '🌾' },
+                    { id: 'b_cf2', name: 'Crop Field 2', type: 'Resource', level: 12, icon: '🌾' },
+                    { id: 'b_cf3', name: 'Crop Field 3', type: 'Resource', level: 12, icon: '🌾' },
+                    { id: 'b_cf4', name: 'Crop Field 4', type: 'Resource', level: 12, icon: '🌾' },
+                    { id: 'b_cf5', name: 'Crop Field 5', type: 'Resource', level: 12, icon: '🌾' },
+                    { id: 'b_cf6', name: 'Crop Field 6', type: 'Resource', level: 12, icon: '🌾' },
+                    { id: 'b_cf7', name: 'Crop Field 7', type: 'Resource', level: 12, icon: '🌾' }
+                ]
+            };
+
+            let savedHomestead = JSON.parse(localStorage.getItem(STORAGE_KEYS.HOMESTEAD)) || {};
+            let mergedHomestead = {
+                core: savedHomestead.core || defaultHomesteadState.core,
+                darkswarm: savedHomestead.darkswarm || defaultHomesteadState.darkswarm,
+                production: defaultHomesteadState.production.map(defRes => {
+                    const saved = (savedHomestead.production || []).find(r => r.id === defRes.id || r.name === defRes.name);
+                    return saved ? { ...defRes, prod: saved.prod, stock: saved.stock } : defRes;
+                }),
+                buildings: defaultHomesteadState.buildings.map(defBld => {
+                    const saved = (savedHomestead.buildings || []).find(b => b.id === defBld.id || b.name === defBld.name);
+                    return saved ? { ...defBld, level: saved.level } : defBld;
+                })
+            };
+            if (!Array.isArray(mergedHomestead.darkswarm.defenders)) {
+                mergedHomestead.darkswarm.defenders = [];
+            }
+
             // --- State Management ---
             let state = {
                 heroes: JSON.parse(localStorage.getItem(STORAGE_KEYS.HEROES)) || [],
@@ -1242,23 +1303,7 @@
                     afkStage: 1819, durasTrials: { class: 'Ironwall (Tank)', floor: 40, target: 'Mythic' },
                     legendTrials: { light: 141, nature: 141, eternity: 141, will: 141 }, supremeArena: { rank: 82 }
                 },
-                homestead: JSON.parse(localStorage.getItem(STORAGE_KEYS.HOMESTEAD)) || {
-                    core: { wish: 1115689, coin: 217559, stamina: 5000 },
-                    darkswarm: { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] },
-                    production: [
-                        { id: 'r1', name: 'Raw Ore', prod: 5915, stock: 1227982, icon: '🪨' }, { id: 'r2', name: 'Log', prod: 10778, stock: 7166618, icon: '🪵' },
-                        { id: 'r3', name: 'Leyline Essence', prod: 3609, stock: 2171392, icon: '✨' }, { id: 'r4', name: 'Emberleaf', prod: 912, stock: 3886647, icon: '🍁' },
-                        { id: 'r5', name: 'Grape', prod: 808, stock: 3372950, icon: '🍇' }
-                    ],
-                    buildings: [
-                        { id: 'b1', name: 'Radiant Spire', type: 'Functional', level: 12, icon: '🗼' }, { id: 'b2', name: 'Mill', type: 'Functional', level: 12, icon: '⚙️' },
-                        { id: 'b3', name: 'Kitchen', type: 'Production', level: 12, icon: '🍳' }, { id: 'b4', name: 'Forge', type: 'Production', level: 12, icon: '⚒️' },
-                        { id: 'b5', name: 'Alchemy Workshop', type: 'Production', level: 12, icon: '🧪' }, { id: 'b6', name: 'Lumbermill', type: 'Processing', level: 12, icon: '🪚' },
-                        { id: 'b7', name: 'Ore Refinery', type: 'Processing', level: 12, icon: '🏭' }, { id: 'b8', name: 'Essence Crucible', type: 'Processing', level: 12, icon: '🔮' },
-                        { id: 'b9', name: 'Mine 1', type: 'Resource', level: 12, icon: '⛏️' }, { id: 'b10', name: 'Logging Site 1', type: 'Resource', level: 12, icon: '🪓' },
-                        { id: 'b11', name: 'Elemental Altar 1', type: 'Resource', level: 12, icon: '🗿' }
-                    ]
-                },
+                homestead: mergedHomestead,
                 treasury: JSON.parse(localStorage.getItem(STORAGE_KEYS.TREASURY)) || {
                     diamonds: 15400, epicInvites: 24, allHeroLetters: 45, stargazeCrystals: 12,
                     wishlist: ['Thoran', 'Cecia', 'Smokey & Meerky', 'Koko']
@@ -1270,16 +1315,6 @@
                     profile: { name: 'Aster', id: '40164131', server: 'G289', bio: 'Hi, this is Aster. I hope every step of our journey is filled with something extraordinary...' }
                 }
             };
-
-            // Data Migration / Fallbacks for Homestead Darkswarm tracker bug fix
-            if (!state.homestead.darkswarm) {
-                state.homestead.darkswarm = { aggression: 75, lastInvasion: new Date().toISOString().split('T')[0], defenders: ["Thoran", "Antandra", "Cecia"] };
-                localStorage.setItem(STORAGE_KEYS.HOMESTEAD, JSON.stringify(state.homestead));
-            }
-            if (!state.homestead.darkswarm.defenders) {
-                state.homestead.darkswarm.defenders = [];
-                localStorage.setItem(STORAGE_KEYS.HOMESTEAD, JSON.stringify(state.homestead));
-            }
 
             const saveState = () => {
                 localStorage.setItem(STORAGE_KEYS.HEROES, JSON.stringify(state.heroes));
@@ -1571,14 +1606,20 @@
                         // Production linkage: If building level actually changed, increase associated resource
                         if (oldLevel !== b.level) {
                             const bToR = { 
-                                'b3': 'r5',  // Kitchen -> Grape
-                                'b5': 'r4',  // Alchemy Workshop -> Emberleaf
-                                'b6': 'r2',  // Lumbermill -> Log
-                                'b7': 'r1',  // Ore Refinery -> Raw Ore
-                                'b8': 'r3',  // Essence Crucible -> Leyline Essence
-                                'b9': 'r1',  // Mine 1 -> Raw Ore
-                                'b10': 'r2', // Logging Site 1 -> Log
-                                'b11': 'r3'  // Elemental Altar 1 -> Leyline Essence
+                                // Raw Ore mapped to Refinery & Mines
+                                'b7': 'r1', 'b9': 'r1', 'b9_2': 'r1', 'b9_3': 'r1',
+                                // Log mapped to Lumbermill & Logging Sites
+                                'b6': 'r2', 'b10': 'r2', 'b10_2': 'r2', 'b10_3': 'r2', 'b10_4': 'r2',
+                                // Leyline Essence mapped to Crucible & Altars
+                                'b8': 'r3', 'b11': 'r3', 'b11_2': 'r3',
+                                // Crop Fields mapped to respective plants
+                                'b_cf1': 'r4',  // Emberleaf
+                                'b_cf2': 'r5',  // Grape
+                                'b_cf3': 'r6',  // Mistletoe
+                                'b_cf4': 'r7',  // Fuzzy Mushroom
+                                'b_cf5': 'r8',  // Mandrake Root
+                                'b_cf6': 'r9',  // Flamefern
+                                'b_cf7': 'r10' // Corn
                             };
                             const resId = bToR[bId];
                             if (resId) {
@@ -1589,7 +1630,6 @@
                                         res.stock += 2500;
                                     } else if (modifier < 0) {
                                         res.prod = Math.max(0, res.prod - 150);
-                                        // Stock doesn't strictly decrease on downgrade, keeps it safe
                                     }
                                 }
                             }
@@ -1893,7 +1933,8 @@
                     dsLastInvasion.textContent = sanitize(state.homestead.darkswarm.lastInvasion);
                     
                     dsDefenders.innerHTML = '';
-                    state.homestead.darkswarm.defenders.forEach(hero => {
+                    const defenders = state.homestead.darkswarm.defenders || [];
+                    defenders.forEach(hero => {
                         dsDefenders.innerHTML += `<span class="px-2 py-1 bg-slate-800 text-white text-xs rounded shadow-sm">${sanitize(hero.trim())}</span>`;
                     });
                 }
@@ -1965,8 +2006,9 @@
                 if (state.heroes.length === 0) {
                     defContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-1">No heroes added to Resonating Hall yet!</p>';
                 } else {
+                    const defenders = state.homestead.darkswarm.defenders || [];
                     state.heroes.forEach(hero => {
-                        const isChecked = state.homestead.darkswarm.defenders.includes(hero.name) ? 'checked' : '';
+                        const isChecked = defenders.includes(hero.name) ? 'checked' : '';
                         defContainer.innerHTML += `
                             <label class="flex items-center space-x-2 p-1 hover:bg-slate-200 rounded cursor-pointer transition-colors">
                                 <input type="checkbox" value="${sanitize(hero.name)}" class="ds-defender-checkbox text-red-600 rounded border-slate-300 focus:ring-red-500" ${isChecked}>
